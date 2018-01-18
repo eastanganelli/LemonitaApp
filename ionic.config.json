@@ -1,0 +1,8 @@
+{
+  "name": "LemonitaApp",
+  "app_id": "1c255eeb",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

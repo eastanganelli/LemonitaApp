@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.pesta.TipsCalculatorByBattousai" version="1.2.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Tips Calculator</name>
+    <description>Tips Calculator by Battousai</description>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="mailto:deltapinewfentury@gmail.com" />
+    <preference name="ScrollEnabled" value="false" />
+    <preference name="orientation" value="portrait" />
+    <preference name="android-minSdkVersion" value="16" />
+    <preference name="BackupWebStorage" value="none" />
+    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="SplashMaintainAspectRatio" value="true" />
+    <preference name="FadeSplashScreenDuration" value="250" />
+    <preference name="SplashShowOnlyFirstTime" value="true" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="10000" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+        <icon density="ldpi" src="resources/android/icons/drawable-ldpi-icon.png" />
+        <icon density="mdpi" src="resources/android/icons/drawable-mdpi-icon.png" />
+        <icon density="hdpi" src="resources/android/icons/drawable-hdpi-icon.png" />
+        <icon density="xhdpi" src="resources/android/icons/drawable-xhdpi-icon.png" />
+        <icon density="xxhdpi" src="resources/android/icons/drawable-xxhdpi-icon.png" />
+        <icon density="xxxhdpi" src="resources/android/icons/drawable-xxxhdpi-icon.png" />
+        <splash density="port-ldpi" src="resources/android/screens/drawable-port-ldpi-screen.png" />
+        <splash density="port-mdpi" src="resources/android/screens/drawable-port-mdpi-screen.png" />
+        <splash density="port-hdpi" src="resources/android/screens/drawable-port-hdpi-screen.png" />
+        <splash density="port-xhdpi" src="resources/android/screens/drawable-port-xhdpi-screen.png" />
+        <splash density="port-xxhdpi" src="resources/android/screens/drawable-port-xxhdpi-screen.png" />
+        <splash density="port-xxxhdpi" src="resources/android/screens/drawable-port-xxxhdpi-screen.png" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+    <engine name="android" spec="~6.3.0" />
+    <engine name="browser" spec="~5.0.1" />
+    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
+    <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
+    <plugin name="cordova-plugin-device" spec="^1.1.4" />
+    <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
+    <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
+    <plugin name="cordova-plugin-globalization" spec="^1.0.8" />
+</widget>

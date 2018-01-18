@@ -1,0 +1,28 @@
+{
+   "HM": {
+     "TXT": {
+       "TXTMONTO": "Amount",
+       "TXTPP": "People",
+       "TXTQUAL": "Quality",
+       "TXTOUTPP": "Tip TOTAL",
+       "TXTOUTBPP": "Tip by Person"
+     },
+     "PH": {
+       "PMONTO": "Enter Amount",
+       "PPP": "Enter Amount",
+       "PSLCT": "Select service quality"
+     },
+     "SLCT": {
+       "OP6": "Customized"
+     },
+     "BTNCALC": "Calculate"
+   },
+   "ALRT": {
+     "TTMISS": "MISSING DATA",
+     "MSGMISS": "Complete the missing data",
+     "BTNCLOSE": "CLOSE"
+   },
+   "TST": {
+     "MSGMISS": "The value must be greater/equal to 1!!"
+   }
+}

@@ -1,0 +1,28 @@
+{
+   "HM": {
+     "TXT": {
+       "TXTMONTO": "Valor",
+       "TXTPP": "Pessoas",
+       "TXTQUAL": "Qualidade",
+       "TXTOUTPP": "Dica TOTAL",
+       "TXTOUTBPP": "Dica para Pessoa"
+     },
+     "PH": {
+       "PMONTO": "Digite o valor",
+       "PPP": "Digite o valor",
+       "PSLCT": "Selecionar qualidade de serviço"
+     },
+     "SLCT": {
+       "OP6": "Personalizado"
+     },
+     "BTNCALC": "Calcular"
+   },
+   "ALRT": {
+     "TTMISS": "MISSING DATA",
+     "MSGMISS": "Complete os dados faltantes",
+     "BTNCLOSE": "FECHAR"
+   },
+   "TST": {
+     "MSGMISS": "O valor deve ser maior que/igual a 1!!"
+   }
+}

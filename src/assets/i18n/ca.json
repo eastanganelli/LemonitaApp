@@ -1,0 +1,28 @@
+{
+  "HM": {
+    "TXT": {
+      "TXTMONTO": "Munto",
+      "TXTPP": "Persones",
+      "TXTQUAL": "Qualitat",
+      "TXTOUTPP": "Propina en TOTAL",
+      "TXTOUTBPP": "Propina per Persona"
+    },
+    "PH": {
+      "PMONTO": "Entrada Munto",
+      "PPP": "Entrada Quantitat",
+      "PSLCT": "Seleccionar qualitat del servei"
+    },
+    "SLCT": {
+      "OP6": "Personalitzat"
+    },
+    "BTNCALC": "Calcular"
+  },
+  "ALRT": {
+    "TTMISS": "DADES FALtANTES",
+    "MSGMISS": "Completi les dades que falten",
+    "BTNCLOSE": "TANCAR"
+  },
+  "TST": {
+    "MSGMISS": "El valor ha de ser major/igual a 1!!"
+  }
+}

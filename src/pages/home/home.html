@@ -1,0 +1,61 @@
+<!--Content-->
+  	<ion-content padding>
+      <ion-list>
+        	<ion-item>
+          	<ion-label medium color="primary" col-4>{{'HM.TXT.TXTMONTO'|translate}}<!-- Monto -->: </ion-label>
+          	<ion-label>$ </ion-label>
+          	<!-- <ion-input #ingMonto type="number" min="1" placeholder="Ingresar Monto"></ion-input> -->
+          	<ion-input #ingMonto type="number" min="1" placeholder="{{'HM.PH.PMONTO'|translate}}" (focusout)="CheckCant(ingMonto.value)"></ion-input>
+        	</ion-item>
+        	<ion-item>
+          	<ion-label medium color="primary" col-4>{{'HM.TXT.TXTPP'|translate}}<!-- Personas -->: </ion-label>
+          	<!-- <ion-input #ingCant type="number" min="1" placeholder="Ingresar Cantidad"></ion-input> -->
+          	<ion-input #ingCant type="number" min="1" placeholder="{{'HM.PH.PPP'|translate}}" (focusout)="CheckCant(ingCant.value)"></ion-input>
+        	</ion-item>
+        	<ion-item>
+        		<ion-label medium color="primary" style="padding-left:5px;" id="selCalidad">{{'HM.TXT.TXTQUAL'|translate}}:</ion-label>
+        		<ion-label *ngIf="valQuality=='-1'" style="padding-left: 45px;">{{rangeValue}}</ion-label>
+        		<ion-select [(ngModel)]="valQuality" placeholder="{{'HM.PH.PSLCT'|translate}}" interface="action-sheet">
+        			<ion-option [value]="5"> &#x2605;&#x2606;&#x2606;&#x2606;&#x2606;(5%)</ion-option>
+        			<ion-option [value]="10">&#x2605;&#x2605;&#x2606;&#x2606;&#x2606;(10%)</ion-option>
+        			<ion-option [value]="15">&#x2605;&#x2605;&#x2605;&#x2606;&#x2606;(15%)</ion-option>
+        			<ion-option [value]="20">&#x2605;&#x2605;&#x2605;&#x2605;&#x2606;(20%)</ion-option>
+        			<ion-option [value]="25">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;(25%)</ion-option>
+        			<ion-option [value]="-1">{{'HM.SLCT.OP6'|translate}}</ion-option>
+        		</ion-select>
+        	</ion-item>
+        	<ion-item *ngIf="valQuality=='-1'">
+        		<!-- Old In Data -->
+	          	<!-- <ion-label color="primary" col-4>% {{'HM.TXT.TXTPOR'|translate}}: </ion-label> -->
+	          	<!-- <ion-label>%</ion-label> -->
+	          	<!-- <ion-input #ingPorcent type="number" min="5" placeholder="Ingresar"></ion-input> -->
+	          	<!-- <ion-input #ingPorcent type="number" min="5" placeholder="{{'HM.PH.PPOR'|translate}}"></ion-input> -->
+          	<ion-range min="5" max="100" snaps="true" pin="true" [(ngModel)]="rangeValue">
+          		<ion-icon range="50"></ion-icon>
+          	</ion-range>
+        	</ion-item>
+      </ion-list>
+	   <button ion-button full round light icon-end (click)="mathProp(ingMonto.value,ingCant.value,rangeValue,valQuality)">
+	      <!-- Calcular -->{{'HM.BTNCALC'|translate}}
+	   	<ion-icon ios="logo-usd" md="logo-usd" name="cash"></ion-icon>
+	   </button>
+	   <br>
+	   <ion-grid>
+	      <ion-row style="background-color: #f4f4f4;">
+	        	<ion-col>
+	          	<ion-label class="dataOut" color="primary">{{'HM.TXT.TXTOUTPP'|translate}}<!-- Propina en TOTAL -->: </ion-label>
+	        	</ion-col>
+	        	<ion-col>
+	          	<ion-label>$ {{outPropina|number:'.2-2'}}</ion-label>
+	        	</ion-col>
+	      </ion-row>
+	      <ion-row style="background-color: #ffe2e2;">
+	        	<ion-col>
+	          	<ion-label class="dataOut" color="danger">{{'HM.TXT.TXTOUTBPP'|translate}}<!-- Propina por persona -->: </ion-label>
+	        	</ion-col>
+	        	<ion-col>
+	          	<ion-label>$ {{outBypeople|number:'.2-2'}}</ion-label>
+	        	</ion-col>
+	      </ion-row>
+	   </ion-grid>
+	</ion-content>
