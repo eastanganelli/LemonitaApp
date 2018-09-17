@@ -13,12 +13,11 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { HistoryPage } from './../pages/history/history';
-import { ParcialPage } from './../pages/parcial/parcial';
-import { ModalUserComponent } from '../components/modal-user/modal-user';
+import { NewModePage } from './../pages/newmode/newmode';
 //#endregion
 export function createTranslateLoader(http: HttpClient) { return new TranslateHttpLoader(http, './assets/i18n/', '.json'); }
 @NgModule({
-	declarations: [MyApp, HomePage, TabsPage, ParcialPage, HistoryPage, ModalUserComponent],
+	declarations: [MyApp, HomePage, TabsPage, NewModePage, HistoryPage],
 	imports: [
 		BrowserModule,
 		HttpClientModule,
@@ -36,9 +35,8 @@ export function createTranslateLoader(http: HttpClient) { return new TranslateHt
 		MyApp,
 		HomePage,
 		TabsPage,
-		ParcialPage,
-		HistoryPage,
-		ModalUserComponent
+		NewModePage,
+		HistoryPage
 	],
 	providers: [
 		StatusBar,

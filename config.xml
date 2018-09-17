@@ -43,4 +43,5 @@
     <plugin name="cordova-plugin-globalization" spec="^1.0.8" />
     <engine name="android" spec="~6.3.0" />
     <engine name="browser" spec="~5.0.1" />
+    <plugin name="cordova-sqlite-storage" spec="^2.4.0" />
 </widget>

@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 
-@IonicPage()
-@Component({ selector: 'page-parcial', templateUrl: 'parcial.html', })
-export class ParcialPage {
+@Component({ selector: 'page-newmode', templateUrl: 'newmode.html', })
+export class NewModePage {
 	ppArr: Array<{ name_: string; data: Array<{ name: string; price: number; }> ; }> = new Array(0);
 	outPropina: number = 0;
 	ppTT: number = 0;
@@ -13,7 +12,7 @@ export class ParcialPage {
 	addPer() {
 		let userpop = this.alertCtrl.create({
 			title: 'Ingresar Nombre',
-			inputs: [{ name: 'nameIN'}],
+			inputs: [{ name: 'nameIN', type: 'text'}],
 			buttons: [
 				{ text: 'Cancel' },
 				{ text: 'Add', role: 'add', handler: data => {this.ppArr.push({name_: data.nameIN, data: new Array(0)}); } }
@@ -24,7 +23,7 @@ export class ParcialPage {
 	openPer(id: number) {
 		let addpop = this.alertCtrl.create({
 			title: 'Consumo',
-			inputs: [{ name: 'itemIN', placeholder: 'Pedido' }, { name: 'precioIN', placeholder: 'Precio' }],
+			inputs: [{ name: 'itemIN', placeholder: 'Pedido', type: 'text' }, { name: 'precioIN', placeholder: 'Precio', type: 'number' }],
 			buttons: [
 				{ text: 'Cancel' },
 				{ text: 'Add', role: 'add', handler: data => {this.ppArr[id].data.push({name: data.itemIN, price: data.precioIN});} }
