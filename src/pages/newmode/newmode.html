@@ -75,7 +75,7 @@
 				<ion-col stacked col-2>{{pp_.total|number:'.2-2'}}</ion-col>
 			</ion-row><br><br><br>
 			<ion-row justify-content-center>
-				<ion-col stacked col-4><p>Parcial</p></ion-col>
+				<ion-col stacked col-4></ion-col>
 				<ion-col stacked col-3>Montos</ion-col>
 				<ion-col stacked col-3>TIP</ion-col>
 				<ion-col stacked col-2>Suma</ion-col>
@@ -85,18 +85,6 @@
 				<ion-col stacked col-3>{{parcialData.totalAmount|number:'.2-2'}}</ion-col>
 				<ion-col stacked col-3>{{parcialData.totalTip|number:'.2-2'}}</ion-col>
 				<ion-col stacked col-2>{{parcialData.total_|number:'.2-2'}}</ion-col>
-			</ion-row>
-			<ion-row justify-content-center>
-				<ion-col stacked col-4><p>Equitativo</p></ion-col>
-				<ion-col stacked col-3>Montos</ion-col>
-				<ion-col stacked col-3>TIP</ion-col>
-				<ion-col stacked col-2>Suma</ion-col>
-			</ion-row>
-			<ion-row align-items-center>
-				<ion-col stacked col-4><h4>Total:</h4></ion-col>
-				<ion-col stacked col-3>{{parcialData.totalAmount|number:'.2-2'}}</ion-col>
-				<ion-col stacked col-3>{{parcialData.TIPEq|number:'.2-2'}}</ion-col>
-				<ion-col stacked col-2>{{parcialData.total_EqTIP|number:'.2-2'}}</ion-col>
 			</ion-row>
 			<ion-row stacked align-items-center>
 				<ion-col>Propina Equitativa: {{parcialData.TipEqDiv|number:'.2-2'}}</ion-col>
