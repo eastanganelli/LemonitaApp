@@ -19,7 +19,7 @@ export class NewModePage {
 		//#region DataOUT
 			usersNodata: boolean = false;
 			equalData: { totalAmount: number; totalTip: number; totalTipDiv: number; total_: number; };
-			parcialData: { totalAmount: number; totalTip: number; TipEqDiv: number; TIPEq: number; total_: number; total_EqTIP: number; };
+			parcialData: { totalAmount: number; totalTip: number; TipEqDiv: number; total_: number;};
 		//#endregion
 	//#endregion
 	constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) { this.ppArr.push({name_: 'Me', data: new Array(0)}); }
@@ -96,10 +96,8 @@ export class NewModePage {
 				this.parcialData = { 
 					totalAmount: allAmount, 
 					totalTip: parTIP, 
-					total_: (allAmount + Number((allAmount*percentData)/ppCount_)),
-					TIPEq: (Number(allAmount*percentData)),
-					TipEqDiv: ((allAmount*percentData)/ppCount_), 
-					total_EqTIP: (Number(allAmount) + Number(allAmount*percentData))
+					total_: (allAmount + parTIP),
+					TipEqDiv: (parTIP/ppCount_)
 				};
 			//#endregion
 		} //else { alert('Falta data'); }
