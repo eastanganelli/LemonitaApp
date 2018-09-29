@@ -17,8 +17,9 @@ export class NewModePage {
 			tipData_: string = 'Equal_';
 		//#endregion
 		//#region DataOUT
+			usersNodata: boolean = false;
 			equalData: { totalAmount: number; totalTip: number; totalTipDiv: number; total_: number; };
-			parcialData: { totalAmount: number; totalTip: number; totalTipEq: number; total_: number; total_EqTIP: number; };
+			parcialData: { totalAmount: number; totalTip: number; TipEqDiv: number; TIPEq: number; total_: number; total_EqTIP: number; };
 		//#endregion
 	//#endregion
 	constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) { this.ppArr.push({name_: 'Me', data: new Array(0)}); }
@@ -50,10 +51,9 @@ export class NewModePage {
 		notMe(id: number) { if(id != 0) { return false; } return true; }
 	//#endregion
 	calculate(iRange: number, iSelec: number) {
-		console.log(this.itsComplete(iSelec).length);
 		if(this.itsComplete(iSelec).length < 1) {
 			this.notCalculated = false;
-			let percentData: number = iRange; let ppCount_: number = 0;
+			let percentData: number = iRange/100; let ppCount_: number = 0;
 			if(iSelec != (-1)) { percentData = iSelec; }
 			let allAmount: number = 0/*, eqTIP: number = 0*/, parTIP: number = 0/*, eqTotal: number = 0, parTotal: number = 0*/;
 			for(let pp_ of this.ppArr) {
@@ -68,10 +68,10 @@ export class NewModePage {
 					//#region Data Record
 						//#region Parcial
 							ppParARR.amount = amount_; 
-							ppParARR.tip = Number(amount_/100*percentData); 
+							ppParARR.tip = Number(amount_*percentData); 
 							ppParARR.total = (Number(amount_) + Number(ppParARR.tip));
 						//Total Parcial
-							parTIP = Number(Number(parTIP) + Number(amount_/100*percentData));
+							parTIP = Number(Number(parTIP) + Number(amount_*percentData));
 						//#endregion
 						//Equal
 							ppEqARR.total = Number(amount_);
@@ -82,23 +82,24 @@ export class NewModePage {
 						this.ppParARR.push(ppParARR);
 						this.ppEqARR.push(ppEqARR);
 					//#endregion
-				}
+				} else { this.usersNodata = true; }
 			} 
 			//#region Equal Total
 				this.equalData = { 
 					totalAmount: allAmount, 
-					totalTip: Number(allAmount/percentData), 
-					totalTipDiv: ((allAmount/percentData)/ppCount_), 
-					total_: (Number(allAmount) + Number(allAmount/percentData)) 
+					totalTip: Number(allAmount*percentData), 
+					totalTipDiv: ((allAmount*percentData)/ppCount_), 
+					total_: (Number(allAmount) + Number(allAmount*percentData)) 
 				};
 			//#endregion
 			//#region ParTotal
 				this.parcialData = { 
 					totalAmount: allAmount, 
 					totalTip: parTIP, 
-					total_: (allAmount + Number((allAmount*percentData)/ppCount_)), 
-					totalTipEq: ((allAmount*percentData)/ppCount_), 
-					total_EqTIP: (Number(allAmount) + Number(allAmount/percentData))
+					total_: (allAmount + Number((allAmount*percentData)/ppCount_)),
+					TIPEq: (Number(allAmount*percentData)),
+					TipEqDiv: ((allAmount*percentData)/ppCount_), 
+					total_EqTIP: (Number(allAmount) + Number(allAmount*percentData))
 				};
 			//#endregion
 		} //else { alert('Falta data'); }
@@ -111,7 +112,9 @@ export class NewModePage {
 	}
 	close() { 
 		this.notCalculated = true;
+		this.usersNodata = false;
 		this.ppEqARR = new Array(0);
 		this.ppParARR = new Array(0);
 	}
+	/* oldModeEnable() { this.navCtrl.setRoot(TabsPage, { mode_: true }); } */
 }

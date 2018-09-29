@@ -1,11 +1,24 @@
+//#region Plugins
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+//#endregion
+//#region Pages
+import { HomePage } from '../home/home';
 import { NewModePage } from '../newmode/newmode';
 import { HistoryPage } from './../history/history';
+//#endregion
 
 @Component({ selector: 'page-tabs', templateUrl: 'tabs.html', })
 export class TabsPage {
-	parcialpg = NewModePage;
-	historypg = HistoryPage;
-	constructor(public navCtrl: NavController, public navParams: NavParams) {  }
+	//#region Variables
+		public showHidemode: boolean = true;
+	//#endregion
+	//#region Pages
+		oldmode = HomePage;
+		newmode = NewModePage;
+		historypg = HistoryPage;
+	//#endregion
+	constructor(public navCtrl: NavController, public navParams: NavParams) { 
+		//this.showHidemode = this.navParams.get('mode_');
+	}
 }
