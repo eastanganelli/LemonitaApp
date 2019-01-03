@@ -1,0 +1,136 @@
+<ion-content padding>
+    <div *ngIf="notCalculated">
+        <ion-list>
+            <ion-item-sliding *ngFor="let pp_ of ppArr; let i = index">
+                <ion-item (click)="openPer(i, pp_)">{{pp_.name_}}</ion-item>
+                <ion-item-options side="end">
+                    <ion-item-option (click)="viewPer(i)">VIEW</ion-item-option>
+                    <ion-item-option *ngIf="!(notMe(i))" (click)="rmPer(i)">RM USER</ion-item-option>
+                </ion-item-options>
+            </ion-item-sliding>
+            <ion-item (click)="addPer()">Agregar Persona</ion-item>
+            <ion-item>
+                <ion-label size="medium" color="primary" style="padding-left:5px;" id="selCalidad">Calidad:</ion-label>
+                <ion-label *ngIf="valQuality=='-1'" style="padding-left: 45px;">{{rangeValue}}</ion-label>
+                <ion-select [(ngModel)]="valQuality" placeholder="{{'HM.PH.PSLCT'|translate}}" interface="action-sheet">
+                    <ion-select-option value="0.05">&#x2605;&#x2606;&#x2606;&#x2606;&#x2606;(5%)</ion-select-option>
+                    <ion-select-option value="0.10">&#x2605;&#x2605;&#x2606;&#x2606;&#x2606;(10%)</ion-select-option>
+                    <ion-select-option value="0.15">&#x2605;&#x2605;&#x2605;&#x2606;&#x2606;(15%)</ion-select-option>
+                    <ion-select-option value="0.20">&#x2605;&#x2605;&#x2605;&#x2605;&#x2606;(20%)</ion-select-option>
+                    <ion-select-option value="0.25">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;(25%)</ion-select-option>
+                    <ion-select-option value="-1">Personalizado</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="valQuality=='-1'">
+                <ion-range min="5" max="100" snaps="true" pin="true" [(ngModel)]="rangeValue">
+                    <ion-icon range="50"></ion-icon>
+                </ion-range>
+            </ion-item>
+        </ion-list>
+    </div>
+    <div *ngIf="!notCalculated">
+        <h2 *ngIf="usersNodata">Los usuarios sin consumos no se añadiran.</h2>
+        <ion-segment [(ngModel)]="tipData_">
+            <ion-segment-button value="Equal_">Equal</ion-segment-button>
+            <ion-segment-button value="Parcial_">Parcial</ion-segment-button>
+        </ion-segment>
+        <ion-grid *ngIf="tipData_ == 'Equal_'">
+            <ion-row>
+                <ion-col stacked size="4">
+                    <h4>Nombre</h4>
+                </ion-col>
+                <ion-col stacked size="8" justify-content-center>
+                    <h4>Total</h4>
+                </ion-col>
+            </ion-row><br>
+            <ion-row *ngFor="let pp_ of ppEqARR">
+                <ion-col stacked size="4">{{pp_.name}}</ion-col>
+                <ion-col stacked size="8">{{pp_.total|number:'.2-2'}}</ion-col>
+            </ion-row><br><br><br>
+            <ion-row justify-content-center>
+                <ion-col stacked size="4"></ion-col>
+                <ion-col stacked size="3">
+                    <h5>Montos</h5>
+                </ion-col>
+                <ion-col stacked size="3">
+                    <h5>Propina</h5>
+                </ion-col>
+                <ion-col stacked size="2">
+                    <h5>Suma</h5>
+                </ion-col>
+            </ion-row>
+            <ion-row align-items-center>
+                <ion-col stacked size="4">
+                    <h4>Total:</h4>
+                </ion-col>
+                <ion-col stacked size="3">{{equalData.totalAmount|number:'.2-2'}}</ion-col>
+                <ion-col stacked size="3">{{equalData.totalTip|number:'.2-2'}}</ion-col>
+                <ion-col stacked size="2">{{equalData.total_|number:'.2-2'}}</ion-col>
+            </ion-row>
+            <ion-row stacked align-items-center>
+                <ion-col>Propina Equitativa: {{equalData.totalTipDiv|number:'.2-2'}}</ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-grid *ngIf="tipData_ == 'Parcial_'">
+            <ion-row>
+                <ion-col stacked size="4">
+                    <h4>Nombre</h4>
+                </ion-col>
+                <ion-col stacked size="3">
+                    <h4>Monto</h4>
+                </ion-col>
+                <ion-col stacked size="3">
+                    <h4>Propina</h4>
+                </ion-col>
+                <ion-col stacked size="2">
+                    <h4>Total</h4>
+                </ion-col>
+            </ion-row><br>
+            <ion-row *ngFor="let pp_ of ppParARR">
+                <ion-col stacked size="4">{{pp_.name}}</ion-col>
+                <ion-col stacked size="3">{{pp_.amount|number:'.2-2'}}</ion-col>
+                <ion-col stacked size="3">{{pp_.tip|number:'.2-2'}}</ion-col>
+                <ion-col stacked size="2">{{pp_.total|number:'.2-2'}}</ion-col>
+            </ion-row><br><br><br>
+            <ion-row justify-content-center>
+                <ion-col stacked size="4"></ion-col>
+                <ion-col stacked size="3">
+                    <h4>Montos</h4>
+                </ion-col>
+                <ion-col stacked size="3">
+                    <h4>TIP</h4>
+                </ion-col>
+                <ion-col stacked size="2">
+                    <h4>Suma</h4>
+                </ion-col>
+            </ion-row>
+            <ion-row align-items-center>
+                <ion-col stacked size="4">
+                    <h4>Total:</h4>
+                </ion-col>
+                <ion-col stacked size="3">{{parcialData.totalAmount|number:'.2-2'}}</ion-col>
+                <ion-col stacked size="3">{{parcialData.totalTip|number:'.2-2'}}</ion-col>
+                <ion-col stacked size="2">{{parcialData.total_|number:'.2-2'}}</ion-col>
+            </ion-row>
+            <ion-row stacked align-items-center>
+                <ion-col>Propina Equitativa: {{parcialData.TipEqDiv|number:'.2-2'}}</ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-button full round light icon-end (click)="calculate(rangeValue, valQuality)" *ngIf="notCalculated">
+        <ion-icon ios="logo-usd" md="logo-usd" name="cash">Calcular</ion-icon>
+    </ion-button>
+    <ion-grid *ngIf="!notCalculated">
+        <ion-row>
+            <ion-col size=6>
+                <ion-button full round>SAVE</ion-button>
+            </ion-col>
+            <ion-col size=6>
+                <ion-button full round (click)="close()">CANCEL</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-button full shape="round" (click)="clearData()">Limpiar</ion-button>
+</ion-footer>

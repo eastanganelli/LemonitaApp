@@ -1,8 +1,8 @@
 {
   "name": "LemonitaApp",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
-  "type": "ionic-angular",
-  "pro_id": "1c255eeb"
+  "type": "angular"
 }

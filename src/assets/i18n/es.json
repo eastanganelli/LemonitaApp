@@ -5,7 +5,9 @@
       "TXTPP": "Personas",
       "TXTQUAL": "Calidad",
       "TXTOUTPP": "Propina en TOTAL",
-      "TXTOUTBPP": "Propina por Persona"
+      "TXTOUTTTL": "Monto TOTAL",
+      "TXTOUTBPP": "Monto por Persona",
+      "TXTOUTBPPTIP": "Propina por Persona"
     },
     "PH": {
       "PMONTO": "Ingresar Monto",
