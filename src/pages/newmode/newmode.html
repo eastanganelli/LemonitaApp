@@ -1,94 +1,130 @@
 <ion-content padding>
-	<!-- <button ion-button (click)="oldModeEnable()">ENABLE OLD MODE</button> -->
-	<div *ngIf="notCalculated">
-		<ion-list>
-			<ion-item-sliding *ngFor="let pp_ of ppArr; let i = index">
-				<button ion-item (click)="openPer(i, pp_)">{{pp_.name_}}</button>
-				<ion-item-options side="right">
-					<button ion-button (click)="viewPer(i)">VIEW</button>
-					<button ion-button *ngIf="!(notMe(i))" (click)="rmPer(i)">RM USER</button>
-				</ion-item-options>
-			</ion-item-sliding>
-			<button ion-item full round light (click)="addPer()">Agregar Persona</button>
-			<ion-item>
-				<ion-label medium color="primary" style="padding-left:5px;" id="selCalidad">Calidad:</ion-label>
-				<ion-label *ngIf="valQuality=='-1'" style="padding-left: 45px;">{{rangeValue}}</ion-label>
-				<ion-select [(ngModel)]="valQuality" placeholder="{{'HM.PH.PSLCT'|translate}}" interface="action-sheet">
-					<ion-option [value]="0.05"> &#x2605;&#x2606;&#x2606;&#x2606;&#x2606;(5%)</ion-option>
-					<ion-option [value]="0.10">&#x2605;&#x2605;&#x2606;&#x2606;&#x2606;(10%)</ion-option>
-					<ion-option [value]="0.15">&#x2605;&#x2605;&#x2605;&#x2606;&#x2606;(15%)</ion-option>
-					<ion-option [value]="0.20">&#x2605;&#x2605;&#x2605;&#x2605;&#x2606;(20%)</ion-option>
-					<ion-option [value]="0.25">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;(25%)</ion-option>
-					<ion-option [value]="-1">Personalizado</ion-option>
-				</ion-select>
-			</ion-item>
-			<ion-item *ngIf="valQuality=='-1'"><ion-range min="5" max="100" snaps="true" pin="true" [(ngModel)]="rangeValue"><ion-icon range="50"></ion-icon></ion-range></ion-item>
-		</ion-list>
-		<button ion-button full round light icon-end (click)="calculate(rangeValue, valQuality)"><ion-icon ios="logo-usd" md="logo-usd" name="cash">Calcular</ion-icon></button>
-	</div>
-	<div *ngIf="!notCalculated">
-		<div>
-			<button ion-button>SAVE</button>
-			<button ion-button (click)="close()">CANCEL</button>
-		</div>
-		<h2 *ngIf="usersNodata">Los usuarios sin consumos no se añadiran.</h2>
-		<ion-segment [(ngModel)]="tipData_">
-			<ion-segment-button value="Equal_">Equal</ion-segment-button>
-			<ion-segment-button value="Parcial_">Parcial</ion-segment-button>
-		</ion-segment>
-		<ion-grid *ngIf="tipData_ == 'Equal_'">
-			<ion-row>
-				<ion-col stacked col-4><h4>Nombre</h4></ion-col>
-				<ion-col stacked col-8 justify-content-center><h4>Total</h4></ion-col>
-			</ion-row><br>
-			<ion-row *ngFor="let pp_ of ppEqARR">
-				<ion-col stacked col-4>{{pp_.name}}</ion-col>
-				<ion-col stacked col-8>{{pp_.total|number:'.2-2'}}</ion-col>
-			</ion-row><br><br><br>
-			<ion-row justify-content-center>
-				<ion-col stacked col-4></ion-col>
-				<ion-col stacked col-3><h5>Montos</h5></ion-col>
-				<ion-col stacked col-3><h5>Propina</h5></ion-col>
-				<ion-col stacked col-2><h5>Suma</h5></ion-col>
-			</ion-row>
-			<ion-row align-items-center>
-				<ion-col stacked col-4><h4>Total:</h4></ion-col>
-				<ion-col stacked col-3>{{equalData.totalAmount|number:'.2-2'}}</ion-col>
-				<ion-col stacked col-3>{{equalData.totalTip|number:'.2-2'}}</ion-col>
-				<ion-col stacked col-2>{{equalData.total_|number:'.2-2'}}</ion-col>
-			</ion-row>
-			<ion-row stacked align-items-center>
-				<ion-col>Propina Equitativa: {{equalData.totalTipDiv|number:'.2-2'}}</ion-col>
-			</ion-row>
-		</ion-grid>
-		<ion-grid *ngIf="tipData_ == 'Parcial_'">
-			<ion-row>
-				<ion-col stacked col-4><h4>Nombre</h4></ion-col>
-				<ion-col stacked col-3><h4>Monto</h4></ion-col>
-				<ion-col stacked col-3><h4>Propina</h4></ion-col>
-				<ion-col stacked col-2><h4>Total</h4></ion-col>
-			</ion-row><br>
-			<ion-row *ngFor="let pp_ of ppParARR">
-				<ion-col stacked col-4>{{pp_.name}}</ion-col>
-				<ion-col stacked col-3>{{pp_.amount|number:'.2-2'}}</ion-col>
-				<ion-col stacked col-3>{{pp_.tip|number:'.2-2'}}</ion-col>
-				<ion-col stacked col-2>{{pp_.total|number:'.2-2'}}</ion-col>
-			</ion-row><br><br><br>
-			<ion-row justify-content-center>
-				<ion-col stacked col-4></ion-col>
-				<ion-col stacked col-3>Montos</ion-col>
-				<ion-col stacked col-3>TIP</ion-col>
-				<ion-col stacked col-2>Suma</ion-col>
-			</ion-row>
-			<ion-row align-items-center>
-				<ion-col stacked col-4><h4>Total:</h4></ion-col>
-				<ion-col stacked col-3>{{parcialData.totalAmount|number:'.2-2'}}</ion-col>
-				<ion-col stacked col-3>{{parcialData.totalTip|number:'.2-2'}}</ion-col>
-				<ion-col stacked col-2>{{parcialData.total_|number:'.2-2'}}</ion-col>
-			</ion-row>
-			<ion-row stacked align-items-center>
-				<ion-col>Propina Equitativa: {{parcialData.TipEqDiv|number:'.2-2'}}</ion-col>
-			</ion-row>
-		</ion-grid>
-	</div>
-</ion-content> 
+    <div *ngIf="notCalculated">
+        <ion-list>
+            <ion-item-sliding *ngFor="let pp_ of ppArr; let i = index">
+                <button ion-item (click)="openPer(i, pp_)">{{pp_.name_}}</button>
+                <ion-item-options side="right">
+                    <button ion-button (click)="viewPer(i)">VIEW</button>
+                    <button ion-button *ngIf="!(notMe(i))" (click)="rmPer(i)">RM USER</button>
+                </ion-item-options>
+            </ion-item-sliding>
+            <button ion-item full round light (click)="addPer()">Agregar Persona</button>
+            <ion-item>
+                <ion-label medium color="primary" style="padding-left:5px;" id="selCalidad">Calidad:</ion-label>
+                <ion-label *ngIf="valQuality=='-1'" style="padding-left: 45px;">{{rangeValue}}</ion-label>
+                <ion-select [(ngModel)]="valQuality" placeholder="{{'HM.PH.PSLCT'|translate}}" interface="action-sheet">
+                    <ion-option [value]="0.05">&#x2605;&#x2606;&#x2606;&#x2606;&#x2606;(5%)</ion-option>
+                    <ion-option [value]="0.10">&#x2605;&#x2605;&#x2606;&#x2606;&#x2606;(10%)</ion-option>
+                    <ion-option [value]="0.15">&#x2605;&#x2605;&#x2605;&#x2606;&#x2606;(15%)</ion-option>
+                    <ion-option [value]="0.20">&#x2605;&#x2605;&#x2605;&#x2605;&#x2606;(20%)</ion-option>
+                    <ion-option [value]="0.25">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;(25%)</ion-option>
+                    <ion-option [value]="-1">Personalizado</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="valQuality=='-1'">
+                <ion-range min="5" max="100" snaps="true" pin="true" [(ngModel)]="rangeValue">
+                    <ion-icon range="50"></ion-icon>
+                </ion-range>
+            </ion-item>
+        </ion-list>
+    </div>
+    <div *ngIf="!notCalculated">
+        <h2 *ngIf="usersNodata">Los usuarios sin consumos no se añadiran.</h2>
+        <ion-segment [(ngModel)]="tipData_">
+            <ion-segment-button value="Equal_">Equal</ion-segment-button>
+            <ion-segment-button value="Parcial_">Parcial</ion-segment-button>
+        </ion-segment>
+        <ion-grid *ngIf="tipData_ == 'Equal_'">
+            <ion-row>
+                <ion-col stacked col-4>
+                    <h4>Nombre</h4>
+                </ion-col>
+                <ion-col stacked col-8 justify-content-center>
+                    <h4>Total</h4>
+                </ion-col>
+            </ion-row><br>
+            <ion-row *ngFor="let pp_ of ppEqARR">
+                <ion-col stacked col-4>{{pp_.name}}</ion-col>
+                <ion-col stacked col-8>{{pp_.total|number:'.2-2'}}</ion-col>
+            </ion-row><br><br><br>
+            <ion-row justify-content-center>
+                <ion-col stacked col-4></ion-col>
+                <ion-col stacked col-3>
+                    <h5>Montos</h5>
+                </ion-col>
+                <ion-col stacked col-3>
+                    <h5>Propina</h5>
+                </ion-col>
+                <ion-col stacked col-2>
+                    <h5>Suma</h5>
+                </ion-col>
+            </ion-row>
+            <ion-row align-items-center>
+                <ion-col stacked col-4>
+                    <h4>Total:</h4>
+                </ion-col>
+                <ion-col stacked col-3>{{equalData.totalAmount|number:'.2-2'}}</ion-col>
+                <ion-col stacked col-3>{{equalData.totalTip|number:'.2-2'}}</ion-col>
+                <ion-col stacked col-2>{{equalData.total_|number:'.2-2'}}</ion-col>
+            </ion-row>
+            <ion-row stacked align-items-center>
+                <ion-col>Propina Equitativa: {{equalData.totalTipDiv|number:'.2-2'}}</ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-grid *ngIf="tipData_ == 'Parcial_'">
+            <ion-row>
+                <ion-col stacked col-4>
+                    <h4>Nombre</h4>
+                </ion-col>
+                <ion-col stacked col-3>
+                    <h4>Monto</h4>
+                </ion-col>
+                <ion-col stacked col-3>
+                    <h4>Propina</h4>
+                </ion-col>
+                <ion-col stacked col-2>
+                    <h4>Total</h4>
+                </ion-col>
+            </ion-row><br>
+            <ion-row *ngFor="let pp_ of ppParARR">
+                <ion-col stacked col-4>{{pp_.name}}</ion-col>
+                <ion-col stacked col-3>{{pp_.amount|number:'.2-2'}}</ion-col>
+                <ion-col stacked col-3>{{pp_.tip|number:'.2-2'}}</ion-col>
+                <ion-col stacked col-2>{{pp_.total|number:'.2-2'}}</ion-col>
+            </ion-row><br><br><br>
+            <ion-row justify-content-center>
+                <ion-col stacked col-4></ion-col>
+                <ion-col stacked col-3>
+                    <h4>Montos</h4>
+                </ion-col>
+                <ion-col stacked col-3>
+                    <h4>TIP</h4>
+                </ion-col>
+                <ion-col stacked col-2>
+                    <h4>Suma</h4>
+                </ion-col>
+            </ion-row>
+            <ion-row align-items-center>
+                <ion-col stacked col-4>
+                    <h4>Total:</h4>
+                </ion-col>
+                <ion-col stacked col-3>{{parcialData.totalAmount|number:'.2-2'}}</ion-col>
+                <ion-col stacked col-3>{{parcialData.totalTip|number:'.2-2'}}</ion-col>
+                <ion-col stacked col-2>{{parcialData.total_|number:'.2-2'}}</ion-col>
+            </ion-row>
+            <ion-row stacked align-items-center>
+                <ion-col>Propina Equitativa: {{parcialData.TipEqDiv|number:'.2-2'}}</ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>
+<ion-footer>
+    <button ion-button full round light icon-end (click)="calculate(rangeValue, valQuality)" *ngIf="notCalculated"><ion-icon ios="logo-usd" md="logo-usd" name="cash">Calcular</ion-icon></button>
+    <ion-grid *ngIf="!notCalculated">
+        <ion-row>
+            <ion-col col-6><button ion-button full round>SAVE</button></ion-col>
+            <ion-col col-6><button ion-button full round (click)="close()">CANCEL</button></ion-col>
+        </ion-row>
+    </ion-grid>
+    <button ion-button full round (click)="clearData()">Limpiar</button>
+</ion-footer>

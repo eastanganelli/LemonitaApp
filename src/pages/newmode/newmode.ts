@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { GlobalVarsProvider } from '../../providers/global-vars/global-vars';
+import { tPerson, tPPPar, tPPEq, tParData, tEqData } from '../../components/variables.components';
 
 @Component({ selector: 'page-newmode', templateUrl: 'newmode.html', })
 export class NewModePage {
 	//#region Vars
 		//#region Arrays
-			ppArr: Array<{ name_: string; data: Array<{ name: string; price: number; }>; }> = new Array(0);
-			ppParARR: Array<{ name: string; amount: number; tip: number; total: number; }> = new Array(0);
-			ppEqARR: Array<{ name: string; total: number; }> = new Array(0);
+			ppArr: Array< tPerson > = new Array(0);
+			ppParARR: Array< tPPPar > = new Array(0);
+			ppEqARR: Array< tPPEq > = new Array(0);
 		//#endregion
 		//#region DataIN
 			notCalculated: boolean = true;
@@ -18,36 +20,39 @@ export class NewModePage {
 		//#endregion
 		//#region DataOUT
 			usersNodata: boolean = false;
-			equalData: { totalAmount: number; totalTip: number; totalTipDiv: number; total_: number; };
-			parcialData: { totalAmount: number; totalTip: number; TipEqDiv: number; total_: number;};
+			equalData: tEqData;
+			parcialData: tParData;
 		//#endregion
 	//#endregion
-	constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) { this.ppArr.push({name_: 'Me', data: new Array(0)}); }
-	//#region FNs ppl
+	constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private glbVar: GlobalVarsProvider) { this.ppArr.push({name_: 'Me', data: new Array(0)}); }
+	ionViewWillEnter() { this.readData(); }
+	//#region pplFNs
 		addPer() {
 			let userpop = this.alertCtrl.create({
 				title: 'Ingresar Nombre',
 				inputs: [{ name: 'nameIN', type: 'text'}],
-				buttons: [ { text: 'Cancel' }, { text: 'Add', role: 'add', handler: data => {this.ppArr.push({name_: data.nameIN, data: new Array(0)}); } } ]
+				buttons: [ { text: 'Cancel' }, { text: 'Add', role: 'add', handler: data => { this.ppArr.push({name_: data.nameIN, data: new Array(0)}); this.saveData(); } } ]
 			}); userpop.present();
 		}
 		openPer(id: number) {
 			let addpop = this.alertCtrl.create({
 				title: 'Consumo',
 				inputs: [{ name: 'itemIN', placeholder: 'Pedido', type: 'text' }, { name: 'precioIN', placeholder: 'Precio', type: 'number' }],
-				buttons: [ { text: 'Cancel' }, { text: 'Add', role: 'add', handler: data => {this.ppArr[id].data.push({name: data.itemIN, price: data.precioIN});} } ]
+				buttons: [ { text: 'Cancel' }, { text: 'Add', role: 'add', handler: data => { this.ppArr[id].data.push({name: data.itemIN, price: data.precioIN}); this.saveData(); } } ]
 			}); addpop.present();
 		}
 		viewPer(id: number) {
-			let viewpop = this.alertCtrl.create({title: this.ppArr[id].name_, buttons: [{ text: 'Cancel' }]}); 
+			let viewpop = null; 
+			if(this.ppArr[id].data.length > 0) {
+				viewpop = this.alertCtrl.create({title: this.ppArr[id].name_, buttons: [{ text: 'Cancel' }]}); 
 				let i = 0; for(let item_ of this.ppArr[id].data) { viewpop.addInput({ type: 'checkbox', label: item_.name + ' $' + item_.price, value: i.toString(), checked: false}); i++; }
-			if(this.ppArr[id].data.length > 0) { 
 				viewpop.addButton({ 
-					text: 'Remove', role: 'rm', handler: data => { if(data.length > 0) { for(let i = data.length; i > 0; i--) { this.ppArr[id].data.splice(data, 1); } }  }
+					text: 'Remove', role: 'rm', handler: data => { if(data.length > 0) { for(let i = data.length; i > 0; i--) { this.ppArr[id].data.splice(data, 1); this.saveData(); } }  }
 				});
-			} viewpop.present();
+			} else { viewpop = this.alertCtrl.create({title: this.ppArr[id].name_, message: 'No hay Insumos', buttons: [{ text: 'Cancel' }]}); } 
+			viewpop.present();
 		}
-		rmPer(id: number) { this.ppArr.splice(id, 1); }
+		rmPer(id: number) { this.ppArr.splice(id, 1); this.saveData(); }
 		notMe(id: number) { if(id != 0) { return false; } return true; }
 	//#endregion
 	calculate(iRange: number, iSelec: number) {
@@ -115,4 +120,13 @@ export class NewModePage {
 		this.ppParARR = new Array(0);
 	}
 	/* oldModeEnable() { this.navCtrl.setRoot(TabsPage, { mode_: true }); } */
+	//#region cacheFNs
+		readData() { this.ppArr = this.glbVar.readCache(); }
+		saveData() { if(this.ppArr[0].data.length > 0 || this.ppArr.length > 1) { this.glbVar.writeCache(this.ppArr); } }
+		clearData() {
+			this.ppArr = new Array(0);
+			this.ppArr.push({name_: 'Me', data: new Array(0)});
+			this.glbVar.clearCache(this.ppArr);
+		}
+	//#endregion
 }

@@ -1,8 +1,5 @@
-<ion-tabs tabs-only selectedIndex=0 *ngIf="showHidemode">
-	<ion-tab tabTitle="Calulator" [root]="newmode"></ion-tab>
-	<ion-tab tabTitle="History" [root]="historypg"></ion-tab>
-</ion-tabs>
-<ion-tabs tabs-only selectedIndex=0 *ngIf="!showHidemode">
-	<ion-tab tabTitle="Old Calulator" [root]="oldmode"></ion-tab>
-	<ion-tab tabTitle="New Calculator" [root]="newmode"></ion-tab>
+<ion-tabs tabs-only selectedIndex=1>
+    <ion-tab tabTitle="Old Calculator" [root]="oldmode" (ionSelect)="checkMenu('oldmode')"></ion-tab>
+    <ion-tab tabTitle="New Calculator" [root]="newmode" (ionSelect)="checkMenu('newmode')"></ion-tab>
+    <ion-tab tabTitle="History" [root]="historypg" [show]="showHidemode"></ion-tab>
 </ion-tabs>

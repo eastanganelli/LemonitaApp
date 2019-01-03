@@ -14,6 +14,9 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { HistoryPage } from './../pages/history/history';
 import { NewModePage } from './../pages/newmode/newmode';
+import { GlobalVarsProvider } from '../providers/global-vars/global-vars';
+import { CalculatorProvider } from '../providers/calculator/calculator';
+import { ErrorProvider } from '../providers/error/error';
 //#endregion
 export function createTranslateLoader(http: HttpClient) { return new TranslateHttpLoader(http, './assets/i18n/', '.json'); }
 @NgModule({
@@ -43,6 +46,10 @@ export function createTranslateLoader(http: HttpClient) { return new TranslateHt
 		SplashScreen, {
 			provide: ErrorHandler,
 			useClass: IonicErrorHandler
-		}]
+		},
+		GlobalVarsProvider,
+    CalculatorProvider,
+    ErrorProvider
+	],
 })
 export class AppModule { }

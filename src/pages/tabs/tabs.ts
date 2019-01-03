@@ -21,4 +21,16 @@ export class TabsPage {
 	constructor(public navCtrl: NavController, public navParams: NavParams) { 
 		//this.showHidemode = this.navParams.get('mode_');
 	}
+	checkMenu(Type_: string): void {
+		switch(Type_) {
+			case 'oldmode': {
+				this.showHidemode = false;
+				break;
+			}
+			case 'newmode': {
+				this.showHidemode = true;
+				break;
+			}
+		}
+	}
 }
