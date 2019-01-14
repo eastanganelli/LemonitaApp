@@ -26,10 +26,7 @@ export class AdvancePage {
 		//#endregion
 	//#endregion
 	constructor(public navCtrl: NavController, private alertCtrl: AlertController, private glbVar: GlobalVarsService, private calc: CalculatorService) {  }
-	ionViewWillEnter() {
-		this.clearData();
-		this.readData();
-	}
+	ionViewWillEnter() { this.readData(); }
 	//#region pplFNs
 		async addPer() {
 			let userpop = await this.alertCtrl.create({
@@ -60,16 +57,12 @@ export class AdvancePage {
 		notMe(id: number) { if(id != 0) { return false; } return true; }
 	//#endregion
 	calculate(iRange: number, iSelec: number) {
-		if(this.itsComplete(iSelec).length < 1) {
-			let m_data = this.calc.advanceCalc(iRange, iSelec);
-			this.ppParARR = m_data.parcial;
-			this.ppEqARR = m_data.equal;
-		} //else { alert('Falta data'); }
+		if(this.itsComplete(iSelec).length < 1) { let m_data = this.calc.advanceCalc(iRange, iSelec); }
 	}
 	itsComplete(iSelec: number): Array<{ code_: string; }> {
 		let errArr: Array<{ code_: string; }> = new Array(0);
-		if(iSelec == null) { errArr.push({ code_: '1xQuality' }); }
-		if(this.glbVar.ppArr[0].data.length < 1 && this.glbVar.ppArr.length < 2) { errArr.push({ code_: '1xNoMeData' }); }
+		if(iSelec == null) { errArr.push({ code_: 'ExTipPor' }); }
+		if(this.glbVar.ppArr[0].data.length < 1 && this.glbVar.ppArr.length < 2) { errArr.push({ code_: 'ExAMNoMeData' }); }
 		return errArr;
 	}
 	close() { 

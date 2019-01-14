@@ -6,35 +6,22 @@ import { tHistory, tPerson, tPPPar, tPPEq, tParData, tEqData } from '../const/va
 export class CalculatorService {
 
   constructor(private gblVar: GlobalVarsService) { }
-	classicMode() {
-		let varPropina: number = 0;
-		let varBypeople: number = 0;
-		let varPagoTotal: number = 0;
-		let varPagoByPeople: number = 0;
-		if ((iMonto < 1 && String(iMonto) != "") || (iCant < 1 && String(iCant) != "")) {
-			this.translate.get('TST.MSGMISS').subscribe((trText: string) => { this.showToaster(trText); });
-		} else if (String(iMonto) == "" || String(iCant) == "" || iSelec == null) {
-			this.translate.get('ALRT.TTMISS').subscribe((trTitle: string) => {
-				this.translate.get('ALRT.MSGMISS').subscribe((trMsg: string) => {
-					this.translate.get('ALRT.BTNCLOSE').subscribe((trBtn: string) => {
-						this.showAlert(trTitle, trMsg, trBtn);
-					})
-				})
-			})
-		} else {
+	classicMode(iMonto: number, iCant: number, iRange: number, iSelec: number) {
+		let varPropina: number = 0, varBypeople: number = 0, varPagoTotal: number = 0, varPagoByPeople: number = 0;
 			let percentData = iRange;
 			if (iSelec != -1) { percentData = iSelec; }
-			varPropina = iMonto / 100 * percentData;
+			varPropina = iMonto * percentData;
 			varBypeople = varPropina / iCant;
 			varPagoTotal = Number(iMonto) + Number(varPropina);
 			varPagoByPeople = iMonto / iCant;
-
-			/*Output Data*/
-			this.gblVar.outTotal = varPagoTotal;
-			this.gblVar.outByPeople = varPagoByPeople;
-			this.gblVar.outPropina = varPropina;
-			this.gblVar.outByPeopleTip = varBypeople;
-		}
+			//#region Output Data
+				return {
+					outPropina: varPropina,
+					outByPeopleTip: varBypeople,
+					outTotal: varPagoTotal,
+					outByPeople: varPagoByPeople
+				};
+			//#endregion
 	}
  	advanceCalc(iRange: number, iSelec: number) {
 		let percentData: number = iRange/100; let ppCount_: number = 0;
@@ -52,7 +39,7 @@ export class CalculatorService {
 				//#region Data Record
 					//#region Parcial
 						ppParARR.amount = amount_; 
-						ppParARR.tip = Number(amount_*.percentData); 
+						//ppParARR.tip = Number(amount_*.percentData); 
 						ppParARR.total = (Number(amount_) + Number(ppParARR.tip));
 					//Total Parcial
 						parTIP = Number(Number(parTIP) + Number(amount_*percentData));
@@ -84,6 +71,5 @@ export class CalculatorService {
 				TipEqDiv: (parTIP/ppCount_)
 			};
 		//#endregion
-		return { parcial: this.gblVar.ppParARR, equal: this.gblVar.ppEqARR };
 	}
 }

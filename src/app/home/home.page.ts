@@ -2,20 +2,23 @@ import { Component } from '@angular/core';
 import { NavController, AlertController, ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { defaultLanguage } from '../../const/languanges/languages.constant';
+import { CalculatorService } from '../calculator.service';
 
 @Component({ selector: 'app-home', templateUrl: 'home.page.html', styleUrls: ['home.page.scss'] })
 export class HomePage {
 	//#region Vars
-	outPropina: number = 0;
-	outByPeopleTip: number = 0;
-	outIdiom: string = null;
-	valQuality: string = null;
-	dtQuality: number = 0;
-	rangeValue: number = 50;
-	outTotal: number = 0;
-	outByPeople: number = 0;
+		outIdiom: string = null;
+		valQuality: string = null;
+		dtQuality: number = 0;
+		rangeValue: number = 50;
+		dataOut = {
+			outPropina: 0,
+			outByPeopleTip: 0,
+			outTotal: 0,
+			outByPeople: 0,
+		}
 	//#endregion
-	constructor(public navCtrl: NavController, public alertCtrl: AlertController, public toastCtrl: ToastController, public translate: TranslateService) {  }
+	constructor(public navCtrl: NavController, public alertCtrl: AlertController, public toastCtrl: ToastController, public translate: TranslateService, private calc: CalculatorService) {  }
 	/*Fns*/
 	ionViewWillEnter() {
 		if (this.translate.getBrowserLang() !== undefined) {
@@ -38,34 +41,20 @@ export class HomePage {
 		await toaster.present();
 	}
 	mathProp(iMonto: number, iCant: number, iRange: number, iSelec: number) {
-		let varPropina: number = 0;
-		let varBypeople: number = 0;
-		let varPagoTotal: number = 0;
-		let varPagoByPeople: number = 0;
-		if ((iMonto < 1 && String(iMonto) != "") || (iCant < 1 && String(iCant) != "")) {
-			this.translate.get('TST.MSGMISS').subscribe((trText: string) => { this.showToaster(trText); });
-		} else if (String(iMonto) == "" || String(iCant) == "" || iSelec == null) {
-			this.translate.get('ALRT.TTMISS').subscribe((trTitle: string) => {
-				this.translate.get('ALRT.MSGMISS').subscribe((trMsg: string) => {
-					this.translate.get('ALRT.BTNCLOSE').subscribe((trBtn: string) => {
-						this.showAlert(trTitle, trMsg, trBtn);
-					})
-				})
-			})
-		} else {
-			let percentData = iRange;
-			if (iSelec != -1) { percentData = iSelec; }
-			varPropina = iMonto / 100 * percentData;
-			varBypeople = varPropina / iCant;
-			varPagoTotal = Number(iMonto) + Number(varPropina);
-			varPagoByPeople = iMonto / iCant;
-
-			/*Output Data*/
-			this.outTotal = varPagoTotal;
-			this.outByPeople = varPagoByPeople;
-			this.outPropina = varPropina;
-			this.outByPeopleTip = varBypeople;
-		}
+		this.dataOut = this.calc.classicMode(iMonto, iCant, iRange, iSelec);
+		// if ((iMonto < 1 && String(iMonto) != "") || (iCant < 1 && String(iCant) != "")) {
+		// 	this.translate.get('TST.MSGMISS').subscribe((trText: string) => { this.showToaster(trText); });
+		// } else if (String(iMonto) == "" || String(iCant) == "" || iSelec == null) {
+		// 	this.translate.get('ALRT.TTMISS').subscribe((trTitle: string) => {
+		// 		this.translate.get('ALRT.MSGMISS').subscribe((trMsg: string) => {
+		// 			this.translate.get('ALRT.BTNCLOSE').subscribe((trBtn: string) => {
+		// 				this.showAlert(trTitle, trMsg, trBtn);
+		// 			})
+		// 		})
+		// 	})
+		// } else {
+		// 
+		// }
 	}
 	CheckCant(vCant: number) { if (vCant < 1 && String(vCant) != "") { this.translate.get('TST.MSGMISS').subscribe((trText: string) => { this.showToaster(trText); }); } }
 }

@@ -20,11 +20,11 @@
             <ion-label size="medium" color="primary" style="padding-left:5px;" id="selCalidad">{{'HM.TXT.TXTQUAL'|translate}}:</ion-label>
             <ion-label *ngIf="valQuality=='-1'" style="padding-left: 45px;">{{rangeValue}}</ion-label>
             <ion-select [(ngModel)]="valQuality" placeholder="{{'HM.PH.PSLCT'|translate}}" interface="action-sheet">
-                <ion-select-option value="5"> &#x2605;&#x2606;&#x2606;&#x2606;&#x2606;(5%)</ion-select-option>
-                <ion-select-option value="10">&#x2605;&#x2605;&#x2606;&#x2606;&#x2606;(10%)</ion-select-option>
-                <ion-select-option value="15">&#x2605;&#x2605;&#x2605;&#x2606;&#x2606;(15%)</ion-select-option>
-                <ion-select-option value="20">&#x2605;&#x2605;&#x2605;&#x2605;&#x2606;(20%)</ion-select-option>
-                <ion-select-option value="25">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;(25%)</ion-select-option>
+                <ion-select-option value="0.05"> &#x2605;&#x2606;&#x2606;&#x2606;&#x2606;(5%)</ion-select-option>
+                <ion-select-option value="0.10">&#x2605;&#x2605;&#x2606;&#x2606;&#x2606;(10%)</ion-select-option>
+                <ion-select-option value="0.15">&#x2605;&#x2605;&#x2605;&#x2606;&#x2606;(15%)</ion-select-option>
+                <ion-select-option value="0.20">&#x2605;&#x2605;&#x2605;&#x2605;&#x2606;(20%)</ion-select-option>
+                <ion-select-option value="0.25">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;(25%)</ion-select-option>
                 <ion-select-option value="-1">{{'HM.SLCT.OP6'|translate}}</ion-select-option>
             </ion-select>
         </ion-item>
@@ -44,7 +44,7 @@
                 <ion-label class="dataOut" color="primary">{{'HM.TXT.TXTOUTTTL' | translate}}: </ion-label>
             </ion-col>
             <ion-col stacked>
-                <ion-label>$ {{outTotal | number: '.2-2'}}</ion-label>
+                <ion-label>$ {{dataOut.outTotal | number: '.2-2'}}</ion-label>
             </ion-col>
         </ion-row>
         <ion-row style="background-color: #f4f4f4;">
@@ -52,7 +52,7 @@
                 <ion-label class="dataOut" color="primary">{{'HM.TXT.TXTOUTPP' | translate}}:</ion-label>
             </ion-col>
             <ion-col stacked>
-                <ion-label>$ {{outPropina | number: '.2-2'}}</ion-label>
+                <ion-label>$ {{dataOut.outPropina | number: '.2-2'}}</ion-label>
             </ion-col>
         </ion-row>
         <ion-row style="background-color: #ffe2e2;">
@@ -60,7 +60,7 @@
                 <ion-label class="dataOut" color="danger">{{'HM.TXT.TXTOUTBPP' | translate}}: </ion-label>
             </ion-col>
             <ion-col stacked>
-                <ion-label>$ {{outByPeople | number: '.2-2'}}</ion-label>
+                <ion-label>$ {{dataOut.outByPeople | number: '.2-2'}}</ion-label>
             </ion-col>
         </ion-row>
         <ion-row style="background-color: #ffe2e2;">
@@ -68,7 +68,7 @@
                 <ion-label class="dataOut" color="danger">{{'HM.TXT.TXTOUTBPPTIP' | translate}}: </ion-label>
             </ion-col>
             <ion-col stacked>
-                <ion-label>$ {{outByPeopleTip | number: '.2-2'}}</ion-label>
+                <ion-label>$ {{dataOut.outByPeopleTip | number: '.2-2'}}</ion-label>
             </ion-col>
         </ion-row>
     </ion-grid>
