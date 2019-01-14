@@ -3,6 +3,7 @@ import { NavController, AlertController } from '@ionic/angular';
 import { GlobalVarsService } from '../global-vars.service';
 import { tPerson, tPPPar, tPPEq, tParData, tEqData } from '../../const/variables.components';
 import { CalculatorService } from '../calculator.service';
+import { ErrorMSGService } from '../error-msg.service';
 
 @Component({ selector: 'app-advance', templateUrl: 'advance.page.html', styleUrls: ['advance.page.scss'] })
 export class AdvancePage {
@@ -25,7 +26,7 @@ export class AdvancePage {
 			parcialData: tParData;
 		//#endregion
 	//#endregion
-	constructor(public navCtrl: NavController, private alertCtrl: AlertController, private glbVar: GlobalVarsService, private calc: CalculatorService) {  }
+	constructor(public navCtrl: NavController, private alertCtrl: AlertController, private glbVar: GlobalVarsService, private calc: CalculatorService, private alertSrvce: ErrorMSGService) {  }
 	ionViewWillEnter() { this.readData(); }
 	//#region pplFNs
 		async addPer() {
@@ -56,14 +57,12 @@ export class AdvancePage {
 		rmPer(id: number) { this.ppArr.splice(id, 1); this.saveData(); }
 		notMe(id: number) { if(id != 0) { return false; } return true; }
 	//#endregion
-	calculate(iRange: number, iSelec: number) {
-		if(this.itsComplete(iSelec).length < 1) { let m_data = this.calc.advanceCalc(iRange, iSelec); }
-	}
-	itsComplete(iSelec: number): Array<{ code_: string; }> {
-		let errArr: Array<{ code_: string; }> = new Array(0);
-		if(iSelec == null) { errArr.push({ code_: 'ExTipPor' }); }
-		if(this.glbVar.ppArr[0].data.length < 1 && this.glbVar.ppArr.length < 2) { errArr.push({ code_: 'ExAMNoMeData' }); }
-		return errArr;
+	calculate(iRange: number, iSelec: number) { if(this.itsComplete(iSelec) < 1) { let m_data = this.calc.advanceCalc(iRange, iSelec); } }
+	itsComplete(iSelec: number): number {
+		let errCount: number = 0;
+		if(iSelec == null) { this.alertSrvce.showAlertCtrl('ExTipPor'); errCount++; }
+		if(this.glbVar.ppArr[0].data.length < 1 && this.glbVar.ppArr.length < 2) { this.alertSrvce.showAlertCtrl('ExAMNoMeData'); errCount++; }
+		return errCount;
 	}
 	close() { 
 		this.notCalculated = true;

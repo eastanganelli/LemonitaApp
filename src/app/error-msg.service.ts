@@ -8,12 +8,12 @@ export class ErrorMSGService {
 	showAlertCtrl(errorCode: string) {
 		switch(errorCode) {
 			case 'ExCMMnt': {
-
+				//this.translate.get('TST.MSGMISS').subscribe((trText: string) => { this.showToaster(trText); });
 			}
 			case 'ExCMCntPpl': {
 				
 			}
-			case 'Ex': {
+			case 'ExAMNoMeData': {
 				
 			}
 			case 'ExTipPor': {

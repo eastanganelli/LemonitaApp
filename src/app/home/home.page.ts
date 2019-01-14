@@ -3,6 +3,7 @@ import { NavController, AlertController, ToastController } from '@ionic/angular'
 import { TranslateService } from '@ngx-translate/core';
 import { defaultLanguage } from '../../const/languanges/languages.constant';
 import { CalculatorService } from '../calculator.service';
+import { GlobalVarsService } from '../global-vars.service';
 
 @Component({ selector: 'app-home', templateUrl: 'home.page.html', styleUrls: ['home.page.scss'] })
 export class HomePage {
@@ -18,18 +19,11 @@ export class HomePage {
 			outByPeople: 0,
 		}
 	//#endregion
-	constructor(public navCtrl: NavController, public alertCtrl: AlertController, public toastCtrl: ToastController, public translate: TranslateService, private calc: CalculatorService) {  }
+	constructor(public navCtrl: NavController, public alertCtrl: AlertController, public toastCtrl: ToastController, public translate: TranslateService, private calc: CalculatorService, private gblVar: GlobalVarsService) {  }
 	/*Fns*/
-	ionViewWillEnter() {
-		if (this.translate.getBrowserLang() !== undefined) {
-			let deviceLang = this.translate.getBrowserLang();
-			if (deviceLang === 'ca' || deviceLang === 'en' || deviceLang === 'es' || deviceLang === 'de' || deviceLang === 'pt' || deviceLang === 'fr' || deviceLang === 'it') {
-				this.translate.use(this.translate.getBrowserLang());
-			} else { this.translate.use(defaultLanguage); }
-		} else {
-			this.translate.setDefaultLang(defaultLanguage);
-			this.translate.use(defaultLanguage);
-		}
+	async ionViewWillEnter() {
+		await this.translate.setDefaultLang(this.gblVar.getLanguague());
+		await this.translate.use(this.gblVar.getLanguague());
 	}
 	/*MsgControllers*/
 	async showAlert(vTitle: string, vSubtitle: string, vButton: string) {

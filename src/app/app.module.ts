@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -21,6 +21,7 @@ export function createTranslateLoader(http: HttpClient) { return new TranslateHt
 		BrowserModule, 
 		IonicModule.forRoot(), 
 		AppRoutingModule, 
+		HttpClientModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,

@@ -4,6 +4,7 @@ import { tHistory, tPerson, tPPPar, tPPEq, tParData, tEqData } from '../const/va
 @Injectable({ providedIn: 'root' })
 export class GlobalVarsService {
 	//#region Advance
+		AppLanguague: string = null;
 		//#region variablesGlobales
 			tempData: any = null;
 			history: Array<{ tHistory }> = new Array(0);
@@ -28,6 +29,8 @@ export class GlobalVarsService {
 		outByPeople: number = 0;
 	//#endregion
 	constructor() { }
+	setLanguague(Lang_: string) { this.AppLanguague = Lang_; }
+	getLanguague(): string { return this.AppLanguague; }
 	readCache() { console.log(JSON.parse(localStorage.getItem('DatosCache'))); return JSON.parse(localStorage.getItem('DatosCache')); }
 	writeCache(in_: Array<tPerson>) { this.tempData = localStorage.setItem('DatosCache', JSON.stringify(in_)); }
 	clearCache(in_: Array<tPerson>) { this.tempData = localStorage.setItem('DatosCache', JSON.stringify(in_)); }
