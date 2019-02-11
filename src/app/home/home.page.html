@@ -18,7 +18,7 @@
         </ion-item>
         <ion-item>
             <ion-label size="medium" color="primary" style="padding-left:5px;" id="selCalidad">{{'HM.TXT.TXTQUAL'|translate}}:</ion-label>
-            <ion-label *ngIf="valQuality=='-1'" style="padding-left: 45px;">{{rangeValue}}</ion-label>
+            <ion-label *ngIf="valQuality=='-1'" style="padding-left: 45px;">{{rangeValue.value}}</ion-label>
             <ion-select [(ngModel)]="valQuality" placeholder="{{'HM.PH.PSLCT'|translate}}" interface="action-sheet">
                 <ion-select-option value="0.05"> &#x2605;&#x2606;&#x2606;&#x2606;&#x2606;(5%)</ion-select-option>
                 <ion-select-option value="0.10">&#x2605;&#x2605;&#x2606;&#x2606;&#x2606;(10%)</ion-select-option>
@@ -29,7 +29,7 @@
             </ion-select>
         </ion-item>
         <ion-item *ngIf="valQuality=='-1'">
-            <ion-range min="5" max="100" snaps="true" pin="true" [(ngModel)]="rangeValue">
+            <ion-range min="5" max="100" snaps="true" pin="true" #rangeValue>
                 <ion-icon range="50"></ion-icon>
             </ion-range>
         </ion-item>

@@ -8,15 +8,17 @@ import { GlobalVarsService } from '../global-vars.service';
 @Component({ selector: 'app-home', templateUrl: 'home.page.html', styleUrls: ['home.page.scss'] })
 export class HomePage {
 	//#region Vars
-		outIdiom: string = null;
-		valQuality: string = null;
-		dtQuality: number = 0;
-		rangeValue: number = 50;
-		dataOut = {
+		dataIn: { iMonto: number, iCant: number, iRange: number, iSelec: number } = {
+			iMonto: 0, 
+			iCant: 0, 
+			iRange: 0, 
+			iSelec: 0
+		}
+		dataOut: { outPropina: number, outByPeopleTip: number, outTotal: number, outByPeople: number } = {
 			outPropina: 0,
 			outByPeopleTip: 0,
 			outTotal: 0,
-			outByPeople: 0,
+			outByPeople: 0
 		}
 	//#endregion
 	constructor(public navCtrl: NavController, public alertCtrl: AlertController, public toastCtrl: ToastController, public translate: TranslateService, private calc: CalculatorService, private gblVar: GlobalVarsService) {  }
