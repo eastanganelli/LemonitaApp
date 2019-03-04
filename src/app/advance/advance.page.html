@@ -1,7 +1,7 @@
 <ion-content padding>
     <div *ngIf="notCalculated">
         <ion-list>
-            <ion-item-sliding *ngFor="let pp_ of ppArr; let i = index">
+            <ion-item-sliding *ngFor="let pp_ of ppArr.data_; let i = index">
                 <ion-item (click)="openPer(i, pp_)">{{pp_.name_}}</ion-item>
                 <ion-item-options side="end">
                     <ion-item-option (click)="viewPer(i)">VIEW</ion-item-option>

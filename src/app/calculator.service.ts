@@ -24,17 +24,17 @@ export class CalculatorService {
 			//#endregion
 	}
  	advanceCalc(iRange: number, iSelec: number) {
+		//#region Vars
 		let percentData: number = iRange/100; let ppCount_: number = 0;
+		let ppParARR: { name: string; amount: number; tip: number; total: number; } = { name: null, amount: 0, tip: 0, total: 0 };
+		let ppEqARR: { name: string; total: number; } = { name: null, total: 0 };
+		let amount_: number = 0;
+		//#endregion
 		if(iSelec != (-1)) { percentData = iSelec; }
 		let allAmount: number = 0/*, eqTIP: number = 0*/, parTIP: number = 0/*, eqTotal: number = 0, parTotal: number = 0*/;
 		for(let pp_ of this.gblVar.ppArr) {
 			if(pp_.data.length > 0) {
 				ppCount_++;
-				//#region Vars
-				let ppParARR: { name: string; amount: number; tip: number; total: number; } = { name: pp_.name_, amount: 0, tip: 0, total: 0 };
-				let ppEqARR: { name: string; total: number; } = { name: pp_.name_, total: 0 };
-				let amount_: number = 0;
-				//#endregion
 				for(let csmp_ of pp_.data) { amount_ = Number(Number(amount_) + Number(csmp_.price)); }
 				//#region Data Record
 					//#region Parcial
@@ -56,20 +56,11 @@ export class CalculatorService {
 			} else { this.gblVar.usersNodata = true; }
 		} 
 		//#region Equal Total
-			this.gblVar.equalData = { 
-				totalAmount: allAmount, 
-				totalTip: Number(allAmount*percentData), 
-				totalTipDiv: ((allAmount*percentData)/ppCount_), 
-				total_: (Number(allAmount) + Number(allAmount*percentData)) 
-			};
+			this.gblVar.equalData = { totalAmount: allAmount, totalTip: Number(allAmount*percentData), totalTipDiv: ((allAmount*percentData)/ppCount_),  total_: (Number(allAmount) + Number(allAmount*percentData)) };
 		//#endregion
 		//#region ParTotal
-			this.gblVar.parcialData = { 
-				totalAmount: allAmount, 
-				totalTip: parTIP, 
-				total_: (allAmount + parTIP),
-				TipEqDiv: (parTIP/ppCount_)
-			};
+			this.gblVar.parcialData = { totalAmount: allAmount,  totalTip: parTIP,  total_: (allAmount + parTIP), TipEqDiv: (parTIP/ppCount_) };
 		//#endregion
+		return { ppEq: ppEqARR, ppPar: ppParARR };
 	}
 }

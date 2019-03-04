@@ -32,8 +32,8 @@ export class GlobalVarsService {
 	setLanguague(Lang_: string) { this.AppLanguague = Lang_; }
 	getLanguague(): string { return this.AppLanguague; }
 	readCache() { console.log(JSON.parse(localStorage.getItem('DatosCache'))); return JSON.parse(localStorage.getItem('DatosCache')); }
-	writeCache(in_: Array<tPerson>) { this.tempData = localStorage.setItem('DatosCache', JSON.stringify(in_)); }
-	clearCache(in_: Array<tPerson>) { this.tempData = localStorage.setItem('DatosCache', JSON.stringify(in_)); }
+	writeCache(in_: tHistory): any { this.tempData = localStorage.setItem('DatosCache', JSON.stringify(in_)); }
+	clearCache(in_: tHistory): any { this.tempData = localStorage.setItem('DatosCache', JSON.stringify(in_)); }
 	readHistory() { return this.history; }
 	writeHistory(in_: tHistory) {
 

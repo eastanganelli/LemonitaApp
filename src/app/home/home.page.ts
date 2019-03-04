@@ -36,21 +36,6 @@ export class HomePage {
 		var toaster = await this.toastCtrl.create({ message: vString, position: 'bottom', duration: 2500 });
 		await toaster.present();
 	}
-	mathProp(iMonto: number, iCant: number, iRange: number, iSelec: number) {
-		this.dataOut = this.calc.classicMode(iMonto, iCant, iRange, iSelec);
-		// if ((iMonto < 1 && String(iMonto) != "") || (iCant < 1 && String(iCant) != "")) {
-		// 	this.translate.get('TST.MSGMISS').subscribe((trText: string) => { this.showToaster(trText); });
-		// } else if (String(iMonto) == "" || String(iCant) == "" || iSelec == null) {
-		// 	this.translate.get('ALRT.TTMISS').subscribe((trTitle: string) => {
-		// 		this.translate.get('ALRT.MSGMISS').subscribe((trMsg: string) => {
-		// 			this.translate.get('ALRT.BTNCLOSE').subscribe((trBtn: string) => {
-		// 				this.showAlert(trTitle, trMsg, trBtn);
-		// 			})
-		// 		})
-		// 	})
-		// } else {
-		// 
-		// }
-	}
+	mathProp(iMonto: number, iCant: number, iRange: number, iSelec: number) { this.dataOut = this.calc.classicMode(iMonto, iCant, iRange, iSelec); }
 	CheckCant(vCant: number) { if (vCant < 1 && String(vCant) != "") { this.translate.get('TST.MSGMISS').subscribe((trText: string) => { this.showToaster(trText); }); } }
 }
