@@ -11,12 +11,13 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ModalItemsUserComponent } from './modal-items-user/modal-items-user.component';
 
 export function createTranslateLoader(http: HttpClient) { return new TranslateHttpLoader(http, '../assets/i18n/', '.json'); }
 
 @NgModule({
-	declarations: [AppComponent],
-	entryComponents: [],
+	declarations: [AppComponent, ModalItemsUserComponent],
+	entryComponents: [ModalItemsUserComponent],
 	imports: [
 		BrowserModule, 
 		IonicModule.forRoot(), 

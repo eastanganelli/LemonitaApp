@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, ModalController } from '@ionic/angular';
 import { GlobalVarsService } from '../global-vars.service';
-import { tPPPar, tPPEq, tParData, tEqData, tCache, tPerson } from '../../const/variables.components';
+import { tPPPar, tPPEq, tCache, tPerson } from '../../const/variables.components';
 import { CalculatorService } from '../calculator.service';
 import { ErrorMSGService } from '../error-msg.service';
+import { ModalItemsUserComponent } from '../modal-items-user/modal-items-user.component';
 
 @Component({ selector: 'app-advance', templateUrl: 'advance.page.html', styleUrls: ['advance.page.scss'] })
 export class AdvancePage {
@@ -21,7 +22,7 @@ export class AdvancePage {
 			tipData_:   	string = 'Equal_';
 		//#endregion
 	//#endregion
-	constructor(public navCtrl: NavController, private alertCtrl: AlertController, private glbVar: GlobalVarsService, private calc: CalculatorService, private alertSrvce: ErrorMSGService) {  }
+	constructor(public navCtrl: NavController, private alertCtrl: AlertController, private modalCtrl: ModalController, private glbVar: GlobalVarsService, private calc: CalculatorService, private alertSrvce: ErrorMSGService) {  }
 	ionViewWillEnter() { this.readData(); }
 	//#region pplFNs
 		async addPer() {
@@ -31,22 +32,17 @@ export class AdvancePage {
 				buttons: [ { text: 'Cancel' }, { text: 'Add', role: 'add', handler: data => { this.ppArr.personas.push({ name_: data.nameIN, data: new Array(0) } ); this.saveData(); } } ]
 			}); userpop.present();
 		}
-		async openPer(id: number) {
+		/* async openPer(id: number) {
 			let addpop = await this.alertCtrl.create({
 				header: 'Consumo',
 				inputs: [{ name: 'itemIN', placeholder: 'Pedido', type: 'text' }, { name: 'precioIN', placeholder: 'Precio', type: 'number' }],
 				buttons: [ { text: 'Cancel' }, { text: 'Add', role: 'add', handler: data => { this.ppArr.personas[id].data.push({name: data.itemIN, count: 1, price: data.precioIN}); this.saveData(); } } ]
 			}); addpop.present();
-		}
-		async viewPer(id: number) {
-			let viewpop_: any, arrBtns: Array<any> = [{ text: "Cancel" }] ;
-			if(this.ppArr.personas[id].data.length > 0) {
-				let arrInputs: Array<any> = new Array(0);
-				let i = 0; for(let item_ of this.ppArr.personas[id].data) { arrInputs.push({ type: 'checkbox', label: item_.name + ' $' + item_.price, value: i.toString(), checked: false}); i++; }
-				arrBtns.push( { text: 'Remove', role: 'rm', handler: data => { if(data.length > 0) { for(let i = data.length; i > 0; i--) { this.ppArr.personas[id].data.splice(data, 1); this.saveData(); } } } } );
-				viewpop_ = await this.alertCtrl.create( { header: this.ppArr.personas[id].name_, inputs: arrInputs, buttons: arrBtns } ); 			
-			} else { viewpop_ = await this.alertCtrl.create({header: this.ppArr.personas[id].name_, message: 'No hay Insumos', buttons: arrBtns}); } 
-			await viewpop_.present();
+		} */
+		async openPer(id_: number) {
+			const modalItemByUser = await this.modalCtrl.create({ component: ModalItemsUserComponent, componentProps: { userID: id_, tipo_: 'modList' } });
+			modalItemByUser.onDidDismiss().then(() => { this.readData(); });
+			await modalItemByUser.present();
 		}
 		rmPer(id: number) { this.ppArr.personas.splice(id, 1); this.saveData(); }
 		notMe(id: number) { if(id != 0) { return false; } return true; }
@@ -60,7 +56,6 @@ export class AdvancePage {
 		}
 		close() { 
 			this.notCalculated = true;
-			this.usersNodata   = false;
 			this.ppEqARR 	   = new Array(0);
 			this.ppParARR 	   = new Array(0);
 		} 

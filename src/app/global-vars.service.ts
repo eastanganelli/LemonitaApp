@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { tHistory, tPerson, tPPPar, tPPEq, tParData, tEqData, tCache } from '../const/variables.components';
+import { tHistory, tPPPar, tPPEq, tParData, tEqData, tCache, tItem } from '../const/variables.components';
 
 @Injectable({ providedIn: 'root' })
 export class GlobalVarsService {
@@ -32,9 +32,8 @@ export class GlobalVarsService {
 	setLanguague(Lang_: string) { this.AppLanguague = Lang_; }
 	getLanguague(): string  	{ return this.AppLanguague; }
 	readCache(): tCache     	{ this.tempData = JSON.parse(localStorage.getItem('DatosCache')); this.CachePpl =this.tempData; return this.tempData; }
-	writeCache(in_: tCache) 	{ this.tempData = localStorage.setItem('DatosCache', JSON.stringify(in_)); this.CachePpl = in_; }
+	writeCache(in_: tCache) 	{ localStorage.setItem('DatosCache', JSON.stringify(in_)); this.CachePpl = in_; }
+	updateCache(id_: number, data_: Array<tItem>) { this.CachePpl.personas[id_].data = data_; this.writeCache(this.CachePpl); }
 	readHistory() 				{ return this.history; }
-	writeHistory(in_: tHistory) {
-
-	}
+	writeHistory(in_: tHistory) {  }
 }

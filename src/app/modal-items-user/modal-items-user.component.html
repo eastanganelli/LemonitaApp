@@ -1,0 +1,44 @@
+<ion-content padding>
+	<div *ngIf="mod_ == 'modList'">
+		<ion-grid>
+			<ion-row justify-content-center>
+				<ion-col size="2">ITEM</ion-col>
+				<ion-col size="3">CANTIDAD</ion-col>
+				<ion-col size="3">PRECIO</ion-col>
+				<ion-col size="2">TOTAL</ion-col>
+				<ion-col size="2"></ion-col>
+			</ion-row>
+			<ion-row *ngFor="let item_ of myItems; let i = index">
+				<ion-col size="2"><p>{{item_.name}}</p></ion-col>
+				<ion-col size="1"><ion-button size="small" (click)="decremental(i)" fill="clear" style="float: right"><ion-icon name="remove-circle"></ion-icon></ion-button></ion-col>
+				<ion-col size="1"><p style="text-align: center">{{item_.count}}</p></ion-col>
+				<ion-col size="1"><ion-button size="small" (click)="incremental(i)" fill="clear" style="float: left"><ion-icon name="add-circle"></ion-icon></ion-button></ion-col>
+				<ion-col size="3"><p style="text-align: center">{{item_.price}}</p></ion-col>
+				<ion-col size="2"><p style="text-align: center">{{priceXcount(item_.price, item_.count)}}</p></ion-col>
+				<ion-col size="2"><ion-button (click)="itemRemove(i)" color="danger" size="small" shape="round" fill="outline"><ion-icon name="trash"></ion-icon></ion-button></ion-col>
+			</ion-row>
+		</ion-grid>
+		<ion-row>
+			<ion-col><ion-input #iProducto type="text" clearInput="true" placeholder="Producto"></ion-input></ion-col>
+			<ion-col><ion-input #iPrecio type="text" clearInput="true"   placeholder="Precio"></ion-input></ion-col>
+			<ion-col><ion-button expand="full" shape="round light" (click)="addProducto(iProducto.value, iPrecio.value)">ADD</ion-button></ion-col>	
+		</ion-row>
+	</div>
+	<div *ngIf="mod_ == 'viewList'">
+		<ion-grid>
+			<ion-row class="ion-align-self-center">
+				<ion-col size="2">ITEM</ion-col>
+				<ion-col size="3">CANTIDAD</ion-col>
+				<ion-col size="3">PRECIO</ion-col>
+				<ion-col size="2">TOTAL</ion-col>
+			</ion-row>
+			<ion-row *ngFor="let item_ of myItems" class="ion-align-self-center">
+				<ion-col size="3"><p>{{item_.name}}</p></ion-col>
+				<ion-col size="3"><p>{{item_.count}}</p></ion-col>
+				<ion-col size="3"><p align="center">{{item_.price}}</p></ion-col>
+				<ion-col size="3"><p align="center">{{priceXcount(item_.price, item_.count)}}</p></ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+</ion-content>
+<ion-footer><ion-tab-button (click)="meClose()" itemRemove></ion-tab-button></ion-footer>
