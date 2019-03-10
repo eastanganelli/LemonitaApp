@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
 import { HomePage } from '../home/home.page';
 import { AdvancePage } from '../advance/advance.page';
-import { Tab3Page } from '../history/tab3.page';
+import { HistoryPage } from '../history/history.page';
 
 const routes: Routes = [
 	{
@@ -29,7 +29,7 @@ const routes: Routes = [
 			{
 				path: 'tab3',
 				outlet: 'tab3',
-				component: Tab3Page
+				component: HistoryPage
 			}
 		]
 	}, {

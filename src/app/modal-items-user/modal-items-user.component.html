@@ -1,3 +1,8 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-button (click)="meClose()" itemRemove>Cerrar</ion-button>
+	</ion-toolbar>
+</ion-header>
 <ion-content padding>
 	<div *ngIf="mod_ == 'modList'">
 		<ion-grid>
@@ -19,8 +24,8 @@
 			</ion-row>
 		</ion-grid>
 		<ion-row>
-			<ion-col><ion-input #iProducto type="text" clearInput="true" placeholder="Producto"></ion-input></ion-col>
-			<ion-col><ion-input #iPrecio type="text" clearInput="true"   placeholder="Precio"></ion-input></ion-col>
+			<ion-col><ion-input id="iName"  #iProducto  type="text" placeholder="Producto" clearOnEdit="true"></ion-input></ion-col>
+			<ion-col><ion-input id="iPrice" #iPrecio    type="text" placeholder="Precio"   clearOnEdit="true"></ion-input></ion-col>
 			<ion-col><ion-button expand="full" shape="round light" (click)="addProducto(iProducto.value, iPrecio.value)">ADD</ion-button></ion-col>	
 		</ion-row>
 	</div>
@@ -41,4 +46,3 @@
 		</ion-grid>
 	</div>
 </ion-content>
-<ion-footer><ion-tab-button (click)="meClose()" itemRemove></ion-tab-button></ion-footer>

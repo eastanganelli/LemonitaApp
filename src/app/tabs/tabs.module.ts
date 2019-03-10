@@ -9,7 +9,7 @@ import { TabsPageRoutingModule } from './tabs.router.module';
 import { TabsPage } from './tabs.page';
 import { HomePageModule } from '../home/home.module';
 import { AdvancePageModule } from '../advance/advance.module';
-import { Tab3PageModule } from '../history/tab3.module';
+import { HistoryPageModule } from '../history/history.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from '../app.module';
@@ -25,7 +25,7 @@ import { createTranslateLoader } from '../app.module';
 		TabsPageRoutingModule,
 		HomePageModule,
 		AdvancePageModule,
-		Tab3PageModule
+		HistoryPageModule
 	],
 	declarations: [TabsPage]
 })
