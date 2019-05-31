@@ -23,3 +23,7 @@ export class AppComponent {
 		} else { this.gblVar.setLanguague(defaultLanguage); }
 	}
 }
+
+
+
+
