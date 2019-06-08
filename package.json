@@ -13,6 +13,7 @@
     },
     "private": true,
     "dependencies": {
+        "@angular-devkit/build-angular": "^0.12.4",
         "@angular/common": "~7.0.0",
         "@angular/core": "~7.0.0",
         "@angular/forms": "~7.0.0",
@@ -21,7 +22,7 @@
         "@angular/platform-browser-dynamic": "~7.0.0",
         "@angular/pwa": "^0.12.0-beta.1",
         "@angular/router": "~7.0.0",
-        "@capacitor/cli": "^1.0.0-beta.19",
+        "@capacitor/cli": "^1.0.0",
         "@capacitor/core": "1.0.0-beta.11",
         "@ionic-native/core": "5.0.0-beta.21",
         "@ionic-native/splash-screen": "5.0.0-beta.21",
@@ -45,7 +46,6 @@
     },
     "devDependencies": {
         "@angular-devkit/architect": "~0.10.0",
-        "@angular-devkit/build-angular": "^0.13.4",
         "@angular-devkit/core": "~7.0.0",
         "@angular-devkit/schematics": "~7.0.0",
         "@angular/cli": "^7.2.0-beta.1",
@@ -64,6 +64,7 @@
         "karma-coverage-istanbul-reporter": "~2.0.1",
         "karma-jasmine": "~1.1.2",
         "karma-jasmine-html-reporter": "^0.2.2",
+        "node-sass": "^4.12.0",
         "protractor": "~5.4.0",
         "ts-node": "~7.0.0",
         "tslint": "~5.11.0",

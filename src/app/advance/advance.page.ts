@@ -22,8 +22,8 @@ export class AdvancePage {
 			tipData_:   	string = 'Equal_';
 		//#endregion
 	//#endregion
-	constructor(public navCtrl: NavController, private alertCtrl: AlertController, private modalCtrl: ModalController, private glbVar: GlobalVarsService, private calc: CalculatorService, private alertSrvce: ErrorMSGService) {  }
-	ionViewWillEnter() { this.readData(); }
+	constructor(public navCtrl: NavController, private alertCtrl: AlertController, private modalCtrl: ModalController, private glbVar: GlobalVarsService, private calc: CalculatorService, private alertSrvce: ErrorMSGService) { this.readData(); }
+	//ionViewWillEnter() {  }
 	//#region pplFNs
 		async addPer() {
 			let userpop = await this.alertCtrl.create({
@@ -63,7 +63,7 @@ export class AdvancePage {
 	//#region cacheFNs
 		readData() { 
 			//#region Var
-				let temp_data 	= this.glbVar.readCache(); console.log(temp_data);
+				let temp_data 	= this.glbVar.readCache(); console.log("tiempo: " + temp_data.time_);
 				let sum 	  	= (temp_data.time_/1000) + 21600;
 				let actual_time = ((new Date()).getTime())/1000;
 			//#endregion
