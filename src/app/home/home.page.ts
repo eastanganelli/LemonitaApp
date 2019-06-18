@@ -11,7 +11,7 @@ export class HomePage {
 		dataIn: { iMonto: number, iCant: number, iRange: number, iSelec: number } = {
 			iMonto: 0, 
 			iCant: 0, 
-			iRange: 0, 
+			iRange: 50, 
 			iSelec: 0
 		}
 		dataOut: { outPropina: number, outByPeopleTip: number, outTotal: number, outByPeople: number } = {
@@ -36,6 +36,6 @@ export class HomePage {
 		var toaster = await this.toastCtrl.create({ message: vString, position: 'bottom', duration: 2500 });
 		await toaster.present();
 	}
-	mathProp(iMonto: number, iCant: number, iRange: number, iSelec: number) { this.dataOut = this.calc.classicMode(iMonto, iCant, iRange, iSelec); }
+	mathProp(iMonto: number, iCant: number, iRange: number, iSelec: number) { this.dataOut = this.calc.classicMode(iMonto, iCant, iRange/100, iSelec); }
 	CheckCant(vCant: number) { if (vCant < 1 && String(vCant) != "") { this.translate.get('TST.MSGMISS').subscribe((trText: string) => { this.showToaster(trText); }); } }
 }
