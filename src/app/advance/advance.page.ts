@@ -21,6 +21,9 @@ export class AdvancePage {
 			rangeValue: 	number = 50;
 			tipData_:   	string = 'Equal_';
 		//#endregion
+		//#region 
+			limTime: 		number = 21600000;
+		//#endregion
 	//#endregion
 	constructor(public navCtrl: NavController, private alertCtrl: AlertController, private modalCtrl: ModalController, private glbVar: GlobalVarsService, private calc: CalculatorService, private alertSrvce: ErrorMSGService) { /* this.readData(); */ }
 	ionViewWillEnter() { this.readData(); }
@@ -63,12 +66,11 @@ export class AdvancePage {
 	//#region cacheFNs
 		readData() { 
 			//#region Var
-				let temp_data 	= this.glbVar.readCache(); //console.log("tiempo: " + temp_data.time_);
-				let my_time 	  	= (temp_data.time_/1000);
-				let actual_time = ((new Date()).getTime())/1000 -21600;
+				const my_time 	  = this.glbVar.readCache().time_;
+				const actual_time = ((new Date()).getTime()) - this.limTime; //21600000
 			//#endregion
-			if(my_time > actual_time) { console.log(true); this.ppArr = temp_data; }
-			else { console.log(false); this.clearData(); }
+			if(my_time < actual_time) { this.clearData(); }
+			else { this.ppArr = this.glbVar.readCache(); }
 		}
 		saveData() { this.glbVar.writeCache(this.ppArr); }
 		clearData() {

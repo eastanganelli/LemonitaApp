@@ -30,7 +30,7 @@
         <ion-grid *ngIf="tipData_ == 'Equal_'">
             <ion-row>
                 <ion-col stacked size="4"><h4>Nombre</h4></ion-col>
-                <ion-col stacked size="8" justify-content-center><h4>Total</h4></ion-col>
+                <ion-col stacked size="8" justify-content-center><h2><ion-icon name="cash"></ion-icon></h2></ion-col>
             </ion-row><br>
             <ion-row *ngFor="let pp_ of this.glbVar.ppEqARR">
                 <ion-col stacked size="4">{{pp_.name}}</ion-col>
@@ -38,12 +38,12 @@
             </ion-row><br><br><br>
             <ion-row justify-content-center>
                 <ion-col stacked size="4"></ion-col>
-                <ion-col stacked size="3"><h5>Montos</h5></ion-col>
+                <ion-col stacked size="3"><h2><ion-icon name="cash"></ion-icon></h2></ion-col>
                 <ion-col stacked size="3"><h5>Propina</h5></ion-col>
-                <ion-col stacked size="2"><h5>Suma</h5></ion-col>
+                <ion-col stacked size="2"><h2><ion-icon name="card"></ion-icon></h2></ion-col>
             </ion-row>
             <ion-row align-items-center>
-                <ion-col stacked size="4"><h4>Total:</h4></ion-col>
+                <ion-col stacked size="4"><h4>&sum;</h4></ion-col>
                 <ion-col stacked size="3">{{this.glbVar.equalData.totalAmount|number:'.2-2'}}</ion-col>
                 <ion-col stacked size="3">{{this.glbVar.equalData.totalTip|number:'.2-2'}}</ion-col>
                 <ion-col stacked size="2">{{this.glbVar.equalData.total_|number:'.2-2'}}</ion-col>
@@ -53,9 +53,9 @@
         <ion-grid *ngIf="tipData_ == 'Parcial_'">
             <ion-row>
                 <ion-col stacked size="4"><h4>Nombre</h4></ion-col>
-                <ion-col stacked size="3"><h4>Monto</h4></ion-col>
+                <ion-col stacked size="3"><h2><ion-icon name="cash"></ion-icon></h2></ion-col>
                 <ion-col stacked size="3"><h4>Propina</h4></ion-col>
-                <ion-col stacked size="2"><h4>Total</h4></ion-col>
+                <ion-col stacked size="2"><h2><ion-icon name="card"></ion-icon></h2></ion-col>
             </ion-row><br>
             <ion-row *ngFor="let pp_ of this.glbVar.ppParARR">
                 <ion-col stacked size="4">{{pp_.name}}</ion-col>
@@ -63,14 +63,14 @@
                 <ion-col stacked size="3">{{pp_.tip|number:'.2-2'}}</ion-col>
                 <ion-col stacked size="2">{{pp_.total|number:'.2-2'}}</ion-col>
             </ion-row><br><br><br>
-            <ion-row justify-content-center>
+            <!-- <ion-row justify-content-center>
                 <ion-col stacked size="4"></ion-col>
                 <ion-col stacked size="3"><h4>Montos</h4></ion-col>
                 <ion-col stacked size="3"><h4>TIP</h4></ion-col>
-                <ion-col stacked size="2"><h4>Suma</h4></ion-col>
-            </ion-row>
+                <ion-col stacked size="2"><h4><ion-icon name="card"></ion-icon></h4></ion-col>
+            </ion-row> -->
             <ion-row align-items-center>
-                <ion-col stacked size="4"><h4>Total:</h4></ion-col>
+                <ion-col stacked size="4"><h4>&sum;</h4></ion-col>
                 <ion-col stacked size="3">{{this.glbVar.parcialData.totalAmount|number:'.2-2'}}</ion-col>
                 <ion-col stacked size="3">{{this.glbVar.parcialData.totalTip|number:'.2-2'}}</ion-col>
                 <ion-col stacked size="2">{{this.glbVar.parcialData.total_|number:'.2-2'}}</ion-col>
@@ -80,7 +80,7 @@
     </div>
 </ion-content>
 <ion-footer>
-    <ion-button full round light icon-end (click)="calculate(rangeValue, valQuality)" *ngIf="notCalculated"><ion-icon ios="logo-usd" md="logo-usd" name="cash">Calcular</ion-icon></ion-button>
+    <ion-button full round light icon-end (click)="calculate(rangeValue, valQuality)" *ngIf="notCalculated"><ion-icon name="calculator"></ion-icon></ion-button>
     <ion-grid *ngIf="!notCalculated">
         <ion-row>
             <ion-col size=6><ion-button full round>SAVE</ion-button></ion-col>
