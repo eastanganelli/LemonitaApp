@@ -13,13 +13,13 @@ export class ErrorMSGService {
 			case 'ExCMMnt': {
 				//this.translate.get('TST.MSGMISS').subscribe((trText: string) => { this.showToaster(trText); }); await myAlert.present();
 			}
-			case 'ExCMDataPpl': { myAlert = await this.alertCtrl.create({ header: "Error People", message: "Las personas no tienen datos cargados para calcular", buttons: [{ text: "Cerrar" }] }); await myAlert.present(); }
-			case 'ExAMNoMeData': {  }
-			case 'ExTipPor': { myAlert = await this.alertCtrl.create({ header: "Error Propina", message: "No se selecciona el porcentaje", buttons: [{ text: "Cerrar" }] }); await myAlert.present(); }
+			case 'ExCMDataPpl': { myAlert = await this.alertCtrl.create({ header: "Error People", message: "Las personas no tienen datos cargados para calcular", buttons: [{ text: "Cerrar" }] }); await myAlert.present(); break; }
+			case 'ExAMNoMeData': {  break; }
+			case 'ExTipPor': { myAlert = await this.alertCtrl.create({ header: "Error Propina", message: "No se selecciona el porcentaje", buttons: [{ text: "Cerrar" }] }); await myAlert.present(); break; }
 			// case 'Ex': {
 				
 			// }
-			case 'ExIUDecr' : { myAlert = await this.alertCtrl.create({ header: "Error Decremento", message: "No se puede desecrementar más", buttons: [{ text: "Cerrar" }] }); await myAlert.present(); }
+			case 'ExIUDecr' : { myAlert = await this.alertCtrl.create({ header: "Error Decremento", message: "No se puede desecrementar más", buttons: [{ text: "Cerrar" }] }); await myAlert.present(); break; }
 		}
 	}
 	itsComplete(iSelec: number) {

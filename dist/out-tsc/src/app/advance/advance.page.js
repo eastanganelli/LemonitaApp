@@ -70,9 +70,11 @@ var AdvancePage = /** @class */ (function () {
         this.valQuality = 0;
         this.rangeValue = 50;
         this.tipData_ = 'Equal_';
-        this.readData();
+        //#endregion
+        //#region 
+        this.limTime = 21600000;
     }
-    //ionViewWillEnter() {  }
+    AdvancePage.prototype.ionViewWillEnter = function () { this.readData(); };
     //#region pplFNs
     AdvancePage.prototype.addPer = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -126,7 +128,7 @@ var AdvancePage = /** @class */ (function () {
     //#region FN
     AdvancePage.prototype.calculate = function (iRange, iSelec) {
         if (this.alertSrvce.itsComplete(iSelec) == 0) {
-            var m_data = this.calc.advanceCalc(iRange, iSelec);
+            var m_data = this.calc.advanceCalc(iRange / 100, iSelec);
             this.notCalculated = false;
         }
     };
@@ -139,19 +141,15 @@ var AdvancePage = /** @class */ (function () {
     //#region cacheFNs
     AdvancePage.prototype.readData = function () {
         //#region Var
-        var temp_data = this.glbVar.readCache();
-        console.log("tiempo: " + temp_data.time_);
-        //let sum 	  	= (temp_data.time_/1000) + 21600;
-        var sum = (temp_data.time_ / 1000) + 216;
-        var actual_time = ((new Date()).getTime()) / 1000;
+        var my_time = this.glbVar.readCache().time_;
+        console.log(my_time);
+        var actual_time = ((new Date()).getTime()) - this.limTime; //21600000
         //#endregion
-        if (sum > actual_time) {
-            console.log(true);
-            this.ppArr = temp_data;
+        if (my_time < actual_time) {
+            this.clearData();
         }
         else {
-            console.log(false);
-            this.clearData();
+            this.ppArr = this.glbVar.readCache();
         }
     };
     AdvancePage.prototype.saveData = function () { this.glbVar.writeCache(this.ppArr); };

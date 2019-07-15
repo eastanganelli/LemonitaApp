@@ -60,7 +60,7 @@ var HomePage = /** @class */ (function () {
         this.dataIn = {
             iMonto: 0,
             iCant: 0,
-            iRange: 0,
+            iRange: 50,
             iSelec: 0
         };
         this.dataOut = {
@@ -119,7 +119,7 @@ var HomePage = /** @class */ (function () {
             });
         });
     };
-    HomePage.prototype.mathProp = function (iMonto, iCant, iRange, iSelec) { this.dataOut = this.calc.classicMode(iMonto, iCant, iRange, iSelec); };
+    HomePage.prototype.mathProp = function (iMonto, iCant, iRange, iSelec) { this.dataOut = this.calc.classicMode(iMonto, iCant, iRange / 100, iSelec); };
     HomePage.prototype.CheckCant = function (vCant) {
         var _this = this;
         if (vCant < 1 && String(vCant) != "") {

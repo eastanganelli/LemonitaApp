@@ -35,13 +35,6 @@ export class AdvancePage {
 				buttons: [ { text: 'Cancel' }, { text: 'Add', role: 'add', handler: data => { this.ppArr.personas.push({ name_: data.nameIN, data: new Array(0) } ); this.saveData(); } } ]
 			}); userpop.present();
 		}
-		/* async openPer(id: number) {
-			let addpop = await this.alertCtrl.create({
-				header: 'Consumo',
-				inputs: [{ name: 'itemIN', placeholder: 'Pedido', type: 'text' }, { name: 'precioIN', placeholder: 'Precio', type: 'number' }],
-				buttons: [ { text: 'Cancel' }, { text: 'Add', role: 'add', handler: data => { this.ppArr.personas[id].data.push({name: data.itemIN, count: 1, price: data.precioIN}); this.saveData(); } } ]
-			}); addpop.present();
-		} */
 		async openPer(id_: number) {
 			const modalItemByUser = await this.modalCtrl.create({ component: ModalItemsUserComponent, componentProps: { userID: id_, tipo_: 'modList' } });
 			modalItemByUser.onDidDismiss().then(() => { this.readData(); });
@@ -69,10 +62,10 @@ export class AdvancePage {
 				const my_time 	  = this.glbVar.readCache().time_;
 				const actual_time = ((new Date()).getTime()) - this.limTime; //21600000
 			//#endregion
-			if(my_time < actual_time) { this.clearData(); }
+			if(my_time < actual_time || my_time == null) { this.clearData(); }
 			else { this.ppArr = this.glbVar.readCache(); }
 		}
-		saveData() { this.glbVar.writeCache(this.ppArr); }
+		saveData() { this.glbVar.writeCache(this.ppArr); this.close(); this.clearData(); }
 		clearData() {
 			let aux_per: Array<tPerson> = new Array(0);
 			this.ppArr = { time_: (new Date()).getTime(), personas: aux_per };
