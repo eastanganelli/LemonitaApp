@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { GlobalVarsService } from '../global-vars.service';
 
-@Component({
-  selector: 'app-settings',
-  templateUrl: './settings.page.html',
-  styleUrls: ['./settings.page.scss'],
-})
-export class SettingsPage implements OnInit {
 
-  constructor() { }
+@Component({ selector: 'app-settings', templateUrl: 'settings.page.html', styleUrls: ['settings.page.scss'] })
+export class SettingsPage {
 
-  ngOnInit() {
-  }
-
+	constructor(public navCtrl: NavController) {  }
+	
 }

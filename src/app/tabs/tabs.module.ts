@@ -13,6 +13,7 @@ import { HistoryPageModule } from '../history/history.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from '../app.module';
+import { SettingsPageModule } from '../settings/settings.module';
 
 @NgModule({
 	imports: [
@@ -25,7 +26,8 @@ import { createTranslateLoader } from '../app.module';
 		TabsPageRoutingModule,
 		HomePageModule,
 		AdvancePageModule,
-		HistoryPageModule
+		HistoryPageModule,
+		SettingsPageModule
 	],
 	declarations: [TabsPage]
 })

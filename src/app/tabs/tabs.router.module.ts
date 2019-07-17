@@ -5,6 +5,7 @@ import { TabsPage } from './tabs.page';
 import { HomePage } from '../home/home.page';
 import { AdvancePage } from '../advance/advance.page';
 import { HistoryPage } from '../history/history.page';
+import { SettingsPage } from '../settings/settings.page';
 
 const routes: Routes = [
 	{
@@ -30,6 +31,11 @@ const routes: Routes = [
 				path: 'tab3',
 				outlet: 'tab3',
 				component: HistoryPage
+			},
+			{
+				path: 'tab4',
+				outlet: 'tab4',
+				component: SettingsPage
 			}
 		]
 	}, {
