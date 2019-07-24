@@ -25,7 +25,7 @@ export class AdvancePage {
 			limTime: 		number = 21600000;
 		//#endregion
 	//#endregion
-	constructor(public navCtrl: NavController, private alertCtrl: AlertController, private modalCtrl: ModalController, private glbVar: GlobalVarsService, private calc: CalculatorService, private alertSrvce: ErrorMSGService) { /* this.readData(); */ }
+	constructor(public navCtrl: NavController, private alertCtrl: AlertController, private modalCtrl: ModalController, public glbVar: GlobalVarsService, public calc: CalculatorService, private alertSrvce: ErrorMSGService) { /* this.readData(); */ }
 	ionViewWillEnter() { this.readData(); }
 	//#region pplFNs
 		async addPer() {
@@ -61,11 +61,13 @@ export class AdvancePage {
 			//#region Var
 				const my_time 	  = this.glbVar.readCache().time_;
 				const actual_time = ((new Date()).getTime()) - this.limTime; //21600000
+				//Hacer un Alert que pregunte si quiere guardar o borrar
 			//#endregion
 			if(my_time < actual_time || my_time == null) { this.clearData(); }
 			else { this.ppArr = this.glbVar.readCache(); }
+			this.ppArr = this.glbVar.readCache();
 		}
-		saveData() { this.glbVar.writeCache(this.ppArr); this.close(); this.clearData(); }
+		saveData() { this.glbVar.writeCache(this.ppArr); this.close(); }
 		clearData() {
 			let aux_per: Array<tPerson> = new Array(0);
 			this.ppArr = { time_: (new Date()).getTime(), personas: aux_per };

@@ -22,7 +22,7 @@
         </ion-item>
         <ion-item *ngIf="dataIn.iSelec=='-1'"><ion-range min="5" max="100" snaps="true" pin="true" [(ngModel)]="dataIn.iRange"><ion-icon range="50"></ion-icon></ion-range></ion-item>
     </ion-list>
-    <ion-button expand="full" shape="round light" slots="icon-only end" (click)="mathProp(ingMonto.value, ingCant.value, dataIn.iRange, dataIn.iSelec)">{{'HM.BTNCALC'|translate}}<ion-icon ios="logo-usd" md="logo-usd" name="cash"></ion-icon></ion-button>
+    <ion-button expand="full" shape="round light" slots="icon-only end" (click)="mathProp(ingMonto.value, ingCant.value, dataIn.iRange, dataIn.iSelec)"><ion-icon name="logo-usd"></ion-icon><ion-icon name="logo-usd"></ion-icon>  {{'HM.BTNCALC'|translate}}</ion-button>
     <br>
     <ion-grid>
         <ion-row style="background-color: #f4f4f4;">
