@@ -1,0 +1,28 @@
+{
+   "HM": {
+     "TXT": {
+       "TXTMONTO": "Betrag",
+       "TXTPP": "Leute",
+       "TXTQUAL": "Qualität",
+       "TXTOUTPP": "Tipp TOTAL",
+       "TXTOUTBPP": "Tipp bei Person"
+     },
+     "PH": {
+       "PMONTO": "Betrag eingeben",
+       "PPP": "Betrag eingeben",
+       "PSLCT": "Auswahl der Servicequalität"
+     },
+     "SLCT": {
+       "OP6": "Angepasst"
+     },
+     "BTNCALC": "Berechnen"
+   },
+   "ALRT": {
+     "TTMISS": "VERMISST DATEN",
+     "MSGMISS": "Vervollständige die fehlenden Daten",
+     "BTNCLOSE": "SCHLIESSEN"
+   },
+   "TST": {
+     "MSGMISS": "Der Wert muss größer/gleich 1 sein!!"
+   }
+}

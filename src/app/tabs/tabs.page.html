@@ -1,10 +1,6 @@
 <ion-tabs>
-    <ion-tab tab="tab1"><ion-router-outlet name="tab1"></ion-router-outlet></ion-tab>
-    <ion-tab tab="tab2"><ion-router-outlet name="tab2"></ion-router-outlet></ion-tab>
-    <ion-tab tab="tab3"><ion-router-outlet name="tab3"></ion-router-outlet></ion-tab>
-    <ion-tab tab="tab4"><ion-router-outlet name="tab4"></ion-router-outlet></ion-tab>
     <ion-tab-bar slot="bottom">
-        <ion-tab-button *ngIf="classicMode" tab="tab1" href="/tabs/(tab1:tab1)">
+        <ion-tab-button *ngIf="!classicMode" tab="tab1" href="/tabs/(tab1:tab1)">
             <ion-icon name="calculator"></ion-icon>
             <ion-label>Calculadora</ion-label>
         </ion-tab-button>
