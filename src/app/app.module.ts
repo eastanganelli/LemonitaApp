@@ -1,25 +1,27 @@
-//#region Plugins
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-//#endregion
-//#region Pages
-import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
-import { HistoryPage } from './../pages/history/history';
-import { NewModePage } from './../pages/newmode/newmode';
-//#endregion
-export function createTranslateLoader(http: HttpClient) { return new TranslateHttpLoader(http, './assets/i18n/', '.json'); }
+
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { ModalItemsUserComponent } from './modal-items-user/modal-items-user.component';
+
+export function createTranslateLoader(http: HttpClient) { return new TranslateHttpLoader(http, '../assets/i18n/', '.json'); }
+
 @NgModule({
-	declarations: [MyApp, HomePage, TabsPage, NewModePage, HistoryPage],
+	declarations: [AppComponent, ModalItemsUserComponent],
+	entryComponents: [ModalItemsUserComponent],
 	imports: [
-		BrowserModule,
+		BrowserModule, 
+		IonicModule.forRoot(), 
+		AppRoutingModule, 
 		HttpClientModule,
 		TranslateModule.forRoot({
 			loader: {
@@ -27,22 +29,13 @@ export function createTranslateLoader(http: HttpClient) { return new TranslateHt
 				useFactory: (createTranslateLoader),
 				deps: [HttpClient]
 			}
-		}),
-		IonicModule.forRoot(MyApp)
-	],
-	bootstrap: [IonicApp],
-	entryComponents: [
-		MyApp,
-		HomePage,
-		TabsPage,
-		NewModePage,
-		HistoryPage
+		})
 	],
 	providers: [
 		StatusBar,
-		SplashScreen, {
-			provide: ErrorHandler,
-			useClass: IonicErrorHandler
-		}]
+		SplashScreen,
+		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }
