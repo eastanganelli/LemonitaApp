@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, AlertController, ModalController } from '@ionic/angular';
 import { GlobalVarsService } from '../global-vars.service';
 import { tPPPar, tPPEq, tCache, tPerson } from '../../const/variables.components';
+import { TranslateService } from '@ngx-translate/core';
 import { CalculatorService } from '../calculator.service';
 import { ErrorMSGService } from '../error-msg.service';
 import { ModalItemsUserComponent } from '../modal-items-user/modal-items-user.component';
@@ -25,8 +26,12 @@ export class AdvancePage {
 			limTime: 		number = 21600000;
 		//#endregion
 	//#endregion
-	constructor(public navCtrl: NavController, private alertCtrl: AlertController, private modalCtrl: ModalController, public glbVar: GlobalVarsService, public calc: CalculatorService, private alertSrvce: ErrorMSGService) { /* this.readData(); */ }
-	ionViewWillEnter() { this.readData(); }
+	constructor(public navCtrl: NavController, private alertCtrl: AlertController, private modalCtrl: ModalController, private translate: TranslateService, public gblVar: GlobalVarsService, public calc: CalculatorService, private alertSrvce: ErrorMSGService) { /* this.readData(); */ }
+	async ionViewWillEnter() { 
+		this.readData(); 
+		await this.translate.setDefaultLang(this.gblVar.getLanguague());
+		await this.translate.use(this.gblVar.getLanguague());
+	}
 	//#region pplFNs
 		async addPer() {
 			let userpop = await this.alertCtrl.create({
@@ -58,21 +63,21 @@ export class AdvancePage {
 	//#endregion
 	//#region cacheFNs
 		readData() { 
-			//#region Var
-				const my_time 	  = this.glbVar.readCache().time_;
-				const actual_time = ((new Date()).getTime()) - this.limTime; //21600000
-				//Hacer un Alert que pregunte si quiere guardar o borrar
-			//#endregion
-			if(my_time < actual_time || my_time == null) { this.clearData(); }
-			else { this.ppArr = this.glbVar.readCache(); }
-			this.ppArr = this.glbVar.readCache();
+			this.gblVar.readCache('DatosCache').then((data: tCache) => {
+				if(data != null) {
+					const actual_time = ((new Date()).getTime()) - this.limTime; //21600000
+					//Hacer un Alert que pregunte si quiere guardar o borrar
+					if(data.time_ < actual_time) { this.clearData(); }
+					else { this.ppArr = data; }				
+				} else { this.clearData(); }
+			});
 		}
-		saveData() { this.glbVar.writeCache(this.ppArr); this.close(); }
+		saveData() { this.gblVar.writeCache(this.ppArr, 'DatosCache'); this.close(); }
 		clearData() {
 			let aux_per: Array<tPerson> = new Array(0);
 			this.ppArr = { time_: (new Date()).getTime(), personas: aux_per };
 			this.ppArr.personas.push({ name_: 'Me', data: new Array(0) }),
-			this.glbVar.writeCache(this.ppArr);
+			this.gblVar.writeCache(this.ppArr, 'DatosCache');
 		}
 	//#endregion
 }

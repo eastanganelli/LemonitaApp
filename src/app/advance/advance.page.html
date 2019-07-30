@@ -5,33 +5,41 @@
                 <ion-item (click)="openPer(i, pp_)">{{pp_.name_}}</ion-item>
                 <ion-item-options side="end"><ion-item-option *ngIf="!(notMe(i))" (click)="rmPer(i)" color="danger"><ion-icon name="trash"></ion-icon></ion-item-option></ion-item-options>
             </ion-item-sliding>
-            <ion-item (click)="addPer()">{{'CALC.ADDPP'|translate}}</ion-item>
+            <ion-item (click)="addPer()">{{'CALC.ADDPEOPLE'|translate}}</ion-item>
             <ion-item>
                 <ion-label size="medium" color="primary" style="padding-left:5px;" id="selCalidad">{{'CALC.QUALITY'|translate}}:</ion-label>
                 <ion-label *ngIf="valQuality=='-1'" style="padding-left: 45px;">{{rangeValue}}</ion-label>
-                <ion-select [(ngModel)]="valQuality" placeholder="{{'HM.PH.PSLCT'|translate}}" interface="action-sheet">
+                <ion-select [(ngModel)]="valQuality" placeholder="{{'CALC.SELECT'|translate}}" interface="popover">
                     <ion-select-option value="0.05">&#x2605;&#x2606;&#x2606;&#x2606;&#x2606;(5%)</ion-select-option>
                     <ion-select-option value="0.10">&#x2605;&#x2605;&#x2606;&#x2606;&#x2606;(10%)</ion-select-option>
                     <ion-select-option value="0.15">&#x2605;&#x2605;&#x2605;&#x2606;&#x2606;(15%)</ion-select-option>
                     <ion-select-option value="0.20">&#x2605;&#x2605;&#x2605;&#x2605;&#x2606;(20%)</ion-select-option>
                     <ion-select-option value="0.25">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;(25%)</ion-select-option>
-                    <ion-select-option value="-1">{{'CALC.SLCT.OP6'|translate}}</ion-select-option>
+                    <ion-select-option value="-1">{{'CALC.OPTION'|translate}}</ion-select-option>
                 </ion-select>
             </ion-item>
             <ion-item *ngIf="valQuality=='-1'"><ion-range min="5" max="100" snaps="true" pin="true" [(ngModel)]="rangeValue"><ion-icon range="50"></ion-icon></ion-range></ion-item>
+            <ion-item>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col><ion-item button color="primary" icon-end (click)="calculate(rangeValue, valQuality)" *ngIf="notCalculated"><ion-icon name="logo-usd"></ion-icon><ion-icon name="logo-usd"></ion-icon>  {{'CALC.CALCULATE'|translate}}</ion-item></ion-col>
+                        <ion-col><ion-item button expand="full" shape="round ligth" color="danger" (click)="clearData()">{{'CALC.CLEAR'|translate}}</ion-item></ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
         </ion-list>
     </div>
     <div *ngIf="!notCalculated">
         <h2>Los usuarios sin consumos no se añadiran.</h2>
         <ion-segment [(ngModel)]="tipData_">
-            <ion-segment-button value="Equal_">{{'CALC.EQAUL'|translate}}</ion-segment-button>
+            <ion-segment-button value="Equal_">{{'CALC.EQUAL'|translate}}</ion-segment-button>
             <ion-segment-button value="Parcial_">{{'CALC.PARCIAL'|translate}}</ion-segment-button>
         </ion-segment>
         <ion-grid *ngIf="tipData_ == 'Equal_'">
             <ion-row>
                 <ion-col stacked size="4"><h4></h4></ion-col>
                 <ion-col stacked size="3" justify-content-center><h2><ion-icon name="cart"></ion-icon></h2></ion-col>
-                <ion-col stacked size="3"><h5>{{'CALC.TIP'|translate}}</h5></ion-col>
+                <ion-col stacked size="3"><h4>{{'CALC.TIP'|translate}}</h4></ion-col>
                 <ion-col stacked size="2"><h2><ion-icon name="card"></ion-icon></h2></ion-col>
             </ion-row><br>
             <ion-row *ngFor="let pp_ of this.glbVar.ppEqARR">
@@ -44,7 +52,7 @@
                 <ion-col stacked size="3">{{this.glbVar.equalData.totalTip|number:'.2-2'}}</ion-col>
                 <ion-col stacked size="2">{{this.glbVar.equalData.total_|number:'.2-2'}}</ion-col>
             </ion-row>
-            <ion-row stacked align-items-center><ion-col>Propina Equitativa: {{this.glbVar.equalData.totalTipDiv|number:'.2-2'}}</ion-col></ion-row>
+            <ion-row stacked align-items-center><ion-col>{{'CALC.TIPEQUI'|translate}}: {{this.glbVar.equalData.totalTipDiv|number:'.2-2'}}</ion-col></ion-row>
         </ion-grid>
         <ion-grid *ngIf="tipData_ == 'Parcial_'">
             <ion-row>
@@ -65,17 +73,15 @@
                 <ion-col stacked size="3">{{this.glbVar.parcialData.totalTip|number:'.2-2'}}</ion-col>
                 <ion-col stacked size="2">{{this.glbVar.parcialData.total_|number:'.2-2'}}</ion-col>
             </ion-row>
-            <ion-row stacked align-items-center><ion-col>Propina Equitativa: {{this.glbVar.parcialData.TipEqDiv|number:'.2-2'}}</ion-col></ion-row>
+            <ion-row stacked align-items-center><ion-col>{{'CALC.TIPEQUI'|translate}}: {{this.glbVar.parcialData.TipEqDiv|number:'.2-2'}}</ion-col></ion-row>
         </ion-grid>
     </div>
 </ion-content>
 <ion-footer>
-    <ion-button expand="full" shape="round light" icon-end (click)="calculate(rangeValue, valQuality)" *ngIf="notCalculated"><ion-icon name="logo-usd"></ion-icon><ion-icon name="logo-usd"></ion-icon>  {{'CALC.SEND'|translate}}</ion-button>
     <ion-grid *ngIf="!notCalculated">
         <ion-row>
-            <ion-col size=6><ion-button expand="full" shape="round"><ion-icon name="save"></ion-icon>></ion-button></ion-col>
+            <ion-col size=6><ion-button expand="full" shape="round"><ion-icon name="save"></ion-icon>{{'CALC.SAVE'|translate}}</ion-button></ion-col>
             <ion-col size=6><ion-button expand="full" shape="round" (click)="close()"><ion-icon name="close"></ion-icon>{{'CALC.CANCEL'|translate}}</ion-button></ion-col>
         </ion-row>
     </ion-grid>
-    <ion-button expand="full" shape="round ligth" color="danger" (click)="clearData()">{{'CALC.CLEAR'|translate}}</ion-button>
 </ion-footer>

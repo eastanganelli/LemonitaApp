@@ -26,7 +26,7 @@ export class ModalItemsUserComponent {
 		this.mod_ 	 = this.navParams.get('tipo_');
 		this.myItems = this.glbVar.CachePpl.personas[this.userID_].data; 
 	}
-	update() 	  { this.glbVar.updateCache(this.userID_, this.myItems); }
+	update() 	  { this.glbVar.updateCache(this.userID_, this.myItems, 'DatosCache'); }
 	priceXcount(precio: number, cant: number): number { return precio*cant; }
 	clearInputs() { 
 		var iItem_ = document.getElementById("iName") as HTMLInputElement;

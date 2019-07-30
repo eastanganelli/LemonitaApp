@@ -1,30 +1,59 @@
 {
-  "HM": {
-    "TXT": {
-      "TXTMONTO": "Monto",
-      "TXTPP": "Personas",
-      "TXTQUAL": "Calidad",
-      "TXTOUTPP": "Propina en TOTAL",
-      "TXTOUTTTL": "Monto TOTAL",
-      "TXTOUTBPP": "Monto por Persona",
-      "TXTOUTBPPTIP": "Propina por Persona"
-    },
-    "PH": {
-      "PMONTO": "Ingresar Monto",
-      "PPP": "Ingresar Cantidad",
-      "PSLCT": "Seleccionar calidad del servicio"
-    },
-    "SLCT": {
-      "OP6": "Personalizado"
-    },
-    "BTNCALC": "Calcular"
-  },
-  "ALRT": {
-    "TTMISS": "DATOS FALTANTES",
-    "MSGMISS": "Complete los datos que faltan",
-    "BTNCLOSE": "CERRAR"
-  },
-  "TST": {
-    "MSGMISS": "El valor tiene que ser mayor/igual a 1"
-  }
+  	"CALC": {
+		"MONTO": "Monto",
+		"INPUTMONTO": "Ingresar Monto",
+		"PEOPLE": "Personas",
+		"INPUTPEOPLE": "Ingresar Cantidad",
+		"QUALITY": "Calidad",
+		"SELECT": "Seleccionar calidad del servicio",
+		"OPTION": "Personalizado",
+		"CALCULATE": "Calcular",
+		"TOTALMONTO": "Propina en TOTAL",
+		"TIPTOTAL": "Monto TOTAL",
+		"MONTOPARCIAL": "Monto por Persona",
+		"TIPPARCIAL": "Propina por Persona",
+		"ADDPEOPLE": "Añadir",
+		"CLEAR": "Limpiar",
+		"EQUAL": "Repartido",
+		"PARCIAL": "Parcial",
+		"SAVE": "Guardar",
+		"CANCEL": "Cancelar",
+		"TIP": "Propina",
+		"TIPEQUI": "Propina Equitativa"
+	},
+	"HISTO": {
+
+	},
+	"SETT": {
+		"DMODE": "Tema",
+		"CMODE": "Modo",
+		"CLRCACHE": "Limpiar Caché",
+		"THDARK": "Oscuro",
+		"THLIGHT": "Claro",
+		"MDCLASS": "Clásico",
+		"MDNEW": "Avanzado"
+	},
+	"TABS": {
+		"HOME": "Calculadora",
+		"HISTO": "Historial",
+		"SETT": "Herramientas",
+		"ACT": "Activado",
+		"DEACT": "Desactivado"
+	},
+	"ALERT": {
+		"TITLES": {
+			"MISS": "Faltan Datos"
+		},
+		"MSG": {
+			"MISS": "Complete los datos que faltan"
+		},
+		"BTNS": {
+			"CLOSE": "Cerrar"
+		}
+	},
+	"TOAST": {
+		"MSG": {
+			"MISS": "El valor tiene que ser mayor/igual a 1"
+		}
+	}
 }

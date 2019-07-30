@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { defaultLanguage } from '../../const/languanges/languages.constant';
 import { CalculatorService } from '../calculator.service';
 import { GlobalVarsService } from '../global-vars.service';
 

@@ -25,11 +25,11 @@ export class ThemeSwitcherService {
 			styles: [
 				{ themeVariable: '--ion-color-primary', value: '#0ec254'},
 				{ themeVariable: '--ion-color-primary-rgb', value: '34,34,34'},
-				{ themeVariable: '--ion-color-primary-contrast', value: '#ffffff'},
+				{ themeVariable: '--ion-color-primary-contrast', value: '#f5f6f9'},
 				{ themeVariable: '--ion-color-primary-contrast-rgb', value: '255,255,255'},
 				{ themeVariable: '--ion-color-primary-shade', value: '#1e2023'},
 				{ themeVariable: '--ion-color-primary-tint', value: '#383a3e'}, 
-				{ themeVariable: '--ion-text-color', value: '#f4f5f8'},
+				{ themeVariable: '--ion-text-color', value: '#f5f6f9'},
 				{ themeVariable: '--ion-item-background', value: '#383838'},
 				{ themeVariable: '--ion-tab-bar-background', value: '#222428'},
 				{ themeVariable: '--ion-tab-bar-color-actived', value: '#f4f5f8'},
@@ -52,12 +52,16 @@ export class ThemeSwitcherService {
 			]
 		}]
 	}
+	saveTheme(theme_: string) { 
+		if(theme_ = 'light') { this.currentTheme = 1; }
+		else { this.currentTheme = 0; } 
+	}
 	cycleTheme(): void {
 		if(this.themes.length > this.currentTheme + 1){ this.currentTheme++; } 
 		else { this.currentTheme = 0; }
 		this.setTheme(this.themes[this.currentTheme].name);
 	}
-	setTheme(name): void {
+	setTheme(name: any): void {
 		let theme = this.themes.find(theme => theme.name === name);
 		this.domCtrl.write(() => { theme.styles.forEach(style => { document.documentElement.style.setProperty(style.themeVariable, style.value); }); });
 	}

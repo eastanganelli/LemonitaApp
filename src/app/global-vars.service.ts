@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import { tHistory, tPPPar, tPPEq, tParData, tEqData, tCache, tItem } from '../const/variables.components';
 
 @Injectable({ providedIn: 'root' })
@@ -8,6 +9,7 @@ export class GlobalVarsService {
 		//#region variablesGlobales
 			tempData: any = null;
 			history:  Array<{ tHistory }> = new Array(0);
+			settings: any = null;
 		//#endregion
 		//#region Arrays
 			CachePpl: tCache = { time_: 0, personas: new Array(0) };
@@ -28,12 +30,26 @@ export class GlobalVarsService {
 		outTotal: 		number = 0;
 		outByPeople: 	number = 0;
 	//#endregion
-	constructor() { }
+	constructor(private storage: Storage) { }
 	setLanguague(Lang_: string) { this.AppLanguague = Lang_; }
 	getLanguague(): string  	{ return this.AppLanguague; }
-	readCache(): tCache     	{ this.tempData = JSON.parse(localStorage.getItem('DatosCache')); this.CachePpl =this.tempData; return this.tempData; }
-	writeCache(in_: tCache) 	{ localStorage.setItem('DatosCache', JSON.stringify(in_)); this.CachePpl = in_; }
-	updateCache(id_: number, data_: Array<tItem>) { this.CachePpl.personas[id_].data = data_; this.writeCache(this.CachePpl); }
-	readHistory() 				{ return this.history; }
-	writeHistory(in_: tHistory) {  }
+	readCache(tipo_: string)	{ 
+		return new Promise<any>((resolve) => {
+			switch(tipo_) {
+				case 'DatosCache':    { this.storage.get(tipo_).then(data => { this.tempData = data; this.CachePpl = this.tempData; resolve(data)}); break; }
+				case 'DatoHistorial': { this.storage.get(tipo_).then(data => { this.history  = data; resolve(data)}); break; }
+				case 'DatoSettings':  { this.storage.get(tipo_).then(data => { this.settings = data; resolve(data)}); break; }
+			} 
+		});
+	}
+	writeCache(in_: any, tipo_: string) { 
+		switch(tipo_) {
+			case 'DatosCache':    { this.storage.set(tipo_, in_); this.CachePpl = in_; break; }
+			case 'DatoHistorial': { this.storage.set(tipo_, in_); this.history  = in_; break; }
+			case 'DatoSettings':  { this.storage.set(tipo_, in_); this.settings = in_; break; }
+		} 
+	}
+	updateCache(id_: number, data_: any, tipo_: string) {
+		switch(tipo_) { case 'DatosCache':    { this.CachePpl.personas[id_].data = data_; this.writeCache(this.CachePpl, tipo_); break; } }  
+	}
 }

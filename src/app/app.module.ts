@@ -12,6 +12,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ModalItemsUserComponent } from './modal-items-user/modal-items-user.component';
+import { IonicStorageModule } from '@ionic/storage';
 
 export function createTranslateLoader(http: HttpClient) { return new TranslateHttpLoader(http, '../assets/i18n/', '.json'); }
 
@@ -23,6 +24,7 @@ export function createTranslateLoader(http: HttpClient) { return new TranslateHt
 		IonicModule.forRoot(), 
 		AppRoutingModule, 
 		HttpClientModule,
+		IonicStorageModule.forRoot(),
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
