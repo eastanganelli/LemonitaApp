@@ -52,10 +52,6 @@ export class ThemeSwitcherService {
 			]
 		}]
 	}
-	saveTheme(theme_: string) { 
-		if(theme_ = 'light') { this.currentTheme = 1; }
-		else { this.currentTheme = 0; } 
-	}
 	cycleTheme(): void {
 		if(this.themes.length > this.currentTheme + 1){ this.currentTheme++; } 
 		else { this.currentTheme = 0; }

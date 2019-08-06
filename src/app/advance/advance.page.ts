@@ -27,7 +27,7 @@ export class AdvancePage {
 		//#endregion
 	//#endregion
 	constructor(public navCtrl: NavController, private alertCtrl: AlertController, private modalCtrl: ModalController, private translate: TranslateService, public gblVar: GlobalVarsService, public calc: CalculatorService, private alertSrvce: ErrorMSGService) { /* this.readData(); */ }
-	async ionViewWillEnter() { 
+	async ionViewWillEnter() {
 		this.readData(); 
 		await this.translate.setDefaultLang(this.gblVar.getLanguague());
 		await this.translate.use(this.gblVar.getLanguague());

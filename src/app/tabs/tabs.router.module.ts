@@ -42,18 +42,8 @@ const routes: Routes = [
 						loadChildren: '../settings/settings.module#SettingsPageModule'
 					}
 				]
-			},
-			{
-				path: '',
-				redirectTo: '/home/home',
-				pathMatch: 'full'
 			}
 		]
-	},
-	{
-		path: '',
-		redirectTo: '/tabs/tab2',
-		pathMatch: 'full'
 	}
 ];
 

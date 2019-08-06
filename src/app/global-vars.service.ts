@@ -42,7 +42,8 @@ export class GlobalVarsService {
 			} 
 		});
 	}
-	writeCache(in_: any, tipo_: string) { 
+	writeCache(in_: any, tipo_: string) {
+		console.log(in_); 
 		switch(tipo_) {
 			case 'DatosCache':    { this.storage.set(tipo_, in_); this.CachePpl = in_; break; }
 			case 'DatoHistorial': { this.storage.set(tipo_, in_); this.history  = in_; break; }

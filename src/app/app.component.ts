@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -28,11 +27,11 @@ export class AppComponent {
 			//#endregion
 			//#region loadSettings
 				this.gblVar.readCache('DatoSettings').then((_data: tSettings) => {
+					console.log(_data);
 					if(_data == null) { 
 						this.gblVar.writeCache({ lang_: ' ', theme_: 'light', cMode: false }, 'DatoSettings');
 						this.theme.setTheme('light');
-						this.theme.saveTheme('light');
-					} else { this.theme.setTheme(_data.theme_); this.theme.saveTheme(_data.theme_); }
+					} else { this.theme.setTheme(_data.theme_); }
 				});
 			//#endregion
 		});
