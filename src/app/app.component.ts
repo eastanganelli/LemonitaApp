@@ -7,12 +7,13 @@ import { TranslateService } from '@ngx-translate/core';
 import { defaultLanguage } from '../const/languanges/languages.constant';
 import { ThemeSwitcherService } from './theme-switcher.service';
 import { tSettings } from 'src/const/variables.components';
+//import { TabsPage } from './tabs/tabs.page';
 
 @Component({ selector: 'app-root', templateUrl: 'app.component.html' })
 export class AppComponent {
-	constructor(private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private translate: TranslateService, private theme: ThemeSwitcherService, private gblVar: GlobalVarsService) { this.initializeApp(); }
-	initializeApp() {
-		this.platform.ready().then(() => {
+	constructor(private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private translate: TranslateService, private theme: ThemeSwitcherService, private gblVar: GlobalVarsService/* , private tabChange: TabsPage */) { this.initializeApp(); }
+	async initializeApp() {
+		await this.platform.ready().then(() => {
 			//#region splashScr and statusbar
 				this.statusBar.styleDefault();
 				this.splashScreen.hide();
@@ -31,13 +32,10 @@ export class AppComponent {
 					if(_data == null) { 
 						this.gblVar.writeCache({ lang_: ' ', theme_: 'light', cMode: false }, 'DatoSettings');
 						this.theme.setTheme('light');
-					} else { this.theme.setTheme(_data.theme_); }
+						/* this.tabChange.setClassMode(false); */
+					} else { this.theme.setTheme(_data.theme_); /* this.tabChange.setClassMode(_data.cMode); */ }
 				});
 			//#endregion
 		});
 	}
 }
-
-
-
-

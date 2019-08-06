@@ -12,9 +12,10 @@ export class TabsPage {
         await this.translate.setDefaultLang(this.gblVar.getLanguague());
         await this.translate.use(this.gblVar.getLanguague());
         this.gblVar.readCache('DatoSettings').then((_data: tSettings) => {
+            console.log('TABS')
             if(_data == null) { 
                 this.classicMode = false;
-                this.navCtrl.navigateRoot('/tabs/tab1');
+                this.navCtrl.navigateRoot('/tabs');
             }
             else { 
                 this.classicMode = _data.cMode;

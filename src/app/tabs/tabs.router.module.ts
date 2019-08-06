@@ -42,8 +42,16 @@ const routes: Routes = [
 						loadChildren: '../settings/settings.module#SettingsPageModule'
 					}
 				]
+			},{
+				path: '',
+				redirectTo: '/advance/advance',
+				pathMatch: 'full'
 			}
-		]
+		], 
+	}, {
+		path: '',
+		redirectTo: '/tabs/tab4',
+		pathMatch: 'full'
 	}
 ];
 
