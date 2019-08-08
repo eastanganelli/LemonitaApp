@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, ModalController } from '@ionic/angular';
 import { GlobalVarsService } from '../global-vars.service';
-import { tPPPar, tPPEq, tCache, tPerson } from '../../const/variables.components';
+import { tPPPar, tPPEq, tCache, tPerson, tSettings } from '../../const/variables.components';
 import { TranslateService } from '@ngx-translate/core';
 import { CalculatorService } from '../calculator.service';
 import { ErrorMSGService } from '../error-msg.service';
@@ -25,13 +25,16 @@ export class AdvancePage {
 		//#region 
 			limTime: 		number = 21600000;
 		//#endregion
+		theme_: string = null;
 	//#endregion
 	constructor(public navCtrl: NavController, private alertCtrl: AlertController, private modalCtrl: ModalController, private translate: TranslateService, public gblVar: GlobalVarsService, public calc: CalculatorService, private alertSrvce: ErrorMSGService) { /* this.readData(); */ }
 	async ionViewWillEnter() {
 		this.readData(); 
 		await this.translate.setDefaultLang(this.gblVar.getLanguague());
 		await this.translate.use(this.gblVar.getLanguague());
+		await this.gblVar.readCache('DatoSettings').then((data_: tSettings) => { this.theme_ = data_.theme_; });
 	}
+	setTheme(Theme_: string) { this.theme_ = Theme_; }
 	//#region pplFNs
 		async addPer() {
 			let userpop = await this.alertCtrl.create({

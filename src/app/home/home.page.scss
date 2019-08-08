@@ -12,3 +12,10 @@ ion-img {
     width: 80px;
     height: 80px;
 }
+#night { 
+    ion-input  { --placeholder-color: white; }
+    ion-select { --placeholder-color: white; }
+}
+#light {
+    //color: #383838;
+}
