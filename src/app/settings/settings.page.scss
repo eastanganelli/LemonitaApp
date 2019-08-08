@@ -1,6 +1,7 @@
-.night {
-    color: #f4f5f8;
+#night { 
+    ion-label { p { color: #f4f5f8; } } 
+    ion-item-divider { --color: #f4f5f8;}
 }
-.light {
-    /* color: #383838; */ 
+#light {
+    //color: #383838;
 }
