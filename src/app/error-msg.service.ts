@@ -1,25 +1,55 @@
 import { Injectable } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { GlobalVarsService } from './global-vars.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({ providedIn: 'root' })
 export class ErrorMSGService {
 
-	constructor(private alertCtrl: AlertController, private gblVars: GlobalVarsService, private translate: TranslateService) { }
+	constructor(private alertCtrl: AlertController, private toastCtrl: ToastController, private gblVars: GlobalVarsService, private translate: TranslateService) { }
 	async showAlertCtrl(errorCode: string) {
-		let myAlert;
+		let myAlert, myToast;
 		switch(errorCode) {
 			case 'ExCMMnt': {
-				//this.translate.get('TST.MSGMISS').subscribe((trText: string) => { this.showToaster(trText); }); await myAlert.present();
+				await this.translate.get('TOAST.MISS.MSG').subscribe((msg: string) => {
+					myToast = this.toastCtrl.create({ message: msg, position: 'bottom', duration: 2500 }) ;
+				});
+				myToast.present(); break;
 			}
-			case 'ExCMDataPpl': { myAlert = await this.alertCtrl.create({ header: "Error People", message: "Las personas no tienen datos cargados para calcular", buttons: [{ text: "Cerrar" }] }); await myAlert.present(); break; }
+			case 'ExCMDataPpl': { 
+				await this.translate.get('ALERT.PPL.TTL').subscribe((titulo: string) => {
+					this.translate.get('ALERT.PPL.MSG').subscribe((msg: string) => {
+						this.translate.get('ALERT.BTNS.CLOSE').subscribe((close_: string) => {
+							myAlert =  this.alertCtrl.create({ message: msg, buttons: [{ text: close_ }] });
+						});
+					});
+				});
+				await myAlert.present(); break; 
+			}
 			case 'ExAMNoMeData': {  break; }
-			case 'ExTipPor': { myAlert = await this.alertCtrl.create({ header: "Error Propina", message: "No se selecciona el porcentaje", buttons: [{ text: "Cerrar" }] }); await myAlert.present(); break; }
+			case 'ExTipPor': {
+				this.translate.get('ALERT.TIP.TTL').subscribe((titulo_: string) => {
+					this.translate.get('ALERT.TIP.MSG').subscribe((msg: string) => {
+						this.translate.get('ALERT.BTNS.CLOSE').subscribe((close_: string) => {
+							myAlert = this.alertCtrl.create({ message: msg, buttons: [{ text: close_ }] });
+						});
+					});
+				});
+				await myAlert.present(); break;
+			}
 			// case 'Ex': {
-				
+			//		break;	
 			// }
-			case 'ExIUDecr' : { myAlert = await this.alertCtrl.create({ header: "Error Decremento", message: "No se puede desecrementar más", buttons: [{ text: "Cerrar" }] }); await myAlert.present(); break; }
+			case 'ExIUDecr' : { 
+				this.translate.get('ALERT.TIP.TTL').subscribe((titulo_: string) => {
+					this.translate.get('ALERT.TIP.MSG').subscribe((msg: string) => {
+						this.translate.get('ALERT.BTNS.CLOSE').subscribe((close_: string) => {
+							myAlert = this.alertCtrl.create({ message: msg, buttons: [{ text: close_ }] });
+						});
+					});
+				});
+				await myAlert.present(); break; 
+			}
 		}
 	}
 	itsComplete(iSelec: number) {

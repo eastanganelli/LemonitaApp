@@ -7,12 +7,12 @@ import { NavController } from '@ionic/angular';
 @Component({ selector: 'app-tabs', templateUrl: 'tabs.page.html', styleUrls: ['tabs.page.scss'] })
 export class TabsPage {
     classicMode: boolean = false;
+    theme_: string = null;
     constructor(public translate: TranslateService, private gblVar: GlobalVarsService, public navCtrl: NavController) {  }
     async ionViewWillEnter() { 
         await this.translate.setDefaultLang(this.gblVar.getLanguague());
         await this.translate.use(this.gblVar.getLanguague());
         this.gblVar.readCache('DatoSettings').then((_data: tSettings) => {
-            console.log('TABS')
             if(_data == null) { 
                 this.classicMode = false;
                 this.navCtrl.navigateRoot('/tabs');
@@ -21,8 +21,10 @@ export class TabsPage {
                 this.classicMode = _data.cMode;
                 if(this.classicMode) { this.navCtrl.navigateRoot('/tabs/tab1'); }
                 else { this.navCtrl.navigateRoot('/tabs/tab2'); }
+                this.theme_ = _data.theme_;
             }
         });
     }
     setClassMode(cMode_: boolean) { this.classicMode = cMode_; }
+    setTheme(Theme_: string) { this.theme_ = Theme_; }
 }

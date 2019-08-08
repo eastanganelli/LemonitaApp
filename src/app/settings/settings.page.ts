@@ -27,6 +27,7 @@ export class SettingsPage {
 		else if(this._settings.theme_ == 'night') { this._settings.theme_ = 'light'; }
 		this.glbVar.writeCache(this._settings, 'DatoSettings');
 		this.switchTheme.setTheme(this._settings.theme_);
+		this.tabChange.setTheme(this._settings.theme_);
 	}
 	classicChange() {
 		if(!(this._settings.cMode)) { this._settings.cMode = true; }

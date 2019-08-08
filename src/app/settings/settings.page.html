@@ -1,16 +1,16 @@
 <ion-content padding>
     <ion-list>
-		<ion-item-divider><ion-label>{{'SETT.DMODE'|translate}}</ion-label></ion-item-divider>
+		<ion-item-divider><ion-label><p class="{{_settings.theme_}}">{{'SETT.DMODE'|translate}}</p></ion-label></ion-item-divider>
 		<ion-item button (click)="themeChange()" text-center color="light" *ngIf="_settings.theme_ == 'night'"><ion-label>{{'SETT.THLIGHT'|translate}}</ion-label></ion-item>
 		<ion-item button (click)="themeChange()" text-center color="dark"  *ngIf="_settings.theme_ != 'night'"><ion-label>{{'SETT.THDARK'|translate}}</ion-label></ion-item>
-		<ion-item-divider><ion-label>{{'SETT.CMODE'|translate}}</ion-label></ion-item-divider>
+		<ion-item-divider><ion-label><p class="{{_settings.theme_}}">{{'SETT.CMODE'|translate}}</p></ion-label></ion-item-divider>
 		<ion-item button (click)="classicChange()" text-center><ion-label *ngIf="!_settings.cMode">{{'SETT.MDCLASS'|translate}}</ion-label><ion-label *ngIf="_settings.cMode">{{'SETT.MDNEW'|translate}}</ion-label></ion-item>
 		<ion-item button  text-center color="danger"><ion-label>{{'SETT.CLRCACHE'|translate}}</ion-label></ion-item>
 		<ion-item><ion-label><br></ion-label></ion-item>
 		<ion-item><ion-label text-center>
-			<p>DeltaPi New Century {{year}}</p>
-			<p>deltapinewcentury.gitlab.io/website</p>
-			<p>APP Version {{appData.versionNum}}</p>
+			<p class="{{_settings.theme_}}">DeltaPi New Century {{year}}</p>
+			<p class="{{_settings.theme_}}">deltapinewcentury.gitlab.io/website</p>
+			<p class="{{_settings.theme_}}">APP Version {{appData.versionNum}}</p>
 		</ion-label></ion-item>
 	</ion-list>
 </ion-content>

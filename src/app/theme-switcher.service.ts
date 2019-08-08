@@ -29,7 +29,7 @@ export class ThemeSwitcherService {
 				{ themeVariable: '--ion-color-primary-contrast-rgb', value: '255,255,255'},
 				{ themeVariable: '--ion-color-primary-shade', value: '#1e2023'},
 				{ themeVariable: '--ion-color-primary-tint', value: '#383a3e'}, 
-				{ themeVariable: '--ion-text-color', value: '#f5f6f9'},
+				{ themeVariable: '--ion-text-color', value: '#ffffff'},
 				{ themeVariable: '--ion-item-background', value: '#383838'},
 				{ themeVariable: '--ion-tab-bar-background', value: '#222428'},
 				{ themeVariable: '--ion-tab-bar-color-actived', value: '#f4f5f8'},

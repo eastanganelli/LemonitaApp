@@ -41,19 +41,25 @@
 		"DEACT": "Desactivado"
 	},
 	"ALERT": {
-		"TITLES": {
-			"MISS": "Faltan Datos"
+		"PPL": {
+			"TTL": "Sin Datos",
+			"MSG": "Las personas no tienen datos cargados para calcular"
 		},
-		"MSG": {
-			"MISS": "Complete los datos que faltan"
+		"TIP": {
+			"TTL": "Error Propina",
+			"MSG": "No se selecciona el porcentaje"
+		},
+		"DCR": {
+			"TTL": "Error Decremento",
+			"MSG": "No se puede desecrementar más"
 		},
 		"BTNS": {
 			"CLOSE": "Cerrar"
 		}
 	},
 	"TOAST": {
-		"MSG": {
-			"MISS": "El valor tiene que ser mayor/igual a 1"
+		"MISS": {
+			"MSG": "El valor tiene que ser mayor/igual a 1"
 		}
 	}
 }

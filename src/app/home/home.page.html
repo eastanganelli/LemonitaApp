@@ -2,11 +2,11 @@
     <ion-list>
         <ion-item>
             <ion-col size="4"><ion-label size="medium" col-4>{{'CALC.MONTO'|translate}}: $</ion-label></ion-col>
-            <ion-col size="8"><ion-input #ingMonto type="number" min="1" placeholder="{{'CALC.INPUTMONTO'|translate}}" (focusout)="CheckCant(ingMonto.value)"></ion-input></ion-col>
+            <ion-col size="8"><ion-input #ingMonto type="number" min="1" placeholder="{{'CALC.INPUTMONTO'|translate}}" (ionBlur)="CheckCant(ingMonto.value)"></ion-input></ion-col>
         </ion-item>
         <ion-item>
             <ion-col size="4"><ion-label size="medium" col-4>{{'CALC.PEOPLE'|translate}}: </ion-label></ion-col>
-            <ion-col size="8"><ion-input #ingCant type="number" min="1" placeholder="{{'CALC.INPUTPEOPLE'|translate}}" (focusout)="CheckCant(ingCant.value)"></ion-input></ion-col>
+            <ion-col size="8"><ion-input #ingCant type="number" min="1" placeholder="{{'CALC.INPUTPEOPLE'|translate}}" (ionBlur)="CheckCant(ingCant.value)"></ion-input></ion-col>
         </ion-item>
         <ion-item>
             <ion-label size="medium" color="primary" style="padding-left:5px;" id="selCalidad">{{'CALC.QUALITY'|translate}}:</ion-label>

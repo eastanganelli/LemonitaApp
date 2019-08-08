@@ -3,6 +3,7 @@ import { NavController, AlertController, ToastController } from '@ionic/angular'
 import { TranslateService } from '@ngx-translate/core';
 import { CalculatorService } from '../calculator.service';
 import { GlobalVarsService } from '../global-vars.service';
+import { ErrorMSGService } from '../error-msg.service';
 
 @Component({ selector: 'app-home', templateUrl: 'home.page.html', styleUrls: ['home.page.scss'] })
 export class HomePage {
@@ -20,21 +21,12 @@ export class HomePage {
 			outByPeople: 0
 		}
 	//#endregion
-	constructor(public navCtrl: NavController, public alertCtrl: AlertController, public toastCtrl: ToastController, public translate: TranslateService, private calc: CalculatorService, private gblVar: GlobalVarsService) {  }
+	constructor(public navCtrl: NavController, public alertCtrl: AlertController, public toastCtrl: ToastController, public translate: TranslateService, private calc: CalculatorService, private gblVar: GlobalVarsService, private errMsg: ErrorMSGService) {  }
 	/*Fns*/
 	async ionViewWillEnter() {
 		await this.translate.setDefaultLang(this.gblVar.getLanguague());
 		await this.translate.use(this.gblVar.getLanguague());
 	}
-	/*MsgControllers*/
-	async showAlert(vTitle: string, vSubtitle: string, vButton: string) {
-		let alert = await this.alertCtrl.create({ header: vTitle, subHeader: vSubtitle + '.', buttons: [vButton] });
-		await alert.present();
-	}
-	async showToaster(vString: string) {
-		var toaster = await this.toastCtrl.create({ message: vString, position: 'bottom', duration: 2500 });
-		await toaster.present();
-	}
 	mathProp(iMonto: number, iCant: number, iRange: number, iSelec: number) { this.dataOut = this.calc.classicMode(iMonto, iCant, iRange/100, iSelec); }
-	CheckCant(vCant: number) { if (vCant < 1 && String(vCant) != "") { this.translate.get('TST.MSGMISS').subscribe((trText: string) => { this.showToaster(trText); }); } }
+	CheckCant(vCant: number) { if (vCant < 1 && String(vCant) != "") { /* alert('me'); this.errMsg.showAlertCtrl('ExCMMnt'); */ } }
 }
