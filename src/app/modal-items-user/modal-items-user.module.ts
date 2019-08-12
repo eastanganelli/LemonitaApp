@@ -1,14 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
+
 import { IonicModule } from '@ionic/angular';
-import { ModalItemsUserComponent } from './modal-items-user.component';
+
+import { ModalItemsUserPage } from './modal-items-user.page';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: ModalItemsUserPage
+  }
+];
 
 @NgModule({
   imports: [
     CommonModule,
-    IonicModule.forRoot(),
+    FormsModule,
+    IonicModule,
+    RouterModule.forChild(routes)
   ],
-  declarations: [ModalItemsUserComponent],
-  entryComponents: [],
+  declarations: [ModalItemsUserPage]
 })
-export class ModalItemsUserModule {}
+export class ModalItemsUserPageModule {}

@@ -42,17 +42,18 @@
                 <ion-col stacked size="3"><h4>{{'CALC.TIP'|translate}}</h4></ion-col>
                 <ion-col stacked size="2"><h2><ion-icon name="card"></ion-icon></h2></ion-col>
             </ion-row><br>
-            <ion-row *ngFor="let pp_ of this.glbVar.ppEqARR">
-                <ion-col stacked size="4">{{pp_.name}}</ion-col>
-                <ion-col stacked size="8">{{pp_.total|number:'.2-2'}}</ion-col>
+            <ion-row *ngFor="let pp_ of adCalc?.ppArr">
+                <ion-col stacked size="4">{{pp_?.name}}</ion-col>
+                <ion-col stacked size="3">{{pp_?.total|number:'.2-2'}}</ion-col>
+                <ion-col stacked size="5">{{adCalc?.data.TipDiv|number:'.2-2'}}</ion-col>
             </ion-row><br>
             <ion-row align-items-center>
                 <ion-col stacked size="4"><h4>&sum;</h4></ion-col>
-                <ion-col stacked size="3">{{this.glbVar.equalData.totalAmount|number:'.2-2'}}</ion-col>
-                <ion-col stacked size="3">{{this.glbVar.equalData.totalTip|number:'.2-2'}}</ion-col>
-                <ion-col stacked size="2">{{this.glbVar.equalData.total_|number:'.2-2'}}</ion-col>
+                <ion-col stacked size="3">{{adCalc?.data.totalAmount|number:'.2-2'}}</ion-col>
+                <ion-col stacked size="3">{{adCalc?.data.totalTip|number:'.2-2'}}</ion-col>
+                <ion-col stacked size="2">{{adCalc?.data.total_|number:'.2-2'}}</ion-col>
             </ion-row>
-            <ion-row stacked align-items-center><ion-col>{{'CALC.TIPEQUI'|translate}}: {{this.glbVar.equalData.totalTipDiv|number:'.2-2'}}</ion-col></ion-row>
+            <!-- <ion-row stacked align-items-center><ion-col>{{'CALC.TIPEQUI'|translate}}: {{adCalc?.data.TipDiv|number:'.2-2'}}</ion-col></ion-row> -->
         </ion-grid>
         <ion-grid *ngIf="tipData_ == 'Parcial_'">
             <ion-row>
@@ -61,19 +62,19 @@
                 <ion-col stacked size="3"><h4>{{'CALC.TIP'|translate}}</h4></ion-col>
                 <ion-col stacked size="2"><h2><ion-icon name="card"></ion-icon></h2></ion-col>
             </ion-row><br>
-            <ion-row *ngFor="let pp_ of this.glbVar.ppParARR">
-                <ion-col stacked size="4">{{pp_.name}}</ion-col>
-                <ion-col stacked size="3">{{pp_.amount|number:'.2-2'}}</ion-col>
-                <ion-col stacked size="3">{{pp_.tip|number:'.2-2'}}</ion-col>
-                <ion-col stacked size="2">{{pp_.total|number:'.2-2'}}</ion-col>
+            <ion-row *ngFor="let pp_ of adCalc?.ppArr">
+                <ion-col stacked size="4">{{pp_?.name}}</ion-col>
+                <ion-col stacked size="3">{{pp_?.amount|number:'.2-2'}}</ion-col>
+                <ion-col stacked size="3">{{pp_?.tip|number:'.2-2'}}</ion-col>
+                <ion-col stacked size="2">{{pp_?.total|number:'.2-2'}}</ion-col>
             </ion-row><br>
             <ion-row align-items-center>
                 <ion-col stacked size="4"><h4>&sum;</h4></ion-col>
-                <ion-col stacked size="3">{{this.glbVar.parcialData.totalAmount|number:'.2-2'}}</ion-col>
-                <ion-col stacked size="3">{{this.glbVar.parcialData.totalTip|number:'.2-2'}}</ion-col>
-                <ion-col stacked size="2">{{this.glbVar.parcialData.total_|number:'.2-2'}}</ion-col>
+                <ion-col stacked size="3">{{adCalc?.data.totalAmount|number:'.2-2'}}</ion-col>
+                <ion-col stacked size="3">{{adCalc?.data.totalTip|number:'.2-2'}}</ion-col>
+                <ion-col stacked size="2">{{adCalc?.data.total_|number:'.2-2'}}</ion-col>
             </ion-row>
-            <ion-row stacked align-items-center><ion-col>{{'CALC.TIPEQUI'|translate}}: {{this.glbVar.parcialData.TipEqDiv|number:'.2-2'}}</ion-col></ion-row>
+            <ion-row stacked align-items-center><ion-col>{{'CALC.TIPEQUI'|translate}}: {{adCalc?.data.TipDiv|number:'.2-2'}}</ion-col></ion-row>
         </ion-grid>
     </div>
 </ion-content>

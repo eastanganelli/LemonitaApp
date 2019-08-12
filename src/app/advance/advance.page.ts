@@ -1,19 +1,19 @@
-import { Component } from '@angular/core';
-import { NavController, AlertController, ModalController } from '@ionic/angular';
-import { GlobalVarsService } from '../global-vars.service';
-import { tPPPar, tPPEq, tCache, tPerson, tSettings } from '../../const/variables.components';
-import { TranslateService } from '@ngx-translate/core';
-import { CalculatorService } from '../calculator.service';
-import { ErrorMSGService } from '../error-msg.service';
-import { ModalItemsUserComponent } from '../modal-items-user/modal-items-user.component';
-
+//#region Improts
+	import { Component } from '@angular/core';
+	import { NavController, AlertController, ModalController } from '@ionic/angular';
+	import { GlobalVarsService } from '../global-vars.service';
+	import { tCache, tPerson, tSettings, tppArr } from '../../const/variables.components';
+	import { TranslateService } from '@ngx-translate/core';
+	import { CalculatorService } from '../calculator.service';
+	import { ErrorMSGService } from '../error-msg.service';
+	import { ModalItemsUserPage } from '../modal-items-user/modal-items-user.page';
+//#endregion
 @Component({ selector: 'app-advance', templateUrl: 'advance.page.html', styleUrls: ['advance.page.scss'] })
 export class AdvancePage {
     //#region Vars
 		//#region Arrays
-			ppArr: 	  tCache = { time_: 0, personas: new Array(0) };
-			ppParARR: Array<tPPPar> = new Array(0);
-			ppEqARR:  Array<tPPEq> = new Array(0);
+			ppArr: 	tCache = { time_: 0, personas: new Array(0) };
+			adCalc: tppArr = null;
 		//#endregion
 		//#region DataIN
 			notCalculated: 	boolean = true;
@@ -32,7 +32,6 @@ export class AdvancePage {
 		this.readData(); 
 		await this.translate.setDefaultLang(this.gblVar.getLanguague());
 		await this.translate.use(this.gblVar.getLanguague());
-		await this.gblVar.readCache('DatoSettings').then((data_: tSettings) => { this.theme_ = data_.theme_; });
 	}
 	setTheme(Theme_: string) { this.theme_ = Theme_; }
 	//#region pplFNs
@@ -44,7 +43,7 @@ export class AdvancePage {
 			}); userpop.present();
 		}
 		async openPer(id_: number) {
-			const modalItemByUser = await this.modalCtrl.create({ component: ModalItemsUserComponent, componentProps: { userID: id_, tipo_: 'modList' } });
+			const modalItemByUser = await this.modalCtrl.create({ component: ModalItemsUserPage, componentProps: { userID: id_, tipo_: 'modList' } });
 			modalItemByUser.onDidDismiss().then(() => { this.readData(); });
 			await modalItemByUser.present();
 		}
@@ -54,18 +53,18 @@ export class AdvancePage {
 	//#region FN
 		calculate(iRange: number, iSelec: number) { 
 			if(this.alertSrvce.itsComplete(iSelec) == 0) { 
-				let m_data: any = this.calc.advanceCalc(iRange/100, iSelec);
+				this.adCalc = this.calc.advanceCalc(iRange/100, iSelec);
 				this.notCalculated = false;
 			} 
 		}
 		close() { 
 			this.notCalculated = true;
-			this.ppEqARR 	   = new Array(0);
-			this.ppParARR 	   = new Array(0);
+			this.adCalc = null;
 		} 
 	//#endregion
 	//#region cacheFNs
-		readData() { 
+		readData() {
+			this.gblVar.readCache('DatoSettings').then((data_: tSettings) => { this.theme_ = data_.theme_; });
 			this.gblVar.readCache('DatosCache').then((data: tCache) => {
 				if(data != null) {
 					const actual_time = ((new Date()).getTime()) - this.limTime; //21600000
@@ -79,7 +78,7 @@ export class AdvancePage {
 		clearData() {
 			let aux_per: Array<tPerson> = new Array(0);
 			this.ppArr = { time_: (new Date()).getTime(), personas: aux_per };
-			this.ppArr.personas.push({ name_: 'Me', data: new Array(0) }),
+			this.translate.get('CALC.ME').subscribe((me_: string) => { this.ppArr.personas.push({ name_: me_, data: new Array(0) }); });
 			this.gblVar.writeCache(this.ppArr, 'DatosCache');
 		}
 	//#endregion

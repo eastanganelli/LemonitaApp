@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { NavController, AlertController, ToastController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
-import { CalculatorService } from '../calculator.service';
-import { GlobalVarsService } from '../global-vars.service';
-import { ErrorMSGService } from '../error-msg.service';
-import { tSettings } from 'src/const/variables.components';
-
+//#region Imports
+	import { Component } from '@angular/core';
+	import { NavController, AlertController, ToastController } from '@ionic/angular';
+	import { TranslateService } from '@ngx-translate/core';
+	import { CalculatorService } from '../calculator.service';
+	import { GlobalVarsService } from '../global-vars.service';
+	import { ErrorMSGService } from '../error-msg.service';
+	import { tSettings } from 'src/const/variables.components';
+//#endregion
 @Component({ selector: 'app-home', templateUrl: 'home.page.html', styleUrls: ['home.page.scss'] })
 export class HomePage {
 	//#region Vars
@@ -30,7 +31,14 @@ export class HomePage {
 		await this.translate.use(this.gblVar.getLanguague());
 		await this.gblVar.readCache('DatoSettings').then((data_: tSettings) => { this.theme_ = data_.theme_; });
 	}
-	mathProp(iMonto: number, iCant: number, iRange: number, iSelec: number) { this.dataOut = this.calc.classicMode(iMonto, iCant, iRange/100, iSelec); }
-	CheckCant(vCant: number) { if (vCant < 1 && String(vCant) != "") { /* alert('me'); this.errMsg.showAlertCtrl('ExCMMnt'); */ } }
+	async mathProp(iMonto: number, iCant: number, iRange: number, iSelec: number) {
+		if((String(iMonto) != '' && iMonto > 0) && (String(iCant) != '' && iCant > 0) && iSelec != 0) { this.dataOut = this.calc.classicMode(iMonto, iCant, iRange/100, iSelec); }
+		else { 
+			if(iSelec == 0)  		 { await this.errMsg.showMSG('ExTipPor'); }
+			if(String(iCant)  == '') { await this.errMsg.showMSG('ExNoCant'); }
+			if(String(iMonto) == '') { await this.errMsg.showMSG('ExNoAmount'); }
+		}
+	}
+	CheckCant(vCant: number) { if (vCant < 1 && String(vCant) != "") { this.errMsg.showMSG('ExCMMnt'); } }
 	setTheme(Theme_: string) { this.theme_ = Theme_; }
 }

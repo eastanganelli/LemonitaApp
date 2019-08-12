@@ -15,7 +15,7 @@
 			</ion-row>
 			<ion-row *ngFor="let item_ of myItems; let i = index">
 				<ion-col size="2"><p>{{item_.name}}</p></ion-col>
-				<ion-col size="1"><ion-button size="small" (click)="decremental(i)" fill="clear" style="float: right"><ion-icon name="remove-circle"></ion-icon></ion-button></ion-col>
+				<ion-col size="1"><ion-button size="small" (click)="decremental(i)" fill="clear" style="float: right" *ngIf="myItems[i].count > 1"><ion-icon name="remove-circle"></ion-icon></ion-button></ion-col>
 				<ion-col size="1"><p style="text-align: center">{{item_.count}}</p></ion-col>
 				<ion-col size="1"><ion-button size="small" (click)="incremental(i)" fill="clear" style="float: left"><ion-icon name="add-circle"></ion-icon></ion-button></ion-col>
 				<ion-col size="3"><p style="text-align: center">{{item_.price}}</p></ion-col>

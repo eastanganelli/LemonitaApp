@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { tHistory, tPPPar, tPPEq, tParData, tEqData, tCache, tItem } from '../const/variables.components';
+import { tHistory, tCache, tItem } from '../const/variables.components';
 
 @Injectable({ providedIn: 'root' })
 export class GlobalVarsService {
@@ -13,13 +13,7 @@ export class GlobalVarsService {
 		//#endregion
 		//#region Arrays
 			CachePpl: tCache = { time_: 0, personas: new Array(0) };
-			ppParARR: Array< tPPPar > = new Array(0);
-			ppEqARR:  Array< tPPEq > = new Array(0);
-		//#endregion
-		//#region DataOUT
 			usersNodata: boolean = false;
-			equalData:   tEqData;
-			parcialData: tParData;
 		//#endregion
 	//#endregion
 	//#region Classic

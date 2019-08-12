@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
-import { GlobalVarsService } from '../global-vars.service';
-import { TranslateService } from '@ngx-translate/core';
-import { ThemeSwitcherService } from '../theme-switcher.service';
-import { tSettings } from 'src/const/variables.components';
-import { TabsPage } from '../tabs/tabs.page';
-
+//#region Imports
+	import { Component } from '@angular/core';
+	import { NavController } from '@ionic/angular';
+	import { GlobalVarsService } from '../global-vars.service';
+	import { TranslateService } from '@ngx-translate/core';
+	import { ThemeSwitcherService } from '../theme-switcher.service';
+	import { tSettings } from 'src/const/variables.components';
+	import { TabsPage } from '../tabs/tabs.page';
+//#endregion
 @Component({ selector: 'app-settings', templateUrl: 'settings.page.html', styleUrls: ['settings.page.scss'] })
 export class SettingsPage {
 	//#region  Vars
@@ -22,17 +23,19 @@ export class SettingsPage {
 		await this.translate.setDefaultLang(this.glbVar.getLanguague());
 		await this.translate.use(this.glbVar.getLanguague());
 	}
-	themeChange()   {
-		if(this._settings.theme_ == 'light') { this._settings.theme_ = 'night'; }
-		else if(this._settings.theme_ == 'night') { this._settings.theme_ = 'light'; }
-		this.glbVar.writeCache(this._settings, 'DatoSettings');
-		this.switchTheme.setTheme(this._settings.theme_);
-		this.tabChange.setTheme(this._settings.theme_);
-	}
-	classicChange() {
-		if(!(this._settings.cMode)) { this._settings.cMode = true; }
-		else { this._settings.cMode = false; }
-		this.glbVar.writeCache(this._settings, 'DatoSettings');
-		this.tabChange.setClassMode(this._settings.cMode);
-	}
+	//#region Changers
+		themeChange()   {
+			if(this._settings.theme_ == 'light') { this._settings.theme_ = 'night'; }
+			else if(this._settings.theme_ == 'night') { this._settings.theme_ = 'light'; }
+			this.glbVar.writeCache(this._settings, 'DatoSettings');
+			this.switchTheme.setTheme(this._settings.theme_);
+			this.tabChange.setTheme(this._settings.theme_);
+		}
+		classicChange() {
+			if(!(this._settings.cMode)) { this._settings.cMode = true; }
+			else { this._settings.cMode = false; }
+			this.glbVar.writeCache(this._settings, 'DatoSettings');
+			this.tabChange.setClassMode(this._settings.cMode);
+		}
+	//#endregion
 }

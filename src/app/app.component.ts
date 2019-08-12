@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
-import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { GlobalVarsService } from './global-vars.service';
-import { TranslateService } from '@ngx-translate/core';
-import { defaultLanguage } from '../const/languanges/languages.constant';
-import { ThemeSwitcherService } from './theme-switcher.service';
-import { tSettings } from 'src/const/variables.components';
-//import { TabsPage } from './tabs/tabs.page';
+//#region Imports
+	import { Component } from '@angular/core';
+	import { Platform } from '@ionic/angular';
+	import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+	import { StatusBar } from '@ionic-native/status-bar/ngx';
+	import { GlobalVarsService } from './global-vars.service';
+	import { TranslateService } from '@ngx-translate/core';
+	import { defaultLanguage } from '../const/languanges/languages.constant';
+	import { ThemeSwitcherService } from './theme-switcher.service';
+	import { tSettings } from 'src/const/variables.components';
+	//import { TabsPage } from './tabs/tabs.page';
+//#endregion
 
 @Component({ selector: 'app-root', templateUrl: 'app.component.html' })
 export class AppComponent {

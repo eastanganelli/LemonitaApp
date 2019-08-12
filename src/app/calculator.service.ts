@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { GlobalVarsService } from './global-vars.service';
-import { tPPPar, tPPEq } from '../const/variables.components';
-
+import { tPPParEq, tppArr } from '../const/variables.components';
 @Injectable({ providedIn: 'root' })
 export class CalculatorService {
-
   constructor(private gblVar: GlobalVarsService) { }
 	classicMode(iMonto: number, iCant: number, iRange: number, iSelec: number) {
 		let varPropina: number = 0, varBypeople: number = 0, varPagoTotal: number = 0, varPagoByPeople: number = 0;
@@ -23,35 +21,24 @@ export class CalculatorService {
 				};
 			//#endregion
 	}
- 	advanceCalc(iRange: number, iSelec: number) {
-		this.clearPParr();
+ 	advanceCalc(iRange: number, iSelec: number): tppArr {
 		let percentData: number = iRange, allAmount: number = 0, ppCount_: number = 0, parTIP: number = 0;
+		let arrParEq: Array<tPPParEq> = new Array(0);
 		if(iSelec != (-1)) { percentData = iSelec; }
 		for(let pp_ of this.gblVar.CachePpl.personas) {
-			let perEq: tPPEq   = { name: pp_.name_, total: 0 };
-			let perPar: tPPPar = { name: pp_.name_, amount: 0, tip: 0, total: 0 };
+			let per: tPPParEq   = { name: pp_.name_, total: 0, amount: 0, tip: 0 };
 			if(pp_.data.length > 0) {
 				ppCount_++;
-				for(let producto of pp_.data) {
-					perEq.total   += (Number)(producto.price);
-					perPar.amount += (Number)(producto.price);
-				}
-				{
-					allAmount  	 += (Number)(perEq.total);
-					parTIP	   	 += (Number)(perPar.amount*percentData);
-					perPar.tip   =  (Number)(perPar.amount*percentData);
-					perPar.total =  (Number)(perPar.amount + perPar.tip);
-					this.gblVar.ppEqARR.push(perEq);
-					this.gblVar.ppParARR.push(perPar);
-				}
+				for(let producto of pp_.data) { per.amount += (Number)(producto.price); }
+				per.total = per.amount;
+				allAmount += (Number)(per.total);
+				parTIP	  += (Number)(per.amount*percentData);
+				per.tip   =  (Number)(per.amount*percentData);
+				arrParEq.push(per);
 			}
-		} this.gblVar.equalData   = { totalAmount: allAmount, totalTip: Number(allAmount*percentData), totalTipDiv: ((allAmount*percentData)/ppCount_), total_: (Number(allAmount) + Number(allAmount*percentData)) };
-		this.gblVar.parcialData = { totalAmount: allAmount, totalTip: parTIP, total_: (allAmount + parTIP), TipEqDiv: (parTIP/ppCount_) };
-	}
-	clearPParr() {
-		this.gblVar.ppEqARR 	= new Array(0);
-		this.gblVar.ppParARR 	= new Array(0);
-		this.gblVar.equalData   = { totalAmount: 0, totalTip: 0, totalTipDiv: 0, total_: 0 };
-		this.gblVar.parcialData = { totalAmount: 0, totalTip: 0, total_: 0, TipEqDiv: 0 }; 
+		} return {
+			ppArr: arrParEq,
+			data: { totalAmount: allAmount, totalTip: Number(allAmount*percentData), totalTipDiv: ((allAmount*percentData)/ppCount_), total_: (Number(allAmount) + Number(allAmount*percentData)), TipDiv: (parTIP/ppCount_) }
+		};
 	}
 }

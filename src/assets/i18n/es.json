@@ -19,7 +19,8 @@
 		"SAVE": "Guardar",
 		"CANCEL": "Cancelar",
 		"TIP": "Propina",
-		"TIPEQUI": "Propina Equitativa"
+		"TIPEQUI": "Propina Equitativa",
+		"ME": "Yo"
 	},
 	"HISTO": {
 
@@ -41,6 +42,14 @@
 		"DEACT": "Desactivado"
 	},
 	"ALERT": {
+		"ME": {
+			"TTL": "Sin Datos",
+			"MSG": "Usted no tiene datos propios cargados"
+		},
+		"NOCANT": {
+			"TTL": "Error Cantidad",
+			"MSG": "No se ingreso una cantidad"
+		},
 		"PPL": {
 			"TTL": "Sin Datos",
 			"MSG": "Las personas no tienen datos cargados para calcular"
@@ -52,6 +61,10 @@
 		"DCR": {
 			"TTL": "Error Decremento",
 			"MSG": "No se puede desecrementar más"
+		},
+		"NOAMOUNT": {
+			"TTL": "Error Monto",
+			"MSG": "No se ingreso un monto"
 		},
 		"BTNS": {
 			"CLOSE": "Cerrar"
