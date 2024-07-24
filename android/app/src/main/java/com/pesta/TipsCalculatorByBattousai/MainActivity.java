@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.pesta.TipsCalculatorByBattousai;
 
 import com.getcapacitor.BridgeActivity;
 
