@@ -23,14 +23,14 @@ interface AppPage {
 
 const appPages: AppPage[] = [
 	{
-		title: 'Home',
-		url: '/folder/Home',
+		title: 'Tip Calculator',
+		url: '/TipCalculator',
 		iosIcon: homeOutline,
 		mdIcon: homeSharp
 	},
 	{
 		title: 'Tip by Country',
-		url: '/folder/Outbox',
+		url: '/TipByCountry',
 		iosIcon: planetOutline,
 		mdIcon: planetSharp
 	}
@@ -43,7 +43,7 @@ const Menu: React.FC = () => {
 		<IonMenu contentId="main" type="overlay">
 			<IonContent>
 				<IonList id="inbox-list">
-					<IonListHeader>Tip Calculator</IonListHeader>
+					<IonListHeader>{`Calculadora de Propina`}</IonListHeader>
 					<IonNote>{`By Delta Pi New Century ${(new Date()).getFullYear()}`}</IonNote>
 					{appPages.map((appPage, index) => {
 						return (

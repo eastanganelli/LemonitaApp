@@ -1,2 +1,9 @@
 /* For information on how to create your own theme, please see:
 http://ionicframework.com/docs/theming/ */
+
+/* Global Variables */
+:root {
+    --dark-blue: #00008b;
+    --dark-green: #008000;
+    --dark-goldenrod: #b8860b;   
+}
