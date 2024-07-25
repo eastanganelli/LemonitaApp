@@ -9,10 +9,11 @@ import { type Tip, defaultTip } from '../interfaces/tip';
 import './tipCalculator.css';
 
 const TipCalculator: React.FC = () => {
-	const [ myLocation, setMyLocation ] = useState<NativeGeocoderResult | null>(null);
-	const [ myCurrency, setMyCurrency ] = useState<string>('ARS');
-	const [ recommendedTipRate, setRecommendedTipRate ] = useState<{ min: number; max: number;} | number | null>(null);
-	const [ myData, setMyData ] = useState<Tip>(defaultTip);
+	const [myLocation, setMyLocation] = useState<NativeGeocoderResult | null>(null);
+	const [myCurrency, setMyCurrency] = useState<string>('ARS');
+	const [myCurrencySymb, setMyCurrencySymb] = useState<string>('$');
+	const [recommendedTipRate, setRecommendedTipRate] = useState<{ min: number; max: number; } | number | null>(null);
+	const [myData, setMyData] = useState<Tip>(defaultTip);
 
 	const getUserLocation = async () => {
 		await Geolocation.getCurrentPosition().then((position: Position) => {
@@ -35,38 +36,40 @@ const TipCalculator: React.FC = () => {
 						<IonGrid>
 							<IonRow>
 								<IonCol>
-									<div id='mount' className='cells'>
-										<IonInput label='Ingresar Monto' labelPlacement="floating" type='number' min={1}
-											onIonInput={(e) => {
-												let newValue = {...myData};
-												newValue['amount'] = Number(e.target.value);
-												setMyData(newValue);
-											}}
-										/>
-										<IonLabel>{`Moneda: ARS`}</IonLabel>
-									</div>
-								</IonCol>
-							</IonRow>
-							<IonRow>
-								<IonCol>
 									<div id='split' className='cells'>
-										<IonInput onInput={() => {}} label='Dividir entre' labelPlacement="floating" defaultValue={1} value={myData['split']} type='number' min={1}>
+										<IonInput onInput={() => { }} label='Dividir entre' labelPlacement="floating" defaultValue={1} value={myData['split']} type='number' min={1}>
 											<IonButton slot="start" fill='clear' disabled={myData['split'] < 2} className='decreaseBtn'
 												onClick={() => {
-													let decreaseSplit = {...myData};
+													let decreaseSplit = { ...myData };
 													decreaseSplit['split'] -= 1;
 													setMyData(decreaseSplit);
 												}}
 											><IonIcon slot='icon-only' icon={removeCircleOutline}></IonIcon></IonButton>
-											<IonButton slot="end"   fill='clear' className='increaseBtn'
+											<IonButton slot="end" fill='clear' className='increaseBtn'
 												onClick={() => {
-													let increaseSplit = {...myData};
+													let increaseSplit = { ...myData };
 													increaseSplit['split'] += 1;
 													setMyData(increaseSplit);
 												}}
 											><IonIcon slot='icon-only' icon={addCircleOutline}></IonIcon></IonButton>
 										</IonInput>
-										<IonLabel>{`Hello there`}</IonLabel>
+									</div>
+								</IonCol>
+							</IonRow>
+							<IonRow>
+								<IonCol>
+									<div id='amount' className='cells'>
+										<IonInput label='Ingresar Monto' labelPlacement="floating" type='number' min={1}
+											onIonInput={(e) => {
+												let newValue = { ...myData };
+												newValue['amount'] = Number(e.target.value);
+												setMyData(newValue);
+											}}
+										/>
+										<div>
+											<IonLabel>{`Moneda: ${myCurrency}`}</IonLabel>
+											<IonLabel>{`Monto Por Persona: ${myCurrencySymb} ${Number(myData['amount'] / myData['split']).toFixed(2)}`}</IonLabel>
+										</div>
 									</div>
 								</IonCol>
 							</IonRow>
@@ -77,36 +80,45 @@ const TipCalculator: React.FC = () => {
 							<div>
 								{myLocation !== null ?
 									<div>
-										{`Rango de Tip recomendados para ${ JSON.stringify(myLocation?.countryName) }`}
+										{`Rango de Tip recomendados para ${JSON.stringify(myLocation?.countryName)}`}
 									</div> : null
 								}
 								<IonInput label='Propina' labelPlacement='floating' value={myData['tipRate']} min={0} >
-											<IonButton slot="start" fill='clear' disabled={myData['tipRate'] < 1} className='decreaseBtn'
-												onClick={() => {
-													let decreaseTipeRate = {...myData};
-													decreaseTipeRate['tipRate'] -= 1;
-													setMyData(decreaseTipeRate);
-												}}
-											><IonIcon slot='icon-only' icon={removeCircleOutline}></IonIcon></IonButton>
-											<IonButton slot="end"   fill='clear' className='increaseBtn'
-												onClick={() => {
-													let increaseTipeRate = {...myData};
-													increaseTipeRate['tipRate'] += 1;
-													setMyData(increaseTipeRate);
-												}}
-											><IonIcon slot='icon-only' icon={addCircleOutline}></IonIcon></IonButton>
+									<IonButton slot="start" fill='clear' disabled={myData['tipRate'] < 1} className='decreaseBtn'
+										onClick={() => {
+											let decreaseTipeRate = { ...myData };
+											decreaseTipeRate['tipRate'] -= 1;
+											setMyData(decreaseTipeRate);
+										}}
+									><IonIcon slot='icon-only' icon={removeCircleOutline}></IonIcon></IonButton>
+									<IonButton slot="end" fill='clear' className='increaseBtn'
+										onClick={() => {
+											let increaseTipeRate = { ...myData };
+											increaseTipeRate['tipRate'] += 1;
+											setMyData(increaseTipeRate);
+										}}
+									><IonIcon slot='icon-only' icon={addCircleOutline}></IonIcon></IonButton>
 								</IonInput>
 							</div>
 						</div>
 					</IonCol>
 				</IonRow>
 				<IonRow>
+					{
+						myData['split'] > 1 ?
+							<IonCol>
+								<div id='total' className='cells totals'>
+									<IonLabel>{`Total Por Persona:`}</IonLabel>
+									<IonLabel>{`${myCurrencySymb} ${Number(myData['amount'] / myData['split'] * (1 + (myData['tipRate'] / 100))).toFixed(2)}`}</IonLabel>
+								</div>
+							</IonCol> : null
+					}
 					<IonCol>
-						<div className='cells'>
-							<IonLabel>{`Moneda: ARS`}</IonLabel>
+						<div id='total' className='cells totals'>
+							<IonLabel>{`Total:`}</IonLabel>
+							<IonLabel>{`${myCurrencySymb} ${Number(myData['amount'] * (1 + (myData['tipRate'] / 100))).toFixed(2)}`}</IonLabel>
 						</div>
 					</IonCol>
-					
 				</IonRow>
 			</IonGrid>
 		</IonContent>

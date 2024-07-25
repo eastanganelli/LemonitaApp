@@ -23,13 +23,13 @@ interface AppPage {
 
 const appPages: AppPage[] = [
 	{
-		title: 'Tip Calculator',
+		title: 'Calculadora de Propina',
 		url: '/TipCalculator',
 		iosIcon: homeOutline,
 		mdIcon: homeSharp
 	},
 	{
-		title: 'Tip by Country',
+		title: `Propinas por País`,
 		url: '/TipByCountry',
 		iosIcon: planetOutline,
 		mdIcon: planetSharp

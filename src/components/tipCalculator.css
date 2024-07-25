@@ -5,7 +5,7 @@
 	height: 100%;
 }
 
-ion-input > ::placeholder {
+ion-input> ::placeholder {
 	text-align: center;
 }
 
@@ -16,18 +16,28 @@ ion-input > ::placeholder {
 	text-align: center;
 }
 
-.cells>ion-label, ion-input {
+.cells>ion-label,
+ion-input {
 	color: white;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+	-webkit-appearance: none;
+	margin: 0;
 }
 
-#mount {
+#amount {
 	background-color: var(--dark-blue);
+	padding: 0.5vh;
+}
+
+#amount>div {
+	display: grid;
+}
+
+#amount>div>ion-label {
+	padding: .75vh;
 }
 
 #tip {
@@ -36,4 +46,13 @@ input::-webkit-inner-spin-button {
 
 #split {
 	background-color: var(--dark-green);
+}
+
+.totals {
+	padding: 4vh;
+}
+
+#total {
+	background-color: darkviolet;
+	display: grid;
 }

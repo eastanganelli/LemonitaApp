@@ -8,21 +8,26 @@ import TipByCountry  from '../components/tipByCountry';
 
 const Page: React.FC = () => {
 	const { name } = useParams<{ name: string; }>();
+	const [ pageRender, setPageRender ] = React.useState<React.FC | any>(<h1>Page Not Found</h1>);
+	const [ pageName, setPageName ] = React.useState<string>('Page Not Found');
 
-	const selectComponent = () => {
+	React.useEffect(() => {
 		switch (name) {
 			case 'TipCalculator':
-				return (<TipCalculator />);
+				setPageName('Calculadora de Propina');
+				setPageRender(<TipCalculator />);
+				break;
 			case 'TipByCountry':
-				return (<TipByCountry />);
+				setPageName('Propina por País');
+				setPageRender(<TipByCountry />);
+				break;
 			default:
-				return (
-					<div>
-						<p>Not Found</p>
-					</div>
-				);
+				setPageName('Page Not Found');
+				setPageRender(<h1>Page Not Found</h1>);
+				break;
 		}
-	}
+	});
+
 
 	return (
 		<IonPage>
@@ -31,17 +36,17 @@ const Page: React.FC = () => {
 					<IonButtons slot="start">
 						<IonMenuButton />
 					</IonButtons>
-					<IonTitle>{name}</IonTitle>
+					<IonTitle>{pageName}</IonTitle>
 				</IonToolbar>
 			</IonHeader>
 
 			<IonContent fullscreen>
 				<IonHeader collapse="condense">
 					<IonToolbar>
-						<IonTitle size="large">{name}</IonTitle>
+						<IonTitle size="large">{pageName}</IonTitle>
 					</IonToolbar>
 				</IonHeader>
-				{selectComponent()}
+				{pageRender}
 			</IonContent>
 		</IonPage>
 	);
