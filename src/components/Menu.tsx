@@ -1,5 +1,7 @@
+import { App, AppInfo } from '@capacitor/app';
 import {
 	IonContent,
+	IonFooter,
 	IonIcon,
 	IonItem,
 	IonLabel,
@@ -13,6 +15,7 @@ import {
 import { useLocation } from 'react-router-dom';
 import { homeOutline, homeSharp, planetOutline, planetSharp } from 'ionicons/icons';
 import './Menu.css';
+import React from 'react';
 
 interface AppPage {
 	url: string;
@@ -28,23 +31,30 @@ const appPages: AppPage[] = [
 		iosIcon: homeOutline,
 		mdIcon: homeSharp
 	},
-	{
-		title: `Propinas por País`,
-		url: '/TipByCountry',
-		iosIcon: planetOutline,
-		mdIcon: planetSharp
-	}
+	// {
+	// 	title: `Propinas por País`,
+	// 	url: '/TipByCountry',
+	// 	iosIcon: planetOutline,
+	// 	mdIcon: planetSharp
+	// }
 ];
 
 const Menu: React.FC = () => {
 	const location = useLocation();
+	const [appVersion, setAppVersion] = React.useState<string>('');
+
+	React.useEffect(() => {
+		App.getInfo().then((data: AppInfo) => {
+			setAppVersion(data.version);
+		});
+	});
 
 	return (
 		<IonMenu contentId="main" type="overlay">
 			<IonContent>
 				<IonList id="inbox-list">
-					<IonListHeader>{`Calculadora de Propina`}</IonListHeader>
-					<IonNote>{`By Delta Pi New Century ${(new Date()).getFullYear()}`}</IonNote>
+					{/* <IonListHeader>{`Calculadora de Propina`}</IonListHeader>
+					<IonNote>{`By Delta Pi New Century ${(new Date()).getFullYear()}`}</IonNote> */}
 					{appPages.map((appPage, index) => {
 						return (
 							<IonMenuToggle key={index} autoHide={false}>
@@ -57,6 +67,12 @@ const Menu: React.FC = () => {
 					})}
 				</IonList>
 			</IonContent>
+			<IonFooter>
+				<IonList id="inbox-list">
+					<IonListHeader>{`By Delta Pi New Century`}</IonListHeader>
+					<IonNote>{`App Version: ${appVersion}`}</IonNote>
+				</IonList>
+			</IonFooter>
 		</IonMenu>
 	);
 };
