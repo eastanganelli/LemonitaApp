@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tip_calculator/amountWidget.dart';
-import 'package:tip_calculator/peopleWidget.dart';
-import 'package:tip_calculator/tippingWidget.dart';
+import 'package:tip_calculator/amount_widget.dart';
+import 'package:tip_calculator/people_widget.dart';
+import 'package:tip_calculator/tipping_widget.dart';
+import 'package:tip_calculator/total_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,10 +33,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _myAmount = 0;
-  double _TipAmount = 0;
+  double _myAmount = 0.0, _TipAmount = 0.0;
 
-  void _updateAmount(int _newAmount) {
+  void _updateAmount(double _newAmount) {
     setState(() {
       _myAmount = _newAmount;
     });
@@ -66,7 +66,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       children: [
                         Expanded(
-                          child: MyAmountWidget(_updateAmount),
+                          child: MyAmountWidget(
+                            onUpdate: _updateAmount,
+                          ),
                         ),
                         Expanded(
                           child: MyPeopleWidget(),
@@ -76,23 +78,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Expanded(
                     flex: 2,
-                    child: MyTippingWidget(_myAmount, _updateData),
+                    child: MyTippingWidget(
+                      amountToPay: _myAmount,
+                      onUpdate: _updateAmount,
+                    ),
                   ),
                 ],
               ),
             ),
             Expanded(
-              flex: 1,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.pink,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                margin: const EdgeInsets.all(5.0),
-                child: Center(
-                  child: Text('Total  Pink Container'),
-                ),
-              ),
+              //flex: 1,
+              child: MyTotalWidget(),
             ),
             Expanded(
               flex: 2,

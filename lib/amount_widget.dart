@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class MyPeopleWidget extends StatefulWidget {
-  // final Function(int) onUpdate;
-  //const MyPeopleWidget(this.onUpdate);
+class MyAmountWidget extends StatefulWidget {
+  final Function(double) onUpdate;
+
+  const MyAmountWidget({super.key, required this.onUpdate});
 
   @override
-  _MyPeopleWidget createState() => _MyPeopleWidget();
+  State<MyAmountWidget> createState() => _MyAmountWidget();
 }
 
-class _MyPeopleWidget extends State<MyPeopleWidget> {
+class _MyAmountWidget extends State<MyAmountWidget> {
+  double _amount = 0.0;
+
+  void _changeAmount(String _value) {
+    setState(() {
+      _amount = double.parse(_value.replaceAll(",", "."));
+      widget.onUpdate(_amount);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color.fromRGBO(73, 247, 112, 0.5),
+        color: const Color.fromRGBO(45, 174, 253, 0.5),
         borderRadius: BorderRadius.circular(10),
       ),
       margin: const EdgeInsets.all(5.0),
@@ -24,7 +35,7 @@ class _MyPeopleWidget extends State<MyPeopleWidget> {
           const Wrap(
             children: [
               Text(
-                'Personas',
+                'Monto',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ],
@@ -36,12 +47,17 @@ class _MyPeopleWidget extends State<MyPeopleWidget> {
               bottom: 10,
             ),
             child: TextField(
-              /*inputFormatters: [
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+              inputFormatters: [
                 FilteringTextInputFormatter.allow(
-                  RegExp(r'[0-9]'),
+                    RegExp(r'[0-9]+[,|.]{0,1}[0-9]*')),
+                TextInputFormatter.withFunction(
+                  (oldValue, newValue) => newValue.copyWith(
+                    text: newValue.text.replaceAll('.', ','),
+                  ),
                 ),
-                FilteringTextInputFormatter.digitsOnly,
-              ],*/
+              ],
               decoration: const InputDecoration(
                 border: UnderlineInputBorder(
                   borderSide: BorderSide(
@@ -55,7 +71,7 @@ class _MyPeopleWidget extends State<MyPeopleWidget> {
                 ),
                 filled: false,
               ),
-              // onChanged: _changeAmount,
+              onChanged: _changeAmount,
             ),
           ),
         ],

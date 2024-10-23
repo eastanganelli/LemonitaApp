@@ -1,14 +1,13 @@
-import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 
 class MyTippingWidget extends StatefulWidget {
-  final int amountToPay;
+  final double amountToPay;
   final Function(double) onUpdate;
 
-  const MyTippingWidget(this.amountToPay, this.onUpdate);
+  const MyTippingWidget({required this.amountToPay, required this.onUpdate});
 
   @override
-  _MyTippingWidget createState() => _MyTippingWidget();
+  State<MyTippingWidget> createState() => _MyTippingWidget();
 }
 
 class _MyTippingWidget extends State<MyTippingWidget> {
@@ -45,12 +44,14 @@ class _MyTippingWidget extends State<MyTippingWidget> {
     });
   }
 
-  // MyAmountWidget({required this.onUpdate});
   @override
   Widget build(BuildContext context) {
+    // _tipCalculation();
+    // _tipCalculationByPerson();
+
     return Container(
       decoration: BoxDecoration(
-        color: Color.fromRGBO(255, 49, 85, 0.5),
+        color: const Color.fromRGBO(255, 49, 85, 0.5),
         borderRadius: BorderRadius.circular(10),
       ),
       margin: const EdgeInsets.all(5.0),
@@ -141,7 +142,7 @@ class _MyTippingWidget extends State<MyTippingWidget> {
               children: [
                 Text(
                   "Propina: \$ " + _tipValue.toStringAsFixed(2),
-                  style: TextStyle(
+                  style: const TextStyle(
                     //  fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
