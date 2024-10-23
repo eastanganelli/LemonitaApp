@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tip_calculator/amountWidget.dart';
+import 'package:tip_calculator/peopleWidget.dart';
 import 'package:tip_calculator/tippingWidget.dart';
 
 void main() {
@@ -12,9 +13,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Calculadora de Propina',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black12),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Calculadora de Propina'),
@@ -41,7 +42,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _updateData(double tipAmount) {
-    _TipAmount = tipAmount;
+    setState(() {
+      _TipAmount = tipAmount;
+    });
   }
 
   @override
@@ -62,23 +65,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     flex: 2,
                     child: Column(
                       children: [
-                        MyAmountWidget(_updateAmount),
                         Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            margin: EdgeInsets.all(5.0),
-                            child: Center(child: Text('Green Container')),
-                          ),
+                          child: MyAmountWidget(_updateAmount),
+                        ),
+                        Expanded(
+                          child: MyPeopleWidget(),
                         ),
                       ],
                     ),
                   ),
                   Expanded(
                     flex: 2,
-                    child: MyTippingWidget(2345, _updateData),
+                    child: MyTippingWidget(_myAmount, _updateData),
                   ),
                 ],
               ),
@@ -90,8 +88,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Colors.pink,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                margin: EdgeInsets.all(5.0),
-                child: Center(child: Text('Total  Pink Container')),
+                margin: const EdgeInsets.all(5.0),
+                child: Center(
+                  child: Text('Total  Pink Container'),
+                ),
               ),
             ),
             Expanded(

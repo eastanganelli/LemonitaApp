@@ -1,30 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-class MyAmountWidget extends StatefulWidget {
-  final Function(int) onUpdate;
-
-  const MyAmountWidget(this.onUpdate);
+class MyPeopleWidget extends StatefulWidget {
+  // final Function(int) onUpdate;
+  //const MyPeopleWidget(this.onUpdate);
 
   @override
-  _MyAmountWidget createState() => _MyAmountWidget();
+  _MyPeopleWidget createState() => _MyPeopleWidget();
 }
 
-class _MyAmountWidget extends State<MyAmountWidget> {
-  int _amount = 0;
-
-  void _changeAmount(String _value) {
-    setState(() {
-      _amount = int.parse(_value);
-      widget.onUpdate(_amount);
-    });
-  }
-
+class _MyPeopleWidget extends State<MyPeopleWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color.fromRGBO(45, 174, 253, 0.5),
+        color: Color.fromRGBO(73, 247, 112, 0.5),
         borderRadius: BorderRadius.circular(10),
       ),
       margin: const EdgeInsets.all(5.0),
@@ -35,7 +24,7 @@ class _MyAmountWidget extends State<MyAmountWidget> {
           const Wrap(
             children: [
               Text(
-                'Monto',
+                'Personas',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ],
@@ -47,12 +36,12 @@ class _MyAmountWidget extends State<MyAmountWidget> {
               bottom: 10,
             ),
             child: TextField(
-              inputFormatters: [
+              /*inputFormatters: [
                 FilteringTextInputFormatter.allow(
                   RegExp(r'[0-9]'),
                 ),
                 FilteringTextInputFormatter.digitsOnly,
-              ],
+              ],*/
               decoration: const InputDecoration(
                 border: UnderlineInputBorder(
                   borderSide: BorderSide(
@@ -66,7 +55,7 @@ class _MyAmountWidget extends State<MyAmountWidget> {
                 ),
                 filled: false,
               ),
-              onChanged: _changeAmount,
+              // onChanged: _changeAmount,
             ),
           ),
         ],

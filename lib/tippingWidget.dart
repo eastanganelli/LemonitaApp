@@ -21,11 +21,18 @@ class _MyTippingWidget extends State<MyTippingWidget> {
     });
   }
 
+  void _tipCalculationByPerson() {
+    setState(() {
+      _tipPerson = _tipValue / 1.0;
+    });
+  }
+
   void _decrease() {
     setState(() {
       if (_porcentTip > 0) {
         _porcentTip--;
         _tipCalculation();
+        _tipCalculationByPerson();
       }
     });
   }
@@ -34,6 +41,7 @@ class _MyTippingWidget extends State<MyTippingWidget> {
     setState(() {
       _porcentTip++;
       _tipCalculation();
+      _tipCalculationByPerson();
     });
   }
 
@@ -42,7 +50,7 @@ class _MyTippingWidget extends State<MyTippingWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.red,
+        color: Color.fromRGBO(255, 49, 85, 0.5),
         borderRadius: BorderRadius.circular(10),
       ),
       margin: const EdgeInsets.all(5.0),
@@ -54,15 +62,32 @@ class _MyTippingWidget extends State<MyTippingWidget> {
             const Wrap(
               children: [
                 Center(
-                  child: Text('Propina'),
+                  child: Text(
+                    'Propina',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
                 Center(
                   child: Text(
                     'Rango de recomendado para',
+                    style: TextStyle(
+                      // fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
                 Center(
-                  child: Text('Argentina'),
+                  child: Text(
+                    'Argentina',
+                    style: TextStyle(
+                      // fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -70,6 +95,10 @@ class _MyTippingWidget extends State<MyTippingWidget> {
               children: [
                 Text(
                   '5 a 10 porciento',
+                  style: TextStyle(
+                    // fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
               ],
             ),
@@ -79,23 +108,31 @@ class _MyTippingWidget extends State<MyTippingWidget> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   children: [
+                    const Spacer(),
                     IconButton(
                       icon: const Icon(
                         Icons.remove_circle_outline,
                       ),
                       onPressed: _decrease,
                     ),
+                    const Spacer(),
                     Center(
                       child: Text(
                         _porcentTip.toString(),
+                        style: const TextStyle(
+                          // fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
+                    const Spacer(),
                     IconButton(
                       icon: const Icon(
                         Icons.add_circle_outline,
                       ),
                       onPressed: _increase,
                     ),
+                    const Spacer(),
                   ],
                 ),
               ],
@@ -103,17 +140,22 @@ class _MyTippingWidget extends State<MyTippingWidget> {
             Wrap(
               children: [
                 Text(
-                  "Propina: \$ ",
-                ),
-                Text(
-                  _tipValue.toStringAsFixed(2),
+                  "Propina: \$ " + _tipValue.toStringAsFixed(2),
+                  style: TextStyle(
+                    //  fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
               ],
             ),
-            const Wrap(
+            Wrap(
               children: [
                 Text(
-                  "\$/Persona: ",
+                  "\$/Persona: " + _tipPerson.toStringAsFixed(2),
+                  style: const TextStyle(
+                    // fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
               ],
             )
