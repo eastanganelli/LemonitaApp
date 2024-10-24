@@ -13,11 +13,11 @@ class MyAmountWidget extends StatefulWidget {
 class _MyAmountWidget extends State<MyAmountWidget> {
   double _amount = 0.0;
 
-  void _changeAmount(String _value) {
+  void _changeAmount(String newValue) async {
     setState(() {
-      _amount = double.parse(_value.replaceAll(",", "."));
-      widget.onUpdate(_amount);
+      _amount = double.parse(newValue.replaceAll(",", "."));
     });
+    widget.onUpdate(_amount);
   }
 
   @override

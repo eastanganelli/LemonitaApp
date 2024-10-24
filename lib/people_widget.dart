@@ -12,9 +12,9 @@ class MyPeopleWidget extends StatefulWidget {
 class _MyPeopleWidget extends State<MyPeopleWidget> {
   int _People = 1;
 
-  void onPeopleChanged(String _value) {
-    setState(() {
-      _People = int.parse(_value);
+  void onPeopleChanged(String newValue) {
+    setState(() async {
+      _People = int.parse(newValue);
       widget.onUpdate(_People);
     });
   }
@@ -23,7 +23,7 @@ class _MyPeopleWidget extends State<MyPeopleWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color.fromRGBO(73, 247, 112, 0.5),
+        color: const Color.fromRGBO(73, 247, 112, 0.5),
         borderRadius: BorderRadius.circular(10),
       ),
       margin: const EdgeInsets.all(5.0),
@@ -46,6 +46,8 @@ class _MyPeopleWidget extends State<MyPeopleWidget> {
               bottom: 10,
             ),
             child: TextField(
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
               ],

@@ -15,19 +15,22 @@ class MyTippingWidget extends StatefulWidget {
 }
 
 class _MyTippingWidget extends State<MyTippingWidget> {
+  final String _concurrencyType = "ARS";
   int _porcentTip = 0;
   double _tipValue = 0.00, _tipPerson = 0.00;
 
-  void _tipCalculation() {
+  void _tipCalculation() async {
     setState(() {
       _tipValue = widget.amountToPay * (_porcentTip / 100);
+      widget.onUpdate(_tipValue);
     });
   }
 
   void _tipCalculationByPerson() {
-    setState(() {
-      _tipPerson = _tipValue / widget.amountOfPeople;
-    });
+    _tipPerson = _tipValue / widget.amountOfPeople;
+    if (_tipPerson.isNaN) {
+      _tipPerson = 0.00;
+    }
   }
 
   void _decrease() {
@@ -145,7 +148,7 @@ class _MyTippingWidget extends State<MyTippingWidget> {
             Wrap(
               children: [
                 Text(
-                  "Propina: \$ " + _tipValue.toStringAsFixed(2),
+                  "Propina: ${_concurrencyType} ${_tipValue.toStringAsFixed(2)}",
                   style: const TextStyle(
                     //  fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -156,7 +159,7 @@ class _MyTippingWidget extends State<MyTippingWidget> {
             Wrap(
               children: [
                 Text(
-                  "\$/Persona: " + _tipPerson.toStringAsFixed(2),
+                  "Persona: ${_concurrencyType} ${_tipPerson.toStringAsFixed(2)}",
                   style: const TextStyle(
                     // fontWeight: FontWeight.bold,
                     color: Colors.black,
