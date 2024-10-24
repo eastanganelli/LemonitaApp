@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 
 class MyTippingWidget extends StatefulWidget {
   final double amountToPay;
+  final int amountOfPeople;
   final Function(double) onUpdate;
 
-  const MyTippingWidget({required this.amountToPay, required this.onUpdate});
+  const MyTippingWidget(
+      {required this.amountToPay,
+      required this.amountOfPeople,
+      required this.onUpdate});
 
   @override
   State<MyTippingWidget> createState() => _MyTippingWidget();
@@ -22,7 +26,7 @@ class _MyTippingWidget extends State<MyTippingWidget> {
 
   void _tipCalculationByPerson() {
     setState(() {
-      _tipPerson = _tipValue / 1.0;
+      _tipPerson = _tipValue / widget.amountOfPeople;
     });
   }
 
@@ -46,8 +50,8 @@ class _MyTippingWidget extends State<MyTippingWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // _tipCalculation();
-    // _tipCalculationByPerson();
+    _tipCalculation();
+    _tipCalculationByPerson();
 
     return Container(
       decoration: BoxDecoration(

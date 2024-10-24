@@ -33,6 +33,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _People = 0;
   double _myAmount = 0.0, _TipAmount = 0.0;
 
   void _updateAmount(double _newAmount) {
@@ -44,6 +45,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void _updateData(double tipAmount) {
     setState(() {
       _TipAmount = tipAmount;
+    });
+  }
+
+  void _updatePeople(int newPeople) {
+    setState(() {
+      _People = newPeople;
     });
   }
 
@@ -71,7 +78,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                         Expanded(
-                          child: MyPeopleWidget(),
+                          child: MyPeopleWidget(
+                            onUpdate: _updatePeople,
+                          ),
                         ),
                       ],
                     ),
@@ -80,6 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     flex: 2,
                     child: MyTippingWidget(
                       amountToPay: _myAmount,
+                      amountOfPeople: _People,
                       onUpdate: _updateAmount,
                     ),
                   ),
