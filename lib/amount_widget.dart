@@ -1,24 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:tip_calculator/shared_data.dart';
 
-class MyAmountWidget extends StatefulWidget {
-  final Function(double) onUpdate;
-
-  const MyAmountWidget({super.key, required this.onUpdate});
-
-  @override
-  State<MyAmountWidget> createState() => _MyAmountWidget();
-}
-
-class _MyAmountWidget extends State<MyAmountWidget> {
-  double _amount = 0.0;
-
-  void _changeAmount(String newValue) async {
-    setState(() {
-      _amount = double.parse(newValue.replaceAll(",", "."));
-    });
-    widget.onUpdate(_amount);
-  }
+class MyAmountWidget extends StatelessWidget {
+  //final Function(double) onUpdate;
+  //const MyAmountWidget({super.key, required this.onUpdate});
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +58,11 @@ class _MyAmountWidget extends State<MyAmountWidget> {
                 ),
                 filled: false,
               ),
-              onChanged: _changeAmount,
+              onChanged: (newAmount) {
+                context
+                    .read<SharedData>()
+                    .setAmount(double.parse(newAmount.replaceAll(",", ".")));
+              },
             ),
           ),
         ],

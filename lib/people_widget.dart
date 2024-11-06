@@ -1,24 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:tip_calculator/shared_data.dart';
 
-class MyPeopleWidget extends StatefulWidget {
-  final Function(int) onUpdate;
-  const MyPeopleWidget({required this.onUpdate});
-
-  @override
-  State<MyPeopleWidget> createState() => _MyPeopleWidget();
-}
-
-class _MyPeopleWidget extends State<MyPeopleWidget> {
-  int _People = 1;
-
-  void onPeopleChanged(String newValue) {
-    setState(() async {
-      _People = int.parse(newValue);
-      widget.onUpdate(_People);
-    });
-  }
-
+class MyPeopleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,6 +31,7 @@ class _MyPeopleWidget extends State<MyPeopleWidget> {
               bottom: 10,
             ),
             child: TextField(
+              controller: TextEditingController()..text = "1",
               keyboardType:
                   const TextInputType.numberWithOptions(decimal: true),
               inputFormatters: [
@@ -57,14 +43,16 @@ class _MyPeopleWidget extends State<MyPeopleWidget> {
                     color: Colors.black,
                   ),
                 ),
-                labelText: 'Ingronese valor',
+                labelText: 'Ingrese valor',
                 labelStyle: TextStyle(
                   // fontWeight: FontWeight.bold,
                   fontSize: 14,
                 ),
                 filled: false,
               ),
-              onChanged: onPeopleChanged,
+              onChanged: (String newValue) {
+                context.read<SharedData>().setPeople(int.parse(newValue));
+              },
             ),
           ),
         ],

@@ -1,56 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tip_calculator/shared_data.dart';
 
 class MyTotalWidget extends StatefulWidget {
-  final double amountTotal, amountPerPerson;
-  const MyTotalWidget(
-      {required this.amountTotal, required this.amountPerPerson});
+  const MyTotalWidget({super.key});
 
   @override
-  State<MyTotalWidget> createState() => _MyTotalWidget();
+  State<MyTotalWidget> createState() => _MyTotalWidgetState();
 }
 
-class _MyTotalWidget extends State<MyTotalWidget> {
+class _MyTotalWidgetState extends State<MyTotalWidget> {
   String _concurrencyType = "ARS";
-  double _amountPerPerson = 0.00;
 
   @override
   Widget build(BuildContext context) {
-    if (widget.amountPerPerson.isNaN) {
-      _amountPerPerson = 0.00;
-    } else {
-      _amountPerPerson = widget.amountPerPerson;
-    }
-
-    return Container(
-      decoration: BoxDecoration(
-        color: Color.fromRGBO(255, 237, 94, 0.5),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      margin: const EdgeInsets.all(5.0),
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 15,
-          right: 15,
+    return Consumer<SharedData>(builder: (context, shareddata, child) {
+      return Container(
+        decoration: BoxDecoration(
+          color: const Color.fromRGBO(255, 237, 94, 0.5),
+          borderRadius: BorderRadius.circular(10),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Total',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+        margin: const EdgeInsets.all(5.0),
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 15,
+            right: 15,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Total',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
-            ),
-            Text(
-                'Monto: ${_concurrencyType} ${widget.amountTotal.toStringAsFixed(2)}'),
-            Text(
-                'Por Persona: ${_concurrencyType} ${_amountPerPerson.toStringAsFixed(2)}'),
-          ],
+              Center(
+                child: Text(
+                    'Monto: $_concurrencyType ${shareddata.getTotal().toStringAsFixed(2)}'),
+              ),
+              if (context.read<SharedData>().people > 1)
+                Center(
+                  child: Text(
+                      'Por Persona: $_concurrencyType ${shareddata.getTotalPerPerson().toStringAsFixed(2)}'),
+                ),
+            ],
+          ),
         ),
-      ), //),
-    );
+      );
+    });
   }
 }

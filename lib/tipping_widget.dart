@@ -1,68 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tip_calculator/shared_data.dart';
 
 class MyTippingWidget extends StatefulWidget {
-  final double amountToPay;
-  final int amountOfPeople;
-  final Function(double) onUpdate;
-
-  const MyTippingWidget(
-      {required this.amountToPay,
-      required this.amountOfPeople,
-      required this.onUpdate});
+  MyTippingWidget({super.key});
 
   @override
-  State<MyTippingWidget> createState() => _MyTippingWidget();
+  State<MyTippingWidget> createState() => _MyTippingWidgetState();
 }
 
-class _MyTippingWidget extends State<MyTippingWidget> {
-  final String _concurrencyType = "ARS";
-  int _porcentTip = 0;
-  double _tipValue = 0.00, _tipPerson = 0.00;
-
-  void _tipCalculation() async {
-    setState(() {
-      _tipValue = widget.amountToPay * (_porcentTip / 100);
-      widget.onUpdate(_tipValue);
-    });
-  }
-
-  void _tipCalculationByPerson() {
-    _tipPerson = _tipValue / widget.amountOfPeople;
-    if (_tipPerson.isNaN) {
-      _tipPerson = 0.00;
-    }
-  }
-
-  void _decrease() {
-    setState(() {
-      if (_porcentTip > 0) {
-        _porcentTip--;
-        _tipCalculation();
-        _tipCalculationByPerson();
-      }
-    });
-  }
-
-  void _increase() {
-    setState(() {
-      _porcentTip++;
-      _tipCalculation();
-      _tipCalculationByPerson();
-    });
-  }
+class _MyTippingWidgetState extends State<MyTippingWidget> {
+  final String concurrencyType = "ARS";
 
   @override
   Widget build(BuildContext context) {
-    _tipCalculation();
-    _tipCalculationByPerson();
-
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color.fromRGBO(255, 49, 85, 0.5),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      margin: const EdgeInsets.all(5.0),
-      child: Expanded(
+    return Consumer<SharedData>(builder: (context, shareddata, child) {
+      return Container(
+        decoration: BoxDecoration(
+          color: const Color.fromRGBO(255, 49, 85, 0.5),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        margin: const EdgeInsets.all(5.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -81,22 +39,23 @@ class _MyTippingWidget extends State<MyTippingWidget> {
                 ),
                 Center(
                   child: Text(
-                    'Rango de recomendado para',
+                    //'Rango de recomendado para',
+                    'Rango de recomendado',
                     style: TextStyle(
                       // fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
                 ),
-                Center(
-                  child: Text(
-                    'Argentina',
-                    style: TextStyle(
-                      // fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                /*Center(
+                    child: Text(
+                      'Argentina',
+                      style: TextStyle(
+                        // fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
-                ),
+                  ),*/
               ],
             ),
             const Wrap(
@@ -121,12 +80,16 @@ class _MyTippingWidget extends State<MyTippingWidget> {
                       icon: const Icon(
                         Icons.remove_circle_outline,
                       ),
-                      onPressed: _decrease,
+                      onPressed: () {
+                        if (context.read<SharedData>().tipPercent > 0) {
+                          shareddata.setDecrementTipPorcent();
+                        }
+                      },
                     ),
                     const Spacer(),
                     Center(
                       child: Text(
-                        _porcentTip.toString(),
+                        context.read<SharedData>().tipPercent.toString(),
                         style: const TextStyle(
                           // fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -138,7 +101,9 @@ class _MyTippingWidget extends State<MyTippingWidget> {
                       icon: const Icon(
                         Icons.add_circle_outline,
                       ),
-                      onPressed: _increase,
+                      onPressed: () {
+                        shareddata.setIncrementTipPorcent();
+                      },
                     ),
                     const Spacer(),
                   ],
@@ -148,7 +113,7 @@ class _MyTippingWidget extends State<MyTippingWidget> {
             Wrap(
               children: [
                 Text(
-                  "Propina: ${_concurrencyType} ${_tipValue.toStringAsFixed(2)}",
+                  "Total: ${concurrencyType} ${shareddata.tipAmount.toStringAsFixed(2)}",
                   style: const TextStyle(
                     //  fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -156,20 +121,21 @@ class _MyTippingWidget extends State<MyTippingWidget> {
                 ),
               ],
             ),
-            Wrap(
-              children: [
-                Text(
-                  "Persona: ${_concurrencyType} ${_tipPerson.toStringAsFixed(2)}",
-                  style: const TextStyle(
-                    // fontWeight: FontWeight.bold,
-                    color: Colors.black,
+            if (context.read<SharedData>().people > 1)
+              Wrap(
+                children: [
+                  Text(
+                    "Por Persona: ${concurrencyType} ${shareddata.tipPerson.toStringAsFixed(2)}",
+                    style: const TextStyle(
+                      // fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-              ],
-            )
+                ],
+              )
           ],
         ),
-      ),
-    );
+      );
+    });
   }
 }
