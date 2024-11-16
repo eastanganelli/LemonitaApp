@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:tip_calculator/shared_data.dart';
+import 'package:tip_calculator/service/shared_data.dart';
 import 'package:tip_calculator/amount_widget.dart';
 import 'package:tip_calculator/people_widget.dart';
 import 'package:tip_calculator/tipping_widget.dart';
 import 'package:tip_calculator/total_widget.dart';
+import 'package:tip_calculator/components/modal_language.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -128,6 +129,20 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton.small(
+        child: const Icon(Icons.language_rounded),
+        onPressed: () async {
+          bool? confirmed =
+              await showMyLanguageDialog(context); // Wait for the result
+
+          if (confirmed == true) {
+            // Perform action if confirmed
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Action Confirmed!')),
+            );
+          }
+        },
       ),
     );
   }

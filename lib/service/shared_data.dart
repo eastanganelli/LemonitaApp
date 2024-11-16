@@ -1,14 +1,14 @@
 import 'package:flutter/foundation.dart';
 
 class SharedData with ChangeNotifier {
-  double _amount = 0.00, _tipAmount = 0.00, _tipValue = 0.00, _tipPerson = 0.00;
+  double _amount = 0.00, _tipAmount = 0.00, _tipPerson = 0.00;
   int _people = 0, _tipPercent = 0;
 
-  double get amount    => _amount;
+  double get amount => _amount;
   double get tipAmount => _tipAmount;
   double get tipPerson => _tipPerson;
-  int get tipPercent   => _tipPercent;
-  int get people       => _people;
+  int get tipPercent => _tipPercent;
+  int get people => _people;
 
   void setAmount(double newAmount) {
     _amount = newAmount;

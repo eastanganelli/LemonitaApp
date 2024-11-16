@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tip_calculator/shared_data.dart';
+import 'package:tip_calculator/service/shared_data.dart';
 
 class MyTotalWidget extends StatefulWidget {
   const MyTotalWidget({super.key});
