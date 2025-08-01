@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import 'package:provider/provider.dart';
 
 class LanguageUI {
   String langCode = "", langName = "";
@@ -26,7 +24,7 @@ class MyLanguageDialog extends StatefulWidget {
 class _MyLanguageDialogState extends State<MyLanguageDialog> {
   List<LanguageUI> myLanguages = [
     LanguageUI(langCode: "Es", langName: "Español"),
-    LanguageUI(langCode: "En", langName: "English")
+    LanguageUI(langCode: "En", langName: "English"),
   ];
   LanguageUI selectedLang = LanguageUI(langCode: "Es", langName: "Español");
 
@@ -68,9 +66,7 @@ class _MyLanguageDialogState extends State<MyLanguageDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Seleccionar Idioma'),
-      content: Column(
-        children: createRadioListLanguages(),
-      ),
+      content: Column(children: createRadioListLanguages()),
       actions: <Widget>[
         TextButton(
           onPressed: () {
@@ -80,8 +76,9 @@ class _MyLanguageDialogState extends State<MyLanguageDialog> {
         ),
         TextButton(
           onPressed: () {
-            Navigator.of(context)
-                .pop(true); // Return true to indicate confirmation
+            Navigator.of(
+              context,
+            ).pop(true); // Return true to indicate confirmation
           },
           child: const Text('Confirm'),
         ),

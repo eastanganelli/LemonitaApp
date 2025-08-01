@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:tip_calculator/service/shared_data.dart';
 import 'package:tip_calculator/amount_widget.dart';
 import 'package:tip_calculator/people_widget.dart';
@@ -11,7 +11,7 @@ import 'package:tip_calculator/components/modal_language.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await MobileAds.instance.initialize();
+  // await MobileAds.instance.initialize();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
     (value) => {
       runApp(
@@ -51,30 +51,30 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool isBannerLoaded = false;
-  late BannerAd bannerAd;
+  // bool isBannerLoaded = false;
+  // late BannerAd bannerAd;
 
   inilizeBannerAd() async {
-    bannerAd = BannerAd(
-      size: AdSize.banner,
-      adUnitId: 'ca-app-pub-2237199373273098/8606613360',
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          setState(() {
-            isBannerLoaded = true;
-            print("Banner has been loaded!");
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-          isBannerLoaded = false;
-          print(error);
-        },
-      ),
-      request: const AdRequest(),
-    );
+    // bannerAd = BannerAd(
+    //   size: AdSize.banner,
+    //   adUnitId: 'ca-app-pub-2237199373273098/8606613360',
+    //   listener: BannerAdListener(
+    //     onAdLoaded: (ad) {
+    //       setState(() {
+    //         isBannerLoaded = true;
+    //         print("Banner has been loaded!");
+    //       });
+    //     },
+    //     onAdFailedToLoad: (ad, error) {
+    //       ad.dispose();
+    //       isBannerLoaded = false;
+    //       print(error);
+    //     },
+    //   ),
+    //   request: const AdRequest(),
+    // );
 
-    bannerAd.load();
+    // bannerAd.load();
   }
 
   @override
