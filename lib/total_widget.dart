@@ -10,7 +10,7 @@ class MyTotalWidget extends StatefulWidget {
 }
 
 class _MyTotalWidgetState extends State<MyTotalWidget> {
-  String _concurrencyType = "ARS";
+  final String _concurrencyType = "ARS";
 
   @override
   Widget build(BuildContext context) {
