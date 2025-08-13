@@ -7,7 +7,7 @@ import 'package:tip_calculator/amount_widget.dart';
 import 'package:tip_calculator/people_widget.dart';
 import 'package:tip_calculator/tipping_widget.dart';
 import 'package:tip_calculator/total_widget.dart';
-import 'package:tip_calculator/components/modal_language.dart';
+// import 'package:tip_calculator/components/modal_language.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // bool isBannerLoaded = false;
   // late BannerAd bannerAd;
 
-  inilizeBannerAd() async {
+  Future<void> inilizeBannerAd() async {
     // bannerAd = BannerAd(
     //   size: AdSize.banner,
     //   adUnitId: 'ca-app-pub-2237199373273098/8606613360',
@@ -130,20 +130,20 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.small(
-        child: const Icon(Icons.language_rounded),
-        onPressed: () async {
-          bool? confirmed =
-              await showMyLanguageDialog(context); // Wait for the result
+      // floatingActionButton: FloatingActionButton.small(
+      //   child: const Icon(Icons.language_rounded),
+      //   onPressed: () async {
+      //     bool? confirmed =
+      //         await showMyLanguageDialog(context); // Wait for the result
 
-          if (confirmed == true) {
-            // Perform action if confirmed
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Action Confirmed!')),
-            );
-          }
-        },
-      ),
+      //     if (confirmed == true) {
+      //       // Perform action if confirmed
+      //       ScaffoldMessenger.of(context).showSnackBar(
+      //         const SnackBar(content: Text('Action Confirmed!')),
+      //       );
+      //     }
+      //   },
+      // ),
     );
   }
 }

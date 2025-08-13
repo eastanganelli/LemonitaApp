@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:tip_calculator/service/shared_data.dart';
 
 class MyAmountWidget extends StatelessWidget {
+  const MyAmountWidget({super.key});
+
   //final Function(double) onUpdate;
   //const MyAmountWidget({super.key, required this.onUpdate});
 

@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:tip_calculator/service/shared_data.dart';
 
 class MyPeopleWidget extends StatelessWidget {
+  const MyPeopleWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(

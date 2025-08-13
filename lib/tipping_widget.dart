@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tip_calculator/service/shared_data.dart';
 
 class MyTippingWidget extends StatefulWidget {
-  MyTippingWidget({super.key});
+  const MyTippingWidget({super.key});
 
   @override
   State<MyTippingWidget> createState() => _MyTippingWidgetState();
@@ -113,7 +113,7 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
             Wrap(
               children: [
                 Text(
-                  "Total: ${concurrencyType} ${shareddata.tipAmount.toStringAsFixed(2)}",
+                  "Total: $concurrencyType ${shareddata.tipAmount.toStringAsFixed(2)}",
                   style: const TextStyle(
                     //  fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -125,7 +125,7 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
               Wrap(
                 children: [
                   Text(
-                    "Por Persona: ${concurrencyType} ${shareddata.tipPerson.toStringAsFixed(2)}",
+                    "Por Persona: $concurrencyType ${shareddata.tipPerson.toStringAsFixed(2)}",
                     style: const TextStyle(
                       // fontWeight: FontWeight.bold,
                       color: Colors.black,
