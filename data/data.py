@@ -1,5 +1,5 @@
+import os
 import json
-from numpy import str_
 import requests
 
 JSON_DATA_PATH:   str = "https://gist.githubusercontent.com/eastanganelli/f36853425b3b58a064d44f4920b8a588/raw/00ffdc6e157de7a9efbcf58f56243374593a2a8d/tipcalculator_tips.json"
@@ -34,13 +34,11 @@ def ReparseJson(json_array: any) -> any:
                     "country":    country_name.capitalize(),
                     "code":       country_code.upper(),
                     "currencies": currencies,
-                    "flags":      flags,
-                    # "tip": json_item["tip"],
-                    # "flag": country_information["flags"]["png"]
+                    "flags":      flags
                 }
                 new_list_json.append(new_data_reparse)
-    print(new_list_json)
-    # return new_list_json
+    # print(new_list_json)
+    return new_list_json
 
 def GetCurrencies(currencies: json) -> any:
     main_key: str = list(currencies.keys())[0] if currencies else None
@@ -55,22 +53,25 @@ def GetFlags(emote_flag: str, png_flag_path: str) -> any:
     response = requests.get(png_flag_path, stream=True)
     # response.raise_for_status()  # Raise an exception for bad status codes (4xx or 5xx)
     filename: str = "./resources/flags/" + png_flag_path.replace("https://flagcdn.com/w320/", "")
-    with open(filename, 'wb') as file:
-        file.write(response.content)
+    # check if file already exists
+    if not os.path.exists("./resources/flags"):
+        os.makedirs("./resources/flags")
+        with open(filename, 'wb') as file:
+            file.write(response.content)
     return {
         "flag":     emote_flag,
         "localpng": png_flag_path,
         "webpng":   png_flag_path
     }
 
-def ParseRestaurantData(data: str) -> any:
-    ...
+# def ParseRestaurantData(data: str) -> any:
+#     ...
 
-def ParseDriverData(data: str) -> any:
-    ...
+# def ParseDriverData(data: str) -> any:
+#     ...
 
-def ParseHotelData(data: str) -> any:
-    ...
+# def ParseHotelData(data: str) -> any:
+#     ...
 
 def GetCountryData(country_name: str) -> json:
     try:
@@ -80,10 +81,14 @@ def GetCountryData(country_name: str) -> json:
     except:
         print("Error reading json path")
     else:
-        # print(aux_data_json)
         return aux_data_json
 
 if __name__ == "__main__":
+    print("Initialization of the script")
     json_data: json = ReadAppJson()
-    # print(json_data)
     json_data_parsed: json = ReparseJson(json_data["database"])
+    # save json_data_parsed to file
+    with open("./resources/tipcalculator_tips.json", "w") as file:
+        json.dump(json_data_parsed, file, indent=4, ensure_ascii=False)
+    print("Finishing the script")
+    # print("JSON data saved to ./resources/tipcalculator_tips.json")
