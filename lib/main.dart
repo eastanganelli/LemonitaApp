@@ -7,21 +7,21 @@ import 'package:tip_calculator/amount_widget.dart';
 import 'package:tip_calculator/people_widget.dart';
 import 'package:tip_calculator/tipping_widget.dart';
 import 'package:tip_calculator/total_widget.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 // import 'package:tip_calculator/components/modal_language.dart';
 
-void main() async {
+Future main() async {
+  await dotenv.load(fileName: "assets/.env");
   WidgetsFlutterBinding.ensureInitialized();
   // await MobileAds.instance.initialize();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
     (value) => {
       runApp(
         MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (_) => SharedData()),
-          ],
+          providers: [ChangeNotifierProvider(create: (_) => SharedData())],
           child: const MyApp(),
         ),
-      )
+      ),
     },
   );
 }
@@ -101,19 +101,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     flex: 2,
                     child: Column(
                       children: [
-                        Expanded(
-                          child: MyAmountWidget(),
-                        ),
-                        Expanded(
-                          child: MyPeopleWidget(),
-                        ),
+                        Expanded(child: MyAmountWidget()),
+                        Expanded(child: MyPeopleWidget()),
                       ],
                     ),
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: MyTippingWidget(),
-                  ),
+                  Expanded(flex: 2, child: MyTippingWidget()),
                 ],
               ),
             ),
@@ -121,12 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
               //flex: 1,
               child: MyTotalWidget(),
             ),
-            Expanded(
-              flex: 2,
-              child: Container(
-                color: Colors.white,
-              ),
-            ),
+            Expanded(flex: 2, child: Container(color: Colors.white)),
           ],
         ),
       ),

@@ -3,12 +3,14 @@ import 'package:flutter/foundation.dart';
 class SharedData with ChangeNotifier {
   double _amount = 0.00, _tipAmount = 0.00, _tipPerson = 0.00;
   int _people = 0, _tipPercent = 0;
+  String _recommendedTip = "";
 
   double get amount => _amount;
   double get tipAmount => _tipAmount;
   double get tipPerson => _tipPerson;
   int get tipPercent => _tipPercent;
   int get people => _people;
+  String get recommendedTip => _recommendedTip;
 
   void setAmount(double newAmount) {
     _amount = newAmount;
@@ -27,6 +29,11 @@ class SharedData with ChangeNotifier {
 
   void setDecrementTipPorcent() {
     _tipPercent--;
+    refreshUI();
+  }
+
+  void setRecommendedTip(String newRecommendedTip) {
+    _recommendedTip = newRecommendedTip;
     refreshUI();
   }
 
