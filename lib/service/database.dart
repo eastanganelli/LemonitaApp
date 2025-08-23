@@ -1,7 +1,8 @@
-const String databaseUsername = "eastanganelli";
-const String databaseID = "f36853425b3b58a064d44f4920b8a588";
-const String databaseDataFile =
-    "https://gist.githubusercontent.com/$databaseUsername/$databaseID/raw/";
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+// const String databaseUsername = "eastanganelli";
+// const String databaseID = "f36853425b3b58a064d44f4920b8a588";
+// const String databaseDataFile =
+//     "https://gist.githubusercontent.com/$databaseUsername/$databaseID/raw/";
 
 class DatabaseData {
   String version = "";

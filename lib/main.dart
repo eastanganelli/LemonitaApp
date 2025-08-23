@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 // import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:tip_calculator/service/shared_data.dart';
+// import 'package:tip_calculator/service/shared_data.dart';
+import 'package:tip_calculator/service/tip_data.dart';
 import 'package:tip_calculator/amount_widget.dart';
 import 'package:tip_calculator/people_widget.dart';
 import 'package:tip_calculator/tipping_widget.dart';
@@ -18,7 +19,7 @@ Future main() async {
     (value) => {
       runApp(
         MultiProvider(
-          providers: [ChangeNotifierProvider(create: (_) => SharedData())],
+          providers: [ChangeNotifierProvider(create: (_) => TipData())],
           child: const MyApp(),
         ),
       ),

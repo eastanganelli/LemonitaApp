@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:tip_calculator/service/shared_data.dart';
+import 'package:tip_calculator/service/tip_data.dart';
+// import 'package:tip_calculator/service/shared_data.dart';
 
 class MyPeopleWidget extends StatelessWidget {
   const MyPeopleWidget({super.key});
@@ -27,23 +28,16 @@ class MyPeopleWidget extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(
-              left: 15,
-              right: 15,
-              bottom: 10,
-            ),
+            padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
             child: TextField(
               controller: TextEditingController()..text = "1",
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-              ],
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: const InputDecoration(
                 border: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black,
-                  ),
+                  borderSide: BorderSide(color: Colors.black),
                 ),
                 labelText: 'Ingrese valor',
                 labelStyle: TextStyle(
@@ -53,7 +47,9 @@ class MyPeopleWidget extends StatelessWidget {
                 filled: false,
               ),
               onChanged: (String newValue) {
-                context.read<SharedData>().setPeople(int.parse(newValue));
+                if (newValue != "" || newValue.isNotEmpty) {
+                  context.read<TipData>().setPeople(int.parse(newValue));
+                }
               },
             ),
           ),

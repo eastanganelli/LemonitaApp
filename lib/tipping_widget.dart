@@ -1,10 +1,9 @@
 import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tip_calculator/service/gemini.dart';
-import 'package:tip_calculator/service/shared_data.dart';
+import 'package:tip_calculator/service/tip_data.dart';
+// import 'package:tip_calculator/service/shared_data.dart';
 
 class MyTippingWidget extends StatefulWidget {
   const MyTippingWidget({super.key});
@@ -19,7 +18,7 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SharedData>(
+    return Consumer<TipData>(
       builder: (context, shareddata, child) {
         GeminiAPI myApi;
         return Container(
@@ -107,7 +106,7 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
               Wrap(
                 children: [
                   Text(
-                    context.read<SharedData>().recommendedTip,
+                    context.read<TipData>().recommendedTip,
                     style: const TextStyle(
                       // fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -125,15 +124,15 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
                       IconButton(
                         icon: const Icon(Icons.remove_circle_outline),
                         onPressed: () {
-                          if (context.read<SharedData>().tipPercent > 0) {
-                            shareddata.setDecrementTipPorcent();
+                          if (context.read<TipData>().tipPercent > 0) {
+                            shareddata.decrementTipPorcent();
                           }
                         },
                       ),
                       const Spacer(),
                       Center(
                         child: Text(
-                          context.read<SharedData>().tipPercent.toString(),
+                          context.read<TipData>().tipPercent.toString(),
                           style: const TextStyle(
                             // fontWeight: FontWeight.bold,
                             color: Colors.black,
@@ -144,7 +143,7 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
                       IconButton(
                         icon: const Icon(Icons.add_circle_outline),
                         onPressed: () {
-                          shareddata.setIncrementTipPorcent();
+                          shareddata.incrementTipPorcent();
                         },
                       ),
                       const Spacer(),
@@ -155,7 +154,7 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
               Wrap(
                 children: [
                   Text(
-                    "Total: $concurrencyType ${shareddata.tipAmount.toStringAsFixed(2)}",
+                    "Total: $concurrencyType ${shareddata.tip.toStringAsFixed(2)}",
                     style: const TextStyle(
                       //  fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -163,7 +162,7 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
                   ),
                 ],
               ),
-              if (context.read<SharedData>().people > 1)
+              if (context.read<TipData>().people > 1)
                 Wrap(
                   children: [
                     Text(

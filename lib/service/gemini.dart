@@ -17,7 +17,7 @@ class TipRecommendation {
 }
 
 class GeminiAPI {
-  final String _apiKey = dotenv.env['API_KEY_GEMINI'] ?? "";
+  final String _apiKey = dotenv.env['GEMINI_API_KEY'] ?? "";
   String _apiUrl = "";
   GeminiAPI({required String apiModel, required String apiBaseUrl}) {
     _apiUrl =
@@ -27,9 +27,6 @@ class GeminiAPI {
     required String country,
     required String type,
   }) async {
-    if (dotenv.env['API_KEY_GEMINI'] == null) {
-      return "Error: API key or URL is not set.";
-    }
     final Map<String, dynamic> requestBody = {
       "contents": [
         {

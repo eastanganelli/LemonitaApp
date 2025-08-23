@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:tip_calculator/service/shared_data.dart';
+import 'package:tip_calculator/service/tip_data.dart';
+// import 'package:tip_calculator/service/shared_data.dart';
 
 class MyAmountWidget extends StatelessWidget {
   const MyAmountWidget({super.key});
@@ -30,17 +31,15 @@ class MyAmountWidget extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(
-              left: 15,
-              right: 15,
-              bottom: 10,
-            ),
+            padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
             child: TextField(
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
               inputFormatters: [
                 FilteringTextInputFormatter.allow(
-                    RegExp(r'[0-9]+[,|.]{0,1}[0-9]*')),
+                  RegExp(r'[0-9]+[,|.]{0,1}[0-9]*'),
+                ),
                 TextInputFormatter.withFunction(
                   (oldValue, newValue) => newValue.copyWith(
                     text: newValue.text.replaceAll('.', ','),
@@ -49,9 +48,7 @@ class MyAmountWidget extends StatelessWidget {
               ],
               decoration: const InputDecoration(
                 border: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black,
-                  ),
+                  borderSide: BorderSide(color: Colors.black),
                 ),
                 labelText: 'Ingrese valor',
                 labelStyle: TextStyle(
@@ -61,9 +58,9 @@ class MyAmountWidget extends StatelessWidget {
                 filled: false,
               ),
               onChanged: (newAmount) {
-                context
-                    .read<SharedData>()
-                    .setAmount(double.parse(newAmount.replaceAll(",", ".")));
+                context.read<TipData>().setAmount(
+                  double.parse(newAmount.replaceAll(",", ".")),
+                );
               },
             ),
           ),
