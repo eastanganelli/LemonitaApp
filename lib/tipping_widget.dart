@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:language_code/language_code.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tip_calculator/service/gemini.dart';
@@ -50,15 +52,22 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
                           apiModel: "gemini-2.0-flash",
                           apiBaseUrl: "",
                         );
-
-                        //flutter console
+                        debugPrint(
+                          'Country Code: ${LanguageCode.rawLocale.countryCode}',
+                        );
+                        debugPrint(
+                          'Language Code: ${LanguageCode.rawLocale.languageCode}',
+                        );
+                        // debugPrint(
+                        //   'Location: ${Geolocator.getCurrentPosition()}',
+                        // );
                         myApi
                             .generateContent(
                               country: "Argentina",
                               type: "waiter",
                             )
                             .then((String response) {
-                              debugPrint("Response: $response");
+                              // debugPrint("Response: $response");
                               final Map<String, dynamic> data = jsonDecode(
                                 response,
                               );
