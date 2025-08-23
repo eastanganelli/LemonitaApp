@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:language_code/language_code.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tip_calculator/service/gemini.dart';

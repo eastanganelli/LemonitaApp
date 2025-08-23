@@ -55,33 +55,33 @@ class _MyHomePageState extends State<MyHomePage> {
   // bool isBannerLoaded = false;
   // late BannerAd bannerAd;
 
-  Future<void> inilizeBannerAd() async {
-    // bannerAd = BannerAd(
-    //   size: AdSize.banner,
-    //   adUnitId: 'ca-app-pub-2237199373273098/8606613360',
-    //   listener: BannerAdListener(
-    //     onAdLoaded: (ad) {
-    //       setState(() {
-    //         isBannerLoaded = true;
-    //         print("Banner has been loaded!");
-    //       });
-    //     },
-    //     onAdFailedToLoad: (ad, error) {
-    //       ad.dispose();
-    //       isBannerLoaded = false;
-    //       print(error);
-    //     },
-    //   ),
-    //   request: const AdRequest(),
-    // );
+  // Future<void> inilizeBannerAd() async {
+  // bannerAd = BannerAd(
+  //   size: AdSize.banner,
+  //   adUnitId: 'ca-app-pub-2237199373273098/8606613360',
+  //   listener: BannerAdListener(
+  //     onAdLoaded: (ad) {
+  //       setState(() {
+  //         isBannerLoaded = true;
+  //         print("Banner has been loaded!");
+  //       });sdkm
+  //     },
+  //     onAdFailedToLoad: (ad, error) {
+  //       ad.dispose();
+  //       isBannerLoaded = false;
+  //       print(error);
+  //     },
+  //   ),
+  //   request: const AdRequest(),
+  // );
 
-    // bannerAd.load();
-  }
+  // bannerAd.load();
+  // }
 
   @override
   void initState() {
     super.initState();
-    inilizeBannerAd();
+    /* inilizeBannerAd(); */
   }
 
   @override
