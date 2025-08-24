@@ -1,6 +1,7 @@
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'dart:convert';
+import 'package:tip_calculator/service/database.dart';
 
 class TipRecommendation {
   final String _minVal, _avgVal, _maxVal;
@@ -23,7 +24,7 @@ class GeminiAPI {
     _apiUrl =
         "https://generativelanguage.googleapis.com/v1beta/models/$apiModel:generateContent";
   }
-  Future<String> generateContent({
+  Future<TipPorcentData> generateContent({
     required String country,
     required String type,
   }) async {
@@ -50,19 +51,23 @@ class GeminiAPI {
       );
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> responseData = jsonDecode(response.body);
-        final String generatedText =
-            responseData['candidates'][0]['content']['parts'][0]['text']
-                as String;
+        final responseData = jsonDecode(response.body);
+        final tipResult = jsonDecode(
+          responseData['candidates'][0]['content']['parts'][0]['text'],
+        );
+        final TipPorcentData generatedText = TipPorcentData(
+          minVal: tipResult['min'],
+          avgVal: tipResult['avg'],
+          maxVal: tipResult['max'],
+        );
         return generatedText;
-      } else {
-        final String errorString =
-            "Error: ${response.statusCode} - ${response.reasonPhrase}";
-        return errorString;
       }
+      final String errorString =
+          "Error: ${response.statusCode} - ${response.reasonPhrase}";
+      throw errorString;
     } catch (e) {
       final String errorString = "Error generating content: $e";
-      return errorString;
+      throw errorString;
     }
   }
 }

@@ -21,7 +21,6 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
   Widget build(BuildContext context) {
     return Consumer<TipData>(
       builder: (context, shareddata, child) {
-        GeminiAPI myApi;
         return Container(
           decoration: BoxDecoration(
             color: const Color.fromRGBO(255, 49, 85, 0.5),
@@ -46,41 +45,7 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
                   ),
                   Center(
                     child: MaterialButton(
-                      onPressed: () {
-                        myApi = GeminiAPI(
-                          apiModel: "gemini-2.0-flash",
-                          apiBaseUrl: "",
-                        );
-                        debugPrint(
-                          'Country Code: ${LanguageCode.rawLocale.countryCode}',
-                        );
-                        debugPrint(
-                          'Language Code: ${LanguageCode.rawLocale.languageCode}',
-                        );
-                        // debugPrint(
-                        //   'Location: ${Geolocator.getCurrentPosition()}',
-                        // );
-                        myApi
-                            .generateContent(
-                              country: "Argentina",
-                              type: "waiter",
-                            )
-                            .then((String response) {
-                              // debugPrint("Response: $response");
-                              final Map<String, dynamic> data = jsonDecode(
-                                response,
-                              );
-                              final String minVal = data['min'].toString();
-                              final String avgVal = data['avg'].toString();
-                              final String maxVal = data['max'].toString();
-                              shareddata.setRecommendedTip(
-                                "Mínimo: $minVal, Promedio: $avgVal, Máximo: $maxVal",
-                              );
-                            })
-                            .catchError((error) {
-                              debugPrint("Error: $error");
-                            });
-                      },
+                      onPressed: () => shareddata.getRecommendedTip(),
                       child: const Text(
                         'Recomendado',
                         style: TextStyle(
@@ -90,25 +55,6 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
                       ),
                     ),
                   ),
-                  // Center(
-                  //   child: Text(
-                  //     //'Rango de recomendado para',
-                  //     'Rango de recomendado',
-                  //     style: TextStyle(
-                  //       // fontWeight: FontWeight.bold,
-                  //       color: Colors.black,
-                  //     ),
-                  //   ),
-                  // ),
-                  /*Center(
-                    child: Text(
-                      'Argentina',
-                      style: TextStyle(
-                        // fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),*/
                 ],
               ),
               Wrap(
