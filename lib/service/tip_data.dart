@@ -2,13 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:tip_calculator/service/gemini.dart';
 import 'package:tip_calculator/service/database.dart';
+import 'package:tip_calculator/schemas/tip.schema.dart';
 import 'package:tip_calculator/service/geolocation.dart';
 
 class TipData with ChangeNotifier {
-  // DatabaseData? _databaseData = DatabaseData();
+  DatabaseData? _databaseData;
   GeminiAPI? _geminiAPI;
   TipPorcentData? _recommendedTip;
-  double _amount = 0.00 /*, _tip = 0.00, _tipPerson = 0.00*/;
+  double _amount = 0.00;
   int _people = 0, _tipPercent = 0;
   String _actualPosition = "";
 
@@ -17,7 +18,7 @@ class TipData with ChangeNotifier {
   }
 
   String get recommendedTip =>
-      ((_recommendedTip != null) ? _recommendedTip!.message : "No disponible");
+      ((_recommendedTip != null) ? _recommendedTip!.message : "");
   int get tipPercent => _tipPercent;
   int get people => _people;
   double get amount => (_amount);
@@ -27,10 +28,13 @@ class TipData with ChangeNotifier {
   double get totalPerPerson => ((_amount + tip) / _people);
 
   Future<void> _initialize() async {
-    _actualPosition = await Geolocation.getCurrentLocation();
+    _databaseData = await DatabaseData.loadDatabase(
+      dotenv.env['DB_PATH'].toString(),
+    );
+    _actualPosition = await Geolocation.getCurrentLocation("country");
     _geminiAPI = GeminiAPI(
-      apiModel: dotenv.env['GEMINI_MODEL'] ?? "gemini-2.0-flash",
-      apiBaseUrl: dotenv.env['GEMINI_API_BASE_URL'] ?? "",
+      apiKey: dotenv.env['GEMINI_API_KEY'].toString(),
+      apiUrl: dotenv.env['GEMINI_API_URL'].toString(),
     );
     notifyListeners();
   }

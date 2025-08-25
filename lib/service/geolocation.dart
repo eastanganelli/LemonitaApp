@@ -1,20 +1,21 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:tip_calculator/service/network.dart';
 
 class Geolocation {
-  static Future<String> getCurrentLocation() async {
-    try {
-      final response = await http.get(
-        Uri.parse('http://ip-api.com/json/?fields=status,country,countryCode'),
-      );
-      if (response.statusCode == 200) {
-        final locationCode = jsonDecode(response.body);
-        return locationCode["countryCode"] as String;
-      } else {
-        throw Exception('Failed to load location');
-      }
-    } catch (e) {
-      throw Exception('Error fetching location');
-    }
+  static String ipApiUrl = dotenv.env['IP_API_URL'] ?? "https://ipapi.co/json/";
+
+  /// Fetches the current location of the user based on their IP address.
+  /// Returns the location code (like country code) for the specified key.
+  /// @param The key to extract from the location data (e.g., "country", "countryCode").
+  static Future<String> getCurrentLocation(final String key) async {
+    return Network.fetchData(Geolocation.ipApiUrl)
+        .then((response) {
+          final locationCode = jsonDecode(response);
+          return locationCode[key] as String;
+        })
+        .catchError((error) {
+          throw Exception('Error fetching location: $error');
+        });
   }
 }

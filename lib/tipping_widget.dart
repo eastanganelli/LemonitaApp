@@ -43,29 +43,6 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
                       ),
                     ),
                   ),
-                  Center(
-                    child: MaterialButton(
-                      onPressed: () => shareddata.getRecommendedTip(),
-                      child: const Text(
-                        'Recomendado',
-                        style: TextStyle(
-                          // fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Wrap(
-                children: [
-                  Text(
-                    context.read<TipData>().recommendedTip,
-                    style: const TextStyle(
-                      // fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
                 ],
               ),
               Wrap(
@@ -116,7 +93,7 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
                   ),
                 ],
               ),
-              if (context.read<TipData>().people > 1)
+              if (context.read<TipData>().people > 1) ...[
                 Wrap(
                   children: [
                     Text(
@@ -128,6 +105,32 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
                     ),
                   ],
                 ),
+              ],
+              Center(
+                child: MaterialButton(
+                  onPressed: () => shareddata.getRecommendedTip(),
+                  child: const Text(
+                    'Recomendado',
+                    style: TextStyle(
+                      // fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ),
+              if (context.read<TipData>().recommendedTip.isNotEmpty) ...[
+                Wrap(
+                  children: [
+                    Text(
+                      context.read<TipData>().recommendedTip,
+                      style: const TextStyle(
+                        // fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ],
           ),
         );
