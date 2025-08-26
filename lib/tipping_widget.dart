@@ -1,10 +1,6 @@
-import 'dart:convert';
-import 'package:language_code/language_code.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tip_calculator/service/gemini.dart';
 import 'package:tip_calculator/service/tip_data.dart';
-// import 'package:tip_calculator/service/shared_data.dart';
 
 class MyTippingWidget extends StatefulWidget {
   const MyTippingWidget({super.key});
@@ -14,9 +10,6 @@ class MyTippingWidget extends StatefulWidget {
 }
 
 class _MyTippingWidgetState extends State<MyTippingWidget> {
-  final String concurrencyType = "ARS";
-  // String recommendedTip = "5 a 10 porciento";
-
   @override
   Widget build(BuildContext context) {
     return Consumer<TipData>(
@@ -35,7 +28,7 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
                 children: [
                   Center(
                     child: Text(
-                      'Propina',
+                      '${shareddata.translations['tip_title']}',
                       style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.bold,
@@ -85,7 +78,7 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
               Wrap(
                 children: [
                   Text(
-                    "Total: $concurrencyType ${shareddata.tip.toStringAsFixed(2)}",
+                    "${shareddata.translations['tip_total']}: ${shareddata.currencySymbol} ${shareddata.tip.toStringAsFixed(2)}",
                     style: const TextStyle(
                       //  fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -97,7 +90,7 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
                 Wrap(
                   children: [
                     Text(
-                      "Por Persona: $concurrencyType ${shareddata.tipPerson.toStringAsFixed(2)}",
+                      "${shareddata.translations['tip_total_per_person']}: ${shareddata.currencySymbol} ${shareddata.tipPerson.toStringAsFixed(2)}",
                       style: const TextStyle(
                         // fontWeight: FontWeight.bold,
                         color: Colors.black,
@@ -109,8 +102,8 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
               Center(
                 child: MaterialButton(
                   onPressed: () => shareddata.getRecommendedTip(),
-                  child: const Text(
-                    'Recomendado',
+                  child: Text(
+                    '${shareddata.translations['tip_button_text']}',
                     style: TextStyle(
                       // fontWeight: FontWeight.bold,
                       color: Colors.black,

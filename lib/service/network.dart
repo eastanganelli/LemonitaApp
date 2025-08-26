@@ -72,3 +72,10 @@ class Network {
         });
   }
 }
+
+class ConnectionNetwork implements Exception {
+  final String message;
+  ConnectionNetwork(this.message);
+  @override
+  String toString() => 'Network: $message';
+}

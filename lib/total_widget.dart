@@ -11,8 +11,6 @@ class MyTotalWidget extends StatefulWidget {
 }
 
 class _MyTotalWidgetState extends State<MyTotalWidget> {
-  final String _concurrencyType = "ARS";
-
   @override
   Widget build(BuildContext context) {
     return Consumer<TipData>(
@@ -29,8 +27,8 @@ class _MyTotalWidgetState extends State<MyTotalWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'Total',
+                Text(
+                  '${shareddata.translations['total_title']}',
                   style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
@@ -39,13 +37,13 @@ class _MyTotalWidgetState extends State<MyTotalWidget> {
                 ),
                 Center(
                   child: Text(
-                    'Monto: $_concurrencyType ${shareddata.total.toStringAsFixed(2)}',
+                    '${shareddata.translations['total_amount']}: ${shareddata.currencySymbol} ${shareddata.total.toStringAsFixed(2)}',
                   ),
                 ),
                 if (context.read<TipData>().people > 1)
                   Center(
                     child: Text(
-                      'Por Persona: $_concurrencyType ${shareddata.totalPerPerson.toStringAsFixed(2)}',
+                      '${shareddata.translations['total_per_person']}: ${shareddata.currencySymbol} ${shareddata.totalPerPerson.toStringAsFixed(2)}',
                     ),
                   ),
               ],

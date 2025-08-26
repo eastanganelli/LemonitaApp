@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:tip_calculator/service/gemini.dart';
 import 'package:tip_calculator/service/database.dart';
-import 'package:tip_calculator/schemas/tip.schema.dart';
+import 'package:tip_calculator/service/language.dart';
+import 'package:tip_calculator/schemas/tip.dart';
 import 'package:tip_calculator/service/geolocation.dart';
 
 class TipData with ChangeNotifier {
@@ -26,12 +28,30 @@ class TipData with ChangeNotifier {
   double get tipPerson => ((_people > 0) ? (tip / _people) / _people : 0.00);
   double get total => (_amount + tip);
   double get totalPerPerson => ((_amount + tip) / _people);
+  String get currencySymbol =>
+      (_databaseData != null && _databaseData!.countryData != null)
+      ? _databaseData!.countryData!.currency.symbol
+      : "\$";
+  String get currencyName =>
+      (_databaseData != null && _databaseData!.countryData != null)
+      ? _databaseData!.countryData!.currency.name
+      : "USD";
+  Map<String, String> get translations =>
+      (_databaseData != null && _databaseData!.languageData != null)
+      ? _databaseData!.languageData!.translations
+      : {};
 
   Future<void> _initialize() async {
+    final dir = await getTemporaryDirectory();
+    final dbLocal = '${dir.path}/database.json';
+    final langCode = Language.getLanguageCode();
+    _actualPosition = await Geolocation.getCurrentLocation("country");
     _databaseData = await DatabaseData.loadDatabase(
       dotenv.env['DB_PATH'].toString(),
+      dbLocal,
+      _actualPosition,
+      langCode,
     );
-    _actualPosition = await Geolocation.getCurrentLocation("country");
     _geminiAPI = GeminiAPI(
       apiKey: dotenv.env['GEMINI_API_KEY'].toString(),
       apiUrl: dotenv.env['GEMINI_API_URL'].toString(),

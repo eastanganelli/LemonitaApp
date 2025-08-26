@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:tip_calculator/service/network.dart';
-import 'package:tip_calculator/schemas/tip.schema.dart';
+import 'package:tip_calculator/schemas/tip.dart';
 
 class TipRecommendation {
   final String _minVal, _avgVal, _maxVal;
