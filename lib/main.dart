@@ -27,20 +27,27 @@ Future main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: '${context.read<TipData>().translations['app_title']}',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
-        useMaterial3: true,
-      ),
-      home: MyHomePage(
-        title: '${context.read<TipData>().translations['app_title']}',
-      ),
+    return Consumer<TipData>(
+      builder: (context, shareddata, child) {
+        return MaterialApp(
+          title: '${shareddata.translations['app_title']}',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
+            useMaterial3: true,
+          ),
+          home: MyHomePage(title: '${shareddata.translations['app_title']}'),
+        );
+      },
     );
   }
 }
