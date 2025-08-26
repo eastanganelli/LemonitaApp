@@ -19,6 +19,10 @@ class TipData with ChangeNotifier {
     _initialize();
   }
 
+  String get countryName =>
+      (_databaseData != null && _databaseData!.countryData != null)
+      ? _databaseData!.countryData!.country
+      : "";
   String get recommendedTip =>
       ((_recommendedTip != null) ? _recommendedTip!.message : "");
   int get tipPercent => _tipPercent;

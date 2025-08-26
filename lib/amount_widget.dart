@@ -22,10 +22,10 @@ class MyAmountWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Wrap(
+          Wrap(
             children: [
               Text(
-                'Monto',
+                '${context.read<TipData>().translations['amount_title']}',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ],
@@ -46,11 +46,12 @@ class MyAmountWidget extends StatelessWidget {
                   ),
                 ),
               ],
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 border: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black),
                 ),
-                labelText: 'Ingrese valor',
+                labelText:
+                    '${context.read<TipData>().translations['amount_input_text']}',
                 labelStyle: TextStyle(
                   // fontWeight: FontWeight.bold,
                   fontSize: 14,

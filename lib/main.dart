@@ -33,12 +33,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Calculadora de Propina',
+      title: '${context.read<TipData>().translations['app_title']}',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Calculadora de Propina'),
+      home: MyHomePage(
+        title: '${context.read<TipData>().translations['app_title']}',
+      ),
     );
   }
 }

@@ -19,10 +19,10 @@ class MyPeopleWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Wrap(
+          Wrap(
             children: [
               Text(
-                'Personas',
+                '${context.read<TipData>().translations['people_title']}',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ],
@@ -35,11 +35,12 @@ class MyPeopleWidget extends StatelessWidget {
                 decimal: true,
               ),
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 border: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black),
                 ),
-                labelText: 'Ingrese valor',
+                labelText:
+                    '${context.read<TipData>().translations['people_input_text']}',
                 labelStyle: TextStyle(
                   // fontWeight: FontWeight.bold,
                   fontSize: 14,

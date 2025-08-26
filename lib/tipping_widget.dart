@@ -99,30 +99,32 @@ class _MyTippingWidgetState extends State<MyTippingWidget> {
                   ],
                 ),
               ],
-              Center(
-                child: MaterialButton(
-                  onPressed: () => shareddata.getRecommendedTip(),
-                  child: Text(
-                    '${shareddata.translations['tip_button_text']}',
-                    style: TextStyle(
-                      // fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
-              if (context.read<TipData>().recommendedTip.isNotEmpty) ...[
-                Wrap(
-                  children: [
-                    Text(
-                      context.read<TipData>().recommendedTip,
-                      style: const TextStyle(
+              if (context.read<TipData>().countryName.isNotEmpty) ...[
+                Center(
+                  child: MaterialButton(
+                    onPressed: () => shareddata.getRecommendedTip(),
+                    child: Text(
+                      '${shareddata.translations['tip_button_text']?.replaceAll('\$countryName', context.read<TipData>().countryName)}',
+                      style: TextStyle(
                         // fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
                     ),
-                  ],
+                  ),
                 ),
+                if (context.read<TipData>().recommendedTip.isNotEmpty) ...[
+                  Wrap(
+                    children: [
+                      Text(
+                        context.read<TipData>().recommendedTip,
+                        style: const TextStyle(
+                          // fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ],
             ],
           ),
