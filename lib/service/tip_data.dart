@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:tip_calculator/schemas/tip.dart';
+import 'package:tip_calculator/service/config.dart';
 import 'package:tip_calculator/service/gemini.dart';
 import 'package:tip_calculator/service/database.dart';
 import 'package:tip_calculator/service/language.dart';
-import 'package:tip_calculator/schemas/tip.dart';
 import 'package:tip_calculator/service/geolocation.dart';
 
 class TipData with ChangeNotifier {
@@ -51,14 +51,14 @@ class TipData with ChangeNotifier {
     final langCode = Language.getLanguageCode();
     _actualPosition = await Geolocation.getCurrentLocation("country");
     _databaseData = await DatabaseData.loadDatabase(
-      dotenv.env['DB_PATH'].toString(),
+      Config.DB_PATH,
       dbLocal,
       _actualPosition,
       langCode,
     );
     _geminiAPI = GeminiAPI(
-      apiKey: dotenv.env['GEMINI_API_KEY'].toString(),
-      apiUrl: dotenv.env['GEMINI_API_URL'].toString(),
+      apiUrl: Config.GEMINI_API_URL,
+      apiKey: Config.GEMINI_API_KEY,
     );
     notifyListeners();
   }

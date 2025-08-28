@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:tip_calculator/service/config.dart';
 import 'package:tip_calculator/service/network.dart';
 
 class Geolocation {
-  static String ipApiUrl = dotenv.env['IP_API_URL'] ?? "https://ipapi.co/json/";
+  static String ipApiUrl = Config.IP_API_URL;
 
   /// Fetches the current location of the user based on their IP address.
   /// Returns the location code (like country code) for the specified key.
